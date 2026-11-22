@@ -1,0 +1,4 @@
+<figure>
+  <a href="{{ printf "images/worklog/%s" (.Get "file") | relURL }}"><img src="{{ printf "images/worklog/%s" (.Get "file") | relURL }}" alt="{{ .Get "caption" }}" loading="lazy"></a>
+  <figcaption>{{ .Get "caption" }}</figcaption>
+</figure>

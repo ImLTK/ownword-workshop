@@ -1,0 +1,63 @@
+name: Lightsail release
+
+on:
+  push:
+    branches: [release/lightsail]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ownword-lightsail-release
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: ap-southeast-1
+  IMAGE: ${{ vars.OWNWORD_AWS_ACCOUNT_ID }}.dkr.ecr.ap-southeast-1.amazonaws.com/${{ vars.OWNWORD_ECR_REPOSITORY }}
+  ECR_REPOSITORY: ${{ vars.OWNWORD_ECR_REPOSITORY }}
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: 22
+          cache: npm
+      - name: Check types and rollout script
+        run: |
+          npm ci
+          npm run typecheck
+          bash -n deploy/lightsail/registry-release.sh
+      - name: Build image
+        run: |
+          docker build --platform linux/amd64 --file Dockerfile.aws \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --tag "$IMAGE:sha-$GITHUB_SHA" .
+      - name: Get short-lived AWS credentials
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
+        with:
+          role-to-assume: ${{ vars.OWNWORD_ECR_PUBLISH_ROLE_ARN }}
+          aws-region: ap-southeast-1
+          role-duration-seconds: 900
+      - name: Publish the release image
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/release/lightsail" --jq .object.sha)
+          if [ "$current" != "$GITHUB_SHA" ]; then
+            echo "A newer release commit is queued. Skipping this image."
+            exit 0
+          fi
+          if [ "$(aws ecr batch-get-image --repository-name "$ECR_REPOSITORY" --image-ids "imageTag=sha-$GITHUB_SHA" --query 'length(images)' --output text)" = 1 ]; then
+            echo "Image for this commit already exists."
+            exit 0
+          fi
+          registry="${IMAGE%%/*}"
+          aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$registry"
+          docker push "$IMAGE:sha-$GITHUB_SHA"

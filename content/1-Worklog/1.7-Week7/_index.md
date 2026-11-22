@@ -1,0 +1,35 @@
+---
+title: "Week 7: Develop and test Ownword practice modes"
+date: 2026-11-13
+weight: 7
+chapter: false
+pre: " <b>1.7.</b> "
+---
+
+**26/10–01/11/2026**
+
+*Recorded project milestones*
+
+## Week 7 objectives
+
+- Improve the practice flow for words learners forget or want to revisit.
+- Check that practice behavior and bilingual guidance stay consistent across devices.
+
+---
+
+## Tasks for the week
+
+Where the notes only give a completion or record date, the start date is estimated.
+
+| Day | Task | Start date | Completion / record date | References and evidence |
+| --- | --- | --- | --- | --- |
+| 1–2 | Updated the prototype source and documented how the website and learning system fit together. The workflow connects writing suggestions, saved words, practice and progress. | 26/10/2026 | 27/10/2026 | [System documentation](https://github.com/ImLTK/ownword/commit/4a15b6f) |
+| 3 | Added Quick Review and Full Practice. In Quick Review, learners flag words they forgot, then use Full Practice to work on those words. Quick ratings leave mastery and the review schedule alone. | 27/10/2026 | 28/10/2026 | [Practice iteration](https://github.com/ImLTK/ownword/blob/main/docs/practice-iteration-2026-10-28.md) |
+| 3 | Refined bilingual prompts and added an optional Vietnamese meaning for matching demo words. Tested the recall form on narrow screens and fixed the handoff that dropped the forgotten-word list. | 28/10/2026 | 28/10/2026 | [Session notes](https://github.com/ImLTK/ownword/blob/main/docs/session-changes-2026-10-28.md) |
+| 4–7 | Continued updating the site source and refreshed the project README, leaving a record of the prototype before the AWS pilot migration. | 29/10/2026 | 01/11/2026 | [README update](https://github.com/ImLTK/ownword/commit/bdc4d1f) |
+
+---
+
+## Week 7 achievements
+
+- Learners could flag words in a short review and then practice them in context. The iteration notes include browser checks in both languages and confirm that optional practice kept the next scheduled review date.
