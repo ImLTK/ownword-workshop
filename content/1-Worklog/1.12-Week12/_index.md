@@ -8,7 +8,7 @@ pre: " <b>1.12.</b> "
 
 **30/11–06/12/2026**
 
-*Planned work*
+*Recorded project milestones*
 
 ## Week 12 objectives
 
@@ -19,15 +19,18 @@ pre: " <b>1.12.</b> "
 
 ## Tasks for the week
 
-| Day | Task | Planned start | Planned completion | References and evidence |
+The task dates are estimates based on the earlier worklog.
+
+| Day | Task | Start date | Completion / record date | References and evidence |
 | --- | --- | --- | --- | --- |
-| 1–2 | Write down the static address, Ubuntu setup, and Docker Compose services on ownword-pilot in Singapore. Include Caddy, Next.js, and PostgreSQL. Check the instance and snapshot names in the console. | 30/11/2026 | 01/12/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
-| 3 | Review Cognito and its Google identity provider in Ohio, the Pre Sign-up account-linking Lambda, and application callback URLs; capture redacted evidence. | 02/12/2026 | 02/12/2026 | [Cognito and Google sign-in](../../5-workshop/5.5-auth/) |
-| 4 | Check the private S3 backup destination, CloudWatch metric BackupFresh, alarm ownword-pilot-backup-stale and SNS operator notifications. | 03/12/2026 | 03/12/2026 | [Backups and monitoring](../../5-workshop/5.6-operations/) |
-| 5 | If the walkthrough needs to show how to create a fresh deployment, try it in a disposable environment. Record the actual instance name, dates, and results. | 04/12/2026 | 04/12/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
+| Monday to Tuesday | **Lightsail and PostgreSQL.** Reviewed the Singapore Lightsail setup, including the static address, Ubuntu, snapshots, and which services run on the host. Checked how the application connects to PostgreSQL. | 30/11/2026 | 01/12/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
+| Wednesday | **Sign-in configuration.** Reviewed the Singapore Cognito setup, including Google sign-in, the Lambda that links accounts, and the callback URLs. | 02/12/2026 | 02/12/2026 | [Cognito and Google sign-in](../../5-workshop/5.5-auth/) |
+| Thursday | **Backup alerts.** Checked the private S3 backup destination, the CloudWatch backup metric and alarm, and the SNS notification path. | 03/12/2026 | 03/12/2026 | [Backups and monitoring](../../5-workshop/5.6-operations/) |
+| Friday | **Lab deployment.** Reviewed how someone could repeat the deployment in a separate lab environment. | 04/12/2026 | 04/12/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
 
 ---
 
-## Expected outcomes
+## Week 12 achievements
 
-- Check the inventory for ownword-pilot and write down how requests, sign-in, data, backups, and alerts move through the setup.
+- The workshop’s release steps show how to trace a version from the GitHub commit to its ECR image and then to the image running on Lightsail. Once the image appears in ECR, the VM log shows which version Lightsail activated. Opening the public home and sign-in pages checks what learners can reach. The release script can restore the previous app image if startup fails, though database migrations that already ran stay applied. [Release walkthrough](../../5-workshop/5.6-operations/5.6.1-releases/)
+- A database problem calls for a different check. The backup job sends a copy to private S3, CloudWatch tracks whether that copy is fresh, and SNS emails the operator if the alarm fires. The workshop restores a copy into a temporary database so the team can check that it opens and can be queried without affecting learner data. [Backups and monitoring](../../5-workshop/5.6-operations/)

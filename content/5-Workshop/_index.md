@@ -18,5 +18,6 @@ You’ll start with a fresh Lightsail instance and get Ownword running at a doma
 6. [Back up RDS and configure monitoring](5.6-operations/)
    - [Automate later releases with GitHub Actions and ECR](5.6-operations/5.6.1-releases/)
 7. [Verification, cost and cleanup](5.7-verification/)
+   - [Monthly cost estimate and optimization](5.7-verification/#2-build-a-monthly-cost-estimate)
 
 [Open the live Ownword demo ↗](https://app.ownword.co/)

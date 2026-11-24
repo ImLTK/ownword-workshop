@@ -16,12 +16,11 @@ aws sts get-caller-identity
 
 | Location | Services and dependencies |
 | --- | --- |
-| Singapore `ap-southeast-1` | Lightsail, the default VPC for Lightsail peering, RDS for PostgreSQL, private S3 buckets, CloudWatch, SNS, the KMS key, and private ECR for the release extension |
-| Ohio `us-east-2` | Cognito user pool, public app client, and account-linking Lambda |
+| Singapore `ap-southeast-1` | Lightsail and its default-VPC peering, private RDS for PostgreSQL, Cognito and its account-linking Lambda, private S3 buckets, CloudWatch, SNS, KMS, and private ECR for the release extension |
 | N. Virginia `us-east-1` | ACM viewer certificate, CloudFront-scoped WAF setup, and the source Region for the Bedrock U.S. inference profile |
 | Global | IAM, CloudFront distribution and authoritative DNS for your two lab hostnames |
 
-Use an AWS plan and account that support the listed services. Review the [cost worksheet](../5.7-verification/) before provisioning. [CloudShell](https://docs.aws.amazon.com/cloudshell/latest/userguide/welcome.html) · [STS identity check](https://docs.aws.amazon.com/cli/latest/reference/sts/get-caller-identity.html) · [Lightsail default VPC prerequisite](https://docs.aws.amazon.com/lightsail/latest/userguide/lightsail-how-to-set-up-vpc-peering-with-aws-resources.html)
+Use an AWS plan and account that support the listed services. Review the [monthly cost estimate](../5.7-verification/#2-build-a-monthly-cost-estimate) before provisioning. [CloudShell](https://docs.aws.amazon.com/cloudshell/latest/userguide/welcome.html) · [STS identity check](https://docs.aws.amazon.com/cli/latest/reference/sts/get-caller-identity.html) · [Lightsail default VPC prerequisite](https://docs.aws.amazon.com/lightsail/latest/userguide/lightsail-how-to-set-up-vpc-peering-with-aws-resources.html)
 
 ## 2. Get the source and workstation tools
 

@@ -160,6 +160,14 @@ h1, h2, h3, h4, h5 {
     font-family: 'Amazon Ember','Montserrat', sans-serif;
 }
 
+html[lang="vi"] body,
+html[lang="vi"] :is(h1, h2, h3, h4, h5, h6),
+html[lang="vi"] #chapter h3,
+html[lang="vi"] #sidebar #shortcuts h3,
+html[lang="vi"] .tooltipped:after {
+    font-family: "Segoe UI", system-ui, Arial, sans-serif;
+}
+
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
     border: 1px solid #dddddd;
     font-weight: normal;

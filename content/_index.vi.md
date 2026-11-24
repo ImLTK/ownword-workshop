@@ -17,7 +17,7 @@ chapter: false
 **Công ty thực tập:** Công ty TNHH Amazon Web Services Việt Nam  
 **Vị trí thực tập:** Workforce Bootcamp – First Cloud AI Journey  
 **Thời gian thực tập:** Từ 14/09/2026 đến 14/12/2026  
-**Nhóm dự án:** Nhóm Gì  
+**Nhóm dự án/Lớp:** Gi Group\
 **Dự án:** [Ứng dụng Ownword đang chạy](https://app.ownword.co/)
 
 ![Ảnh đại diện sẽ bổ sung](../images/profile-placeholder.svg)
@@ -32,4 +32,4 @@ chapter: false
 6. [Tự đánh giá](6-self-evaluation/)
 7. [Chia sẻ và góp ý](7-feedback/)
 
-{{% notice warning %}}Mình đang rà soát nhật ký và minh chứng sự kiện. Phần dự toán chi phí và minh chứng kiểm thử cũng cần kiểm tra lại.{{% /notice %}}
+{{% notice warning %}}Mình đang rà soát nhật ký và minh chứng sự kiện. Mình cũng đang rà soát minh chứng kiểm thử.{{% /notice %}}

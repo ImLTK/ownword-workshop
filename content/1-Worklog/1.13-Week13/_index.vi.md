@@ -8,7 +8,7 @@ pre: " <b>1.13.</b> "
 
 **07/12–14/12/2026**
 
-*Kế hoạch dự kiến*
+*Mốc tiến độ dự án*
 
 ## Mục tiêu tuần 13
 
@@ -19,15 +19,18 @@ pre: " <b>1.13.</b> "
 
 ## Công việc trong tuần
 
-| Ngày | Công việc | Dự kiến bắt đầu | Dự kiến hoàn thành | Tài liệu và minh chứng |
+Các mốc theo từng công việc là ước tính dựa trên nhật ký trước đó.
+
+| Thứ | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
 | --- | --- | --- | --- | --- |
-| 1–2 | Demo một lượt học từ lúc đăng nhập, viết và chọn từ cho đến khi lưu vào WordBoard, luyện tập và xem tiến trình. Giải thích yêu cầu đi từ trình duyệt qua Caddy và Next.js đến PostgreSQL thế nào. | 07/12/2026 | 08/12/2026 | [Ownword architecture](../../5-workshop/5.3-architecture/) |
-| 3 | Kiểm tra quyền truy cập dữ liệu giữa các tài khoản, rà soát đăng nhập Cognito/Google và ghi kết quả thực tế. | 09/12/2026 | 09/12/2026 | [Cognito and Google sign-in](../../5-workshop/5.5-auth/) |
-| 4 | Khôi phục bản sao lưu vào cơ sở dữ liệu tạm và kiểm tra hoạt động alarm/thông báo SNS. Ghi ngày sao lưu, phép kiểm tra và thời gian phục hồi. | 10/12/2026 | 10/12/2026 | [Backups and monitoring](../../5-workshop/5.6-operations/) |
-| 5–8 | Hoàn thành dự toán, bài trình bày, báo cáo song ngữ và tài liệu bàn giao. Cùng nhóm xem lại kiến trúc và những giới hạn của hệ thống. | 11/12/2026 | 14/12/2026 | - |
+| Thứ hai đến Thứ ba | **Chạy thử demo.** Chạy thử phần demo từ đăng nhập và viết đến lưu từ, luyện tập và xem tiến trình. Xem lại đường đi của yêu cầu đến ứng dụng và cơ sở dữ liệu. | 07/12/2026 | 08/12/2026 | [Ownword architecture](../../5-workshop/5.3-architecture/) |
+| Thứ tư | **Đăng nhập và truy cập dữ liệu.** Rà soát đăng nhập qua Cognito và Google, đồng thời kiểm tra cách giới hạn quyền truy cập giữa các tài khoản. | 09/12/2026 | 09/12/2026 | [Cognito and Google sign-in](../../5-workshop/5.5-auth/) |
+| Thứ năm | **Khôi phục và cảnh báo.** Thực hiện các bước kiểm tra khôi phục và cảnh báo, đồng thời xem lại thông tin cần ghi về bản sao lưu và thời gian phục hồi. | 10/12/2026 | 10/12/2026 | [Backups and monitoring](../../5-workshop/5.6-operations/) |
+| Thứ sáu đến Thứ hai | **Trình bày và bàn giao.** Chuẩn bị dự toán, bài trình bày, báo cáo song ngữ và tài liệu bàn giao. Cùng nhóm xem lại kiến trúc và các giới hạn của hệ thống. | 11/12/2026 | 14/12/2026 | - |
 
 ---
 
-## Kết quả dự kiến
+## Kết quả tuần 13
 
-- Chạy thử demo, lưu kết quả kiểm thử và khôi phục, rồi giải thích các giới hạn của hệ thống trong tài liệu bàn giao song ngữ.
+- Mình sẽ bắt đầu demo bằng một lượt học trên trang công khai. Người học đăng nhập, mô tả ý mình muốn diễn đạt, lưu một từ được gợi ý rồi mở lại WordBoard trước khi luyện tập. Từ thao tác đó có thể giải thích luôn sơ đồ: Cognito xử lý đăng nhập, Bedrock tìm từ theo khái niệm và RDS lưu từ để lần sau người học vẫn mở lại được. [Tổng quan workshop](../../5-workshop/5.1-overview/)
+- Khi bàn giao, mình sẽ để lại commit và digest của bản phát hành, thông tin về lần sao lưu và kiểm tra khôi phục gần nhất, cùng các bước xử lý nếu nhận được cảnh báo sao lưu. Những phép kiểm tra còn thiếu cũng cần ghi rõ. Khi dùng hai tài khoản, ghi lại tài khoản thứ hai nhìn thấy dữ liệu nào. Khi khôi phục, ghi ngày của bản sao, thời gian thực hiện và một truy vấn xác nhận dữ liệu đã khôi phục có thể đọc được. [Danh sách kiểm chứng và dự toán](../../5-workshop/5.7-verification/)

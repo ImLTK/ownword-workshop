@@ -6,48 +6,94 @@ chapter: false
 pre: " <b>5.7.</b> "
 ---
 
-## 1. Chạy các bước kiểm tra của lab
+## 1. Kiểm thử và xác thực lab {#1-chạy-các-bước-kiểm-tra-của-lab}
 
-Mở tên miền công khai của lab trong hai hồ sơ trình duyệt khác nhau, mỗi hồ sơ dùng một tài khoản thử. Dùng bài viết giả lập khi kiểm tra tính năng Viết. Khi làm từng bước, ghi ngày, kết quả thực tế và che thông tin riêng trong minh chứng lưu lại.
+Dùng URL công khai của lab do bạn triển khai và một tài khoản thử mới. Với mỗi bước, ghi lại ngày, yêu cầu đã gửi, kết quả quan sát và minh chứng.
 
-| Kiểm tra | Cách thực hiện | Kết quả mong đợi |
-| --- | --- | --- |
-| HTTPS công khai và máy chủ gốc | Mở URL công khai, xem header phản hồi và thử chuyển hướng HTTP. So sánh tên miền và tên trên chứng chỉ của CloudFront và máy chủ gốc. | HTTPS công khai trả 200 qua CloudFront, HTTP chuyển sang HTTPS. Chứng chỉ máy chủ gốc khớp tên miền origin. |
-| WAF và chuyển tiếp yêu cầu | Thử đăng nhập, callback Google, tra từ và gửi bài Viết. Trong WAF, xem yêu cầu mẫu của các quy tắc đã bật. | Tham số OAuth và cookie phiên đến được ứng dụng. Yêu cầu ghi hợp lệ hoạt động và bạn xem được các quy tắc đã khớp trước khi đổi sang chế độ chặn. |
-| Tài khoản Cognito | Đăng ký và xác nhận tài khoản A, đăng nhập bằng email/mật khẩu, đăng xuất rồi thử khôi phục mật khẩu. Dùng cùng email đã xác minh để đăng nhập Google lần đầu vào pool. | Có thể khôi phục mật khẩu và Google đã liên kết mở lại WordBoard của tài khoản A. |
-| WordBoard, luyện tập và chuỗi ngày | Tra và lưu từ, tải lại WordBoard, hoàn thành bài luyện và thử phát âm. Với tài khoản lab mới, lưu thêm từ thứ hai cùng ngày rồi mở lại trạng thái chuỗi ngày học. | Từ và kết quả luyện tập còn sau khi tải lại. Trình duyệt có giọng phù hợp phát âm được. Lần lưu thứ hai không cộng thêm một ngày học. |
-| Tách dữ liệu tài khoản | Trong hồ sơ trình duyệt khác, đăng nhập tài khoản B. Mở WordBoard và thử URL chi tiết từ của A nếu đã ghi lại. | B chỉ thấy dữ liệu của mình và không đọc được chi tiết từ của A. |
-| Hai tuyến mô hình | Tra theo khái niệm rồi xem metric gọi Bedrock tại Bắc Virginia. Gửi bài giả lập và bản chỉnh sửa trong mục **Viết**, sau đó mở lại phản hồi đã lưu. | Tra cứu mới gọi Bedrock. Tuyến Viết qua OpenRouter trả và lưu phản hồi. |
-| RDS riêng tư và sao lưu | Ghi kết quả `pg_stat_ssl` và số dòng migration từ chương 5.6. Kiểm tra S3 rồi khôi phục bản sao vào container tạm. | Kết nối RDS dùng TLS. Bản cục bộ khớp bản S3 và có thể truy vấn sau khi khôi phục. |
-| Cảnh báo sao lưu | Xác nhận `BackupFresh=1` và alarm đang OK. Chạy chuyển trạng thái thử ở chương 5.6 rồi kiểm tra lịch sử và email SNS. | Chuyển trạng thái thử gửi email. Alarm tiếp tục đánh giá metric thật. |
-| Tự động phát hành, nếu đã bật | Push một thay đổi lab vào `release/lightsail`. Đối chiếu tag theo commit trên GitHub, digest trên ECR và log triển khai trên VM. Mở trang công khai đã thay đổi. | GitHub Actions thành công, VM chạy đúng digest đã phát hành và trang công khai hiển thị thay đổi. |
+### Gửi yêu cầu hợp lệ và kiểm tra cơ sở dữ liệu
 
-Trên máy cá nhân, thay tên miền mẫu bằng tên miền công khai của lab rồi chạy các lệnh bên dưới. Các lệnh này đo thời gian phản hồi của trang chủ. Nếu muốn biết lượt gọi mô hình mất bao lâu, đo riêng sau khi đăng nhập.
+1. Đăng nhập lab bằng trình duyệt. Trong **WordBoard**, dùng biểu mẫu thêm từ thủ công để lưu một từ như `lantern`. Chọn từ tài khoản thử chưa từng lưu. Tải lại WordBoard và kiểm tra từ vẫn còn.
+2. Trong phiên SSH vào Lightsail, kết nối RDS của lab bằng [lệnh psql dùng TLS ở chương 5.6](../5.6-operations/#1-cấp-quyền-đọc-rds-cho-role-sao-lưu). Chạy truy vấn chỉ đọc dưới đây và thay bằng từ bạn đã lưu. Dòng trong `user_word` cho biết từ đã được lưu vào WordBoard.
 
-```bash
-LAB_HOST='app-lab.example.com'
-curl -fsS -D - -o /dev/null -w 'HTTPS %{http_code} in %{time_total}s\n' "https://$LAB_HOST/"
-curl -sS -D - -o /dev/null "http://$LAB_HOST/"
+```sql
+SELECT w.word, uw.stage, uw.added_at
+FROM public.user_word AS uw
+JOIN public.word AS w ON w.id = uw.word_id
+WHERE lower(w.word) = 'lantern'
+ORDER BY uw.added_at DESC
+LIMIT 5;
 ```
 
-**Minh chứng từ hệ thống đang vận hành.** Ngày 20/11, nhóm kiểm tra RDS qua TLS, đăng nhập Cognito, lưu kết quả WordBoard và luyện tập, hai tuyến mô hình và khôi phục bản sao trong môi trường cô lập. Lần tự động phát hành đầu tiên cũng vượt qua các kiểm tra GitHub, đẩy image lên ECR và đưa hiệu ứng chữ ở cuối trang đăng nhập trở lại. Hãy ghi kết quả thực tế của bạn trong lab. [Lần tự động phát hành đầu tiên](../5.6-operations/5.6.1-releases/)
+3. Ghi lại từ có còn trên WordBoard sau khi tải lại và RDS có trả về dòng với thời điểm lưu tương ứng hay không.
 
-[Hành vi phản hồi CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/RequestAndResponseBehaviorCustomOrigin.html) · [Yêu cầu mẫu trong WAF](https://docs.aws.amazon.com/waf/latest/developerguide/web-acl-testing-view-sample.html) · [Metric Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/monitoring-runtime-metrics.html)
+### Kiểm tra CloudWatch Logs
 
-## 2. Lập dự toán hằng tháng
+Đăng xuất khỏi tài khoản thử rồi đăng nhập Google lần đầu bằng cùng email đã xác minh. Kiểm tra WordBoard mở lại và hiển thị từ đã lưu. Trong CloudShell tại Singapore, chạy lệnh sau với tên hàm đã ghi ở [chương 5.5](../5.5-auth/).
 
-Mở [AWS Pricing Calculator](https://calculator.aws/), tạo dự toán và ghi ngày cùng các giả định sử dụng. Nếu công cụ chưa hỗ trợ một dịch vụ hoặc đơn giá, đính kèm trang giá chính thức và cách tính. [Hướng dẫn AWS Pricing Calculator](https://docs.aws.amazon.com/pricing-calculator/latest/userguide/getting-started.html)
+```bash
+LINKER_FUNCTION='YOUR_LAB_LINKER_FUNCTION'
+aws logs tail "/aws/lambda/$LINKER_FUNCTION" --since 15m --region ap-southeast-1
+```
 
-| Phạm vi | Thông tin cần ghi |
-| --- | --- |
-| Điện toán và cơ sở dữ liệu tại Singapore | Gói Lightsail và snapshot. Số giờ RDS Single-AZ, dung lượng gp3 có mã hóa, phần lưu trữ bản sao vượt định mức và lưu lượng tính phí nếu có. |
-| Image phát hành | Dung lượng ECR riêng tư dùng để giữ các image. Image đầu tiên của Ownword khoảng 408 MB, tương đương khoảng 0,04 USD cho cả tháng ở mức 0,10 USD mỗi GB-tháng trước khi áp dụng ưu đãi hoặc tín dụng đủ điều kiện. Theo dõi mức sử dụng GitHub Actions riêng với AWS. [Giá Amazon ECR](https://aws.amazon.com/ecr/pricing/) |
-| Sao lưu và cảnh báo tại Singapore | Dung lượng bản sao và log S3, thời hạn lưu, số lượt PUT và GET, một custom metric và alarm, thông báo SNS và khóa KMS do bạn quản lý. |
-| Đăng nhập tại Ohio | Gói Cognito và số người dùng hoạt động hằng tháng, số lượt gọi Lambda và CloudWatch Logs. |
-| Tầng phân phối toàn cầu và Bắc Virginia | Số yêu cầu và lưu lượng CloudFront, web ACL và chi phí yêu cầu WAF, token vào và ra của Bedrock theo inference profile đã chọn. Ghi riêng chi phí tên miền nếu có. |
-| Nhà cung cấp mô hình bên ngoài | Tuyến từ vựng và Viết qua OpenRouter, số token dự kiến và giới hạn chi tiêu. Tách tổng này khỏi chi phí AWS. |
+Tìm dòng `Linked verified Google identity to existing Cognito account` trong lần gọi gần thời điểm đăng nhập. Có thể cần chờ vài phút để log xuất hiện. Nếu tài khoản đã liên kết, hãy dùng tài khoản mới đã xác minh email để chạy qua trigger.
 
-Tính hai lần, một lần cho tháng chạy thử với ít người học và một lần cho tháng dùng nhiều hơn. Thay số người học, lượt gọi mô hình và thời gian lưu. Ghi khoản nào tăng và có thể điều chỉnh bằng cách nào, chẳng hạn thời gian lưu S3, giới hạn lượt gọi hay cấu hình máy. Sau buổi lab, xem lại chi phí AWS thực tế.
+### Gửi yêu cầu sai định dạng và kiểm tra phản hồi
+
+Giữ phiên đăng nhập trên URL công khai của lab. Mở bảng Console trong công cụ dành cho nhà phát triển của trình duyệt và gửi một yêu cầu có trường `word` là số. Ownword yêu cầu trường này là chuỗi ký tự.
+
+```js
+const invalidWord = await fetch('/api/words/manual', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ word: 42 }),
+});
+console.log(invalidWord.status, await invalidWord.json());
+```
+
+Kết quả mong đợi là **HTTP 400** kèm thông báo lỗi dữ liệu đầu vào. Tải lại WordBoard và kiểm tra danh sách từ giữ nguyên. Để kiểm tra cơ sở dữ liệu, chạy `SELECT count(*) FROM public.user_word;` ngay trước và sau khi gửi yêu cầu. Trong khoảng đó, không thực hiện thao tác ghi khác trên lab.
+
+Lưu mã phản hồi, dòng log CloudWatch và kết quả truy vấn làm minh chứng. Che thông tin định danh tài khoản và dữ liệu riêng trước khi chia sẻ. [Sao lưu, khôi phục và kiểm tra cảnh báo](../5.6-operations/) là các bài kiểm tra bổ sung trong chương vận hành.
+
+**Kiểm thử cục bộ ngày 24/11/2026.** Nhóm chạy mã nguồn Workshop với PostgreSQL 16, tài khoản thử và dịch vụ mô hình giả lập. Lưu từ `lantern` trả HTTP 200. WordBoard có từ này và PostgreSQL ghi thêm một dòng `user_word` ở trạng thái `new`. Gửi `{"word":42}` trả HTTP 400 do sai kiểu dữ liệu. Tài khoản thử vẫn có đúng một dòng từ đã lưu.
+
+**Minh chứng CloudWatch.** Log Lambda tại Singapore ghi nhận hai lượt gọi ngày 24/11. Vẫn cần bổ sung dòng log xác nhận một lượt liên kết Google mới thành công.
+
+**Kết quả đã ghi nhận trên production.** Ngày 24/11, đăng nhập bằng mật khẩu tạo phiên từ pool Cognito tại Singapore, và một người dùng quay lại bằng Google vẫn thấy đủ năm từ đã lưu trong WordBoard. Các lần kiểm tra trước cũng xác nhận RDS dùng TLS, hai tuyến gọi mô hình hoạt động và bản sao đã được khôi phục trong môi trường cô lập.
+
+## 2. Dự toán và tối ưu chi phí hằng tháng {#2-lập-dự-toán-hằng-tháng}
+
+**Dự toán ngày 24/11/2026, tính bằng USD.** Kịch bản 10 người học hoạt động có chi phí **43,24 USD cho AWS** và **0,32 USD cho OpenRouter**, tổng cộng **43,56 USD/tháng**. Với 100 người học, dự toán lần lượt là **57,74 USD cho AWS** và **3,24 USD cho OpenRouter**, tổng cộng **60,98 USD/tháng**. Số lượt dùng và số token là giả định để lập dự toán. Kịch bản có tải cao hơn giữ nguyên cấu hình máy để thể hiện mức tăng do lượng sử dụng.
+
+### Thông số đã nhập vào AWS Pricing Calculator
+
+[AWS Pricing Calculator](https://calculator.aws/) công khai trả về **32,78 USD/tháng** cho hai tài nguyên tại Singapore trong 730 giờ. Kết quả gồm **11,77 USD** cho Lightsail Virtual Servers Linux 2 GB có IPv4 công khai và **21,01 USD** cho PostgreSQL với một máy `db.t4g.micro` Single-AZ theo giá theo nhu cầu, 20 GiB gp3, không dùng RDS Proxy, Database Insights trả phí hoặc Extended Support. Với máy chạy liên tục, bảng dưới dùng **mức trần 12,00 USD/tháng của Lightsail**. Các dòng còn lại tính theo đơn giá công bố của từng dịch vụ trong bảng.
+
+| Khoản chi | Giả định và đơn giá hằng tháng (USD) | Thử nghiệm | Tháng có tải cao hơn |
+| --- | --- | ---: | ---: |
+| Amazon Lightsail | Máy Linux tại Singapore, 2 vCPU, RAM 2 GB, SSD 60 GB, gắn IPv4 công khai. Dự toán theo mức trần cả tháng. [Giá Lightsail](https://aws.amazon.com/lightsail/pricing/) | 12,00 | 12,00 |
+| Amazon RDS for PostgreSQL | `db.t4g.micro` Single-AZ tại Singapore, 730 giờ × 0,025 USD và 20 GiB gp3 × 0,138 USD. Sao lưu tự động nằm trong dung lượng đã bao gồm. [Giá RDS](https://aws.amazon.com/rds/postgresql/pricing/) | 21,01 | 21,01 |
+| AWS WAF | Một web ACL CloudFront giá 5 USD, hai nhóm quy tắc do AWS quản lý giá 1 USD mỗi nhóm, cộng 0,60 USD mỗi triệu yêu cầu. Đơn giá áp dụng ngày 24/11/2026. [Giá WAF](https://aws.amazon.com/waf/pricing/) | 7,06 | 7,60 |
+| Amazon CloudFront và ACM | 100.000 / 1.000.000 yêu cầu và 10 / 100 GB truyền đến người dùng, trong hạn mức trả theo mức dùng của tài khoản. ACM cấp chứng chỉ công khai không xuất được cho CloudFront. [Giá CloudFront](https://aws.amazon.com/cloudfront/pricing/) · [Giá ACM](https://aws.amazon.com/certificate-manager/pricing/) | 0,00 | 0,00 |
+| Amazon Cognito và AWS Lambda | Cognito Essentials tại Singapore với 10 / 100 người dùng hoạt động hằng tháng qua mật khẩu hoặc Google, tối đa 10 / 100 lượt gọi Lambda với 256 MB trong 1 giây mỗi lượt và tối đa 0,1 GB log. Mức dùng nằm trong hạn mức chung áp dụng. [Giá Cognito](https://aws.amazon.com/cognito/pricing/) · [Giá Lambda](https://aws.amazon.com/lambda/pricing/) | 0,00 | 0,00 |
+| Amazon S3 | S3 Standard tại Singapore cho bản sao và log truy cập. Dùng 1 / 5 GB với giá 0,025 USD mỗi GB-tháng, 100 / 500 yêu cầu ghi hoặc liệt kê với giá 0,005 USD mỗi 1.000, và 150 / 750 yêu cầu đọc với giá 0,004 USD mỗi 10.000. [Giá S3](https://aws.amazon.com/s3/pricing/) | 0,03 | 0,13 |
+| Amazon ECR | Giữ 2 GB image phát hành tại Singapore với giá 0,10 USD mỗi GB-tháng. Image được tải trong cùng Region. [Giá ECR](https://aws.amazon.com/ecr/pricing/) | 0,20 | 0,20 |
+| Amazon CloudWatch và SNS | Dự phòng 0,30 USD cho một metric tùy chỉnh và 0,10 USD cho một alarm tiêu chuẩn trước hạn mức CloudWatch. Tối đa 10 / 100 email SNS nằm trong hạn mức hằng tháng. [Giá CloudWatch](https://aws.amazon.com/cloudwatch/pricing/) · [Giá SNS](https://aws.amazon.com/sns/pricing/) | 0,40 | 0,40 |
+| AWS KMS | Một khóa SNS do nhóm quản lý, giá 1 USD/tháng. Giả định lượt gọi nằm trong hạn mức chung. RDS dùng khóa do AWS quản lý. [Giá KMS](https://aws.amazon.com/kms/pricing/) | 1,00 | 1,00 |
+| Amazon Bedrock | 100 / 1.000 lượt tra theo khái niệm mới qua Kimi K3.1 Pro. Mỗi lượt dự toán 1.000 token đầu vào và 500 token đầu ra. Gói Standard theo hồ sơ suy luận liên vùng tại Mỹ có giá 4,40 và 22,00 USD mỗi triệu token tương ứng. [Giá mô hình](https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3-1-highspeed.html#model-card-moonshot-ai-kimi-k3-1-highspeed-pricing) | 1,54 | 15,40 |
+| **Tổng AWS** | **Dự toán tháng trước tín dụng tài khoản và thuế** | **43,24** | **57,74** |
+| OpenRouter cho tính năng Viết | 20 / 200 lượt gọi GPT-6.1 Terra Low, mỗi lượt dự toán 4.000 token đầu vào và 1.500 token đầu ra. Đơn giá công bố lần lượt là 1 và 5 USD mỗi triệu token. [Giá Terra](https://openrouter.ai/openai/gpt-6.1-terra) | 0,23 | 2,30 |
+| OpenRouter cho từ vựng và luyện tập | 50 / 500 lượt gọi theo mô hình mặc định trong lab là Gemini 3.6 Flash, mỗi lượt 1.000 token đầu vào và 300 token đầu ra, với giá 0,75 và 3,75 USD mỗi triệu token tương ứng. [Giá Flash](https://openrouter.ai/google/gemini-3.6-flash) | 0,09 | 0,94 |
+| **Tổng OpenRouter** | **Giá suy luận công bố trước phí mua tín dụng** | **0,32** | **3,24** |
+| **Tổng chi phí dự toán** | **AWS và lượt gọi OpenRouter phục vụ ứng dụng** | **43,56** | **60,98** |
+
+Dự toán giả định tài khoản còn đủ các hạn mức chung, đường truyền riêng giữa máy ứng dụng và RDS nằm trong cùng Availability Zone, và không phát sinh snapshot Lightsail, dung lượng sao lưu RDS vượt mức hoặc tín dụng CPU vượt mức. Đối chiếu các giả định với AWS Billing của tháng thực tế. Dự toán vận hành chưa tính thuế, phí đăng ký tên miền, GitHub Actions vượt hạn mức gói và lượt gọi GPT-6 Luna dùng riêng cho thử nghiệm. Phí mua tín dụng OpenRouter phụ thuộc vào số tiền nạp. Các dòng được hiển thị đến hai chữ số thập phân và tổng được làm tròn sau khi cộng. [Phí OpenRouter](https://openrouter.ai/docs/faq#pricing-and-fees)
+
+### Cách kiểm soát chi phí
+
+- Dùng lại kết quả tra theo khái niệm đã lưu, giới hạn token đầu ra và đặt hạn mức chi tiêu ở nhà cung cấp. Theo dõi token đầu vào và đầu ra trước khi tăng hạn mức.
+- Áp dụng vòng đời cho bản sao và nhật ký truy cập trên S3. Chỉ giữ các image dùng để triển khai hoặc quay lại bản trước. Rà soát các snapshot còn giữ sau khi thử nghiệm.
+- Kiểm tra CPU, bộ nhớ, tín dụng CPU của RDS và độ trễ trước khi đổi cấu hình. Đối chiếu giá CloudFront và WAF với lưu lượng thực trước khi đổi gói.
+- Sau khi thực hành, làm theo các bước dọn tài nguyên bên dưới rồi kiểm tra hóa đơn. AWS công bố [biểu giá WAF mới từ 01/02/2027](https://aws.amazon.com/waf/pricing/). Cập nhật dòng này khi lập dự toán cho các tháng sau.
 
 ## 3. Dọn tài nguyên lab
 
@@ -56,7 +102,7 @@ Mở danh sách tài nguyên ở chương 5.2 và kiểm tra tài khoản bằng
 1. **Lịch chạy và cảnh báo.** Trên VM lab, bỏ ba lịch lab bằng `crontab -e`. Tại Singapore, xóa alarm CloudWatch và SNS topic. Khi khóa lab không còn được dùng, lên lịch xóa KMS key. [Xóa alarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DeleteAlarms.html) · [Lên lịch xóa khóa KMS](https://docs.aws.amazon.com/kms/latest/developerguide/deleting-keys.html)
    - **Tự động phát hành, nếu đã bật.** Tắt workflow GitHub của lab và bỏ dòng cron đánh dấu `ownword-registry-release`. Lưu những image còn cần rồi xóa image và kho ECR của lab. Gỡ role đẩy image và policy tải image của VM. Chỉ xóa nhà cung cấp GitHub OIDC nếu nó được tạo riêng cho lab và không còn ai dùng. [Xóa kho ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-delete.html)
 2. **Tầng phân phối.** Xóa bản ghi công khai của lab. Tắt CloudFront distribution, đợi thay đổi sang trạng thái **Deployed** và xóa distribution. Nếu cần tách web ACL trước, thực hiện sau khi đã tắt distribution. Xóa web ACL và chứng chỉ ACM của lab khi đã hết liên kết. Xóa bản ghi xác thực DNS nếu nó chỉ phục vụ chứng chỉ này. [Xóa CloudFront distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowToDeleteDistribution.html) · [Xóa chứng chỉ ACM](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-delete.html)
-3. **Đăng nhập.** Tại Ohio, gỡ trigger Pre sign-up khỏi pool lab. Xóa tên miền managed login, tắt bảo vệ xóa nếu đã bật, rồi xóa pool. Xóa Lambda của lab, CloudWatch log group và execution role cùng inline policy. Xóa Google OAuth client riêng của lab. [Xóa tên miền Cognito](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DeleteUserPoolDomain.html) · [Xóa pool Cognito](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DeleteUserPool.html)
+3. **Đăng nhập.** Tại Singapore, gỡ trigger Pre sign-up khỏi pool lab. Xóa tên miền managed login, tắt bảo vệ xóa nếu đã bật, rồi xóa pool. Xóa Lambda của lab, CloudWatch log group và execution role cùng inline policy. Xóa Google OAuth client riêng của lab. [Xóa tên miền Cognito](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DeleteUserPoolDomain.html) · [Xóa pool Cognito](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_DeleteUserPool.html)
 4. **Cơ sở dữ liệu và máy chủ.** Tại Singapore, tắt bảo vệ xóa của RDS lab và đợi thay đổi có hiệu lực. Xóa instance với lựa chọn phù hợp về snapshot cuối và sao lưu tự động giữ lại. Rà soát snapshot và các bản sao còn tốn lưu trữ. Sau khi RDS giải phóng tài nguyên, xóa security group và subnet group dành riêng cho lab. Xóa bản ghi A của máy chủ gốc. Xóa VM Lightsail và snapshot không cần nữa, rồi giải phóng IP tĩnh nếu còn. Chỉ tắt peering nếu bạn bật cho lab và không có hệ thống khác dùng chung. [Xóa RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html) · [Dọn Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/getting-started.html)
 5. **Lưu trữ và thông tin xác thực.** Tắt S3 server access logging ở bucket nguồn nếu đã bật. Làm rỗng các bucket lab, gồm phiên bản đối tượng và delete marker, rồi xóa bucket. Xóa access key, inline policy và IAM user lab cho sao lưu và Bedrock. Thu hồi hai khóa OpenRouter và dọn bản sao thông tin riêng trên máy cá nhân nếu không còn cần. [Làm rỗng bucket S3 có versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/empty-bucket.html) · [Xóa IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_remove.html)
 

@@ -8,21 +8,21 @@ pre: " <b>5.5.</b> "
 
 ## 1. Tạo user pool Cognito và app client công khai {#base-cognito}
 
-1. Trong **Amazon Cognito tại Ohio**, tạo user pool cho lab. Bật đăng nhập bằng email, xác thực bằng mật khẩu, tự đăng ký và xác minh email. Chỉ đặt email là thuộc tính bắt buộc để biểu mẫu Ownword có thể đăng ký tài khoản. Tạo app client công khai không có secret, ví dụ loại **Single-page application**. Dùng email đã xác minh để khôi phục tài khoản.
+1. Trong **Amazon Cognito tại Singapore**, tạo user pool cho lab. Bật đăng nhập bằng email, xác thực bằng mật khẩu, tự đăng ký và xác minh email. Chỉ đặt email là thuộc tính bắt buộc để biểu mẫu Ownword có thể đăng ký tài khoản. Tạo app client công khai không có secret, ví dụ loại **Single-page application**. Dùng email đã xác minh để khôi phục tài khoản.
 2. Trong cài đặt đăng nhập, bật nhà cung cấp **Cognito user pool**, **Authorization code grant** và scope `openid email profile`. Dùng tên miền **công khai** của lab cho callback `https://app-lab.example.com/auth/callback` và URL đăng xuất `https://app-lab.example.com/`. Tạo tên miền prefix Cognito và gán giao diện managed login nếu cần.
 3. Trong **Authentication flows**, bật đăng nhập bằng tên người dùng và mật khẩu (`ALLOW_USER_PASSWORD_AUTH`). Máy chủ Ownword dùng `USER_PASSWORD_AUTH` cho biểu mẫu riêng và OAuth code grant với PKCE khi dùng managed login. Ghi lại pool ID, client ID và tên miền Cognito. [App client Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html) · [OAuth và PKCE](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) · [Luồng xác thực qua API](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPoolClient.html)
 
 ## 2. Cấu hình Google và liên kết tài khoản đã xác minh
 
 1. Trong Google Auth Platform, cấu hình **Branding** và **Audience** cho dự án lab. Với tên miền prefix của Cognito, thêm `amazoncognito.com` vào authorized domains. Yêu cầu các scope OpenID, email và profile cơ bản. Tạo OAuth client loại **Web application**. Nếu dự án Google đang ở chế độ kiểm thử, thêm các tài khoản lab vào danh sách test users.
-2. Đặt **Authorized JavaScript origins** thành `https://YOUR_PREFIX.auth.us-east-2.amazoncognito.com` và thêm `/oauth2/idpresponse` vào tên miền đó cho **Authorized redirect URIs**. Thêm **Google** vào Cognito với client ID và secret của Google, yêu cầu `openid email profile` và ánh xạ `email`, `email_verified` vào thuộc tính tương ứng. Bật **Google** cùng **Cognito user pool** trên app client và cho phép ghi các thuộc tính được ánh xạ. [Cấu hình đăng nhập Google](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp-google.html) · [Ánh xạ thuộc tính Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html)
-3. Tải `deploy/cognito/google-linker-cloudshell.py` từ gói mã lên thư mục home trong **CloudShell tại Ohio**. Chạy kiểm tra trước và đối chiếu tài khoản, pool và ánh xạ. Chỉ dùng `--apply` với pool lab. Ghi lại tên hàm và role được tạo. Chờ ít nhất 70 giây để cấu hình có hiệu lực trước khi thử đăng nhập Google lần đầu. [Trigger Pre sign-up](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html) · [Liên kết hồ sơ liên kết](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html)
+2. Đặt **Authorized JavaScript origins** thành `https://YOUR_PREFIX.auth.ap-southeast-1.amazoncognito.com` và thêm `/oauth2/idpresponse` vào tên miền đó cho **Authorized redirect URIs**. Thêm **Google** vào Cognito với client ID và secret của Google, yêu cầu `openid email profile` và ánh xạ `email`, `email_verified` vào thuộc tính tương ứng. Bật **Google** cùng **Cognito user pool** trên app client và cho phép ghi các thuộc tính được ánh xạ. [Cấu hình đăng nhập Google](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp-google.html) · [Ánh xạ thuộc tính Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html)
+3. Tải {{< workshop-download "downloads/google-linker-cloudshell.py" "script liên kết tài khoản tại Singapore" >}} rồi đưa tệp lên thư mục home trong **CloudShell tại Singapore**. Chạy kiểm tra trước và đối chiếu tài khoản, pool và ánh xạ. Chỉ dùng `--apply` với pool lab. Ghi lại tên hàm và role được tạo. Chờ ít nhất 70 giây để cấu hình có hiệu lực trước khi thử đăng nhập Google lần đầu. [Trigger Pre sign-up](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html) · [Liên kết hồ sơ liên kết](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html)
 
 ```bash
-POOL_ID='us-east-2_YOUR_LAB_POOL_SUFFIX'
+POOL_ID='ap-southeast-1_YOUR_LAB_POOL_SUFFIX'
 python3 ~/google-linker-cloudshell.py --pool-id "$POOL_ID"
 python3 ~/google-linker-cloudshell.py --pool-id "$POOL_ID" --apply
-aws cognito-idp describe-user-pool --region us-east-2 --user-pool-id "$POOL_ID" \
+aws cognito-idp describe-user-pool --region ap-southeast-1 --user-pool-id "$POOL_ID" \
   --query 'UserPool.LambdaConfig.PreSignUp' --output text
 ```
 
@@ -68,7 +68,7 @@ nano deploy/lightsail/.secrets/app-rds.env
 |---|---|
 | `APP_DOMAIN` | Chỉ tên máy chủ gốc, ví dụ `origin-lab.example.com` |
 | `APP_PUBLIC_ORIGIN` | URL công khai, ví dụ `https://app-lab.example.com` |
-| `COGNITO_ISSUER` | `https://cognito-idp.us-east-2.amazonaws.com/YOUR_POOL_ID` |
+| `COGNITO_ISSUER` | `https://cognito-idp.ap-southeast-1.amazonaws.com/YOUR_POOL_ID` |
 | `COGNITO_DOMAIN` và `COGNITO_CLIENT_ID` | URL đầy đủ của tên miền prefix Cognito và ID client công khai ở bước 1 |
 | `CUSTOM_AUTH_ENABLED` và `GOOGLE_SIGN_IN_ENABLED` | Cả hai là `true` sau bước 1 và 2 |
 | `POSTGRES_PASSWORD` | Giá trị ngẫu nhiên riêng cho dịch vụ DB cục bộ trong Compose gốc. Tệp ghi đè RDS cung cấp mật khẩu ứng dụng thực tế. |

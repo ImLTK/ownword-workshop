@@ -12,6 +12,8 @@ Ownword dành cho người học tiếng Anh nhận ra nhiều từ khi đọc n
 
 Bản thử nghiệm chạy trên AWS. Amazon Bedrock dùng Kimi K3.1 Pro để tra từ theo khái niệm, còn OpenRouter cung cấp mô hình cho việc đánh giá bản nháp và kiểm tra bản chỉnh sửa. Người đọc có thể thử [ứng dụng đang chạy](https://app.ownword.co/) hoặc tự triển khai theo [workshop song ngữ](../5-workshop/).
 
+**Tình trạng truy cập mô hình khi hoàn tất báo cáo (24/11/2026).** Nhóm vẫn đang chờ AWS Support xử lý quyền truy cập mô hình. Các yêu cầu gọi GPT-6 Luna trên Amazon Bedrock từ tài khoản AWS Free Tier vẫn trả về `AccessDeniedException` dù nhóm đã chấp nhận thỏa thuận sử dụng mô hình. Nhóm tiếp tục dùng OpenRouter để truy cập GPT-6 Luna phục vụ đánh giá. Sau nhiều đợt thử nghiệm chấm bản nháp và kiểm tra bản chỉnh sửa, nhóm chọn GPT-6.1 Terra với mức suy luận thấp qua OpenRouter cho tính năng Viết đang vận hành vì mô hình cân bằng tốt nhất giữa chất lượng phản hồi và chi phí với khối lượng sử dụng của Ownword.
+
 ## Vấn đề
 
 Có những từ mình nhận ra ngay khi đọc, nhưng đến lúc viết lại dùng một từ quen thuộc hơn. Tra được một từ phù hợp giúp mình viết tiếp ngay lúc đó, nhưng lần sau có thể vẫn phải tra lại. Khi sửa bài cũng có chuyện tương tự. Mình có thể thấy một câu chưa ổn mà chưa rõ cần sửa phần nào.
@@ -39,7 +41,7 @@ Bản thử nghiệm chạy ứng dụng trên một VM và dùng cơ sở dữ 
 
 ## Kiến trúc đã triển khai
 
-{{< ownword-architecture alt="Luồng yêu cầu và sao lưu của Ownword. GitHub Actions đẩy image phát hành lên ECR riêng tư tại Singapore để Lightsail tải về." caption="Kiến trúc Ownword và luồng tự động phát hành ngày 20/11/2026. Chọn sơ đồ để xem ở kích thước đầy đủ." >}}
+{{< ownword-architecture alt="Luồng yêu cầu và sao lưu của Ownword. GitHub Actions đẩy image phát hành lên ECR riêng tư tại Singapore để Lightsail tải về." caption="Kiến trúc Ownword và luồng tự động phát hành ngày 24/11/2026. Chọn sơ đồ để xem ở kích thước đầy đủ." >}}
 
 ### Các dịch vụ AWS đang dùng
 
@@ -47,11 +49,11 @@ Bản thử nghiệm chạy ứng dụng trên một VM và dùng cơ sở dữ 
 - **AWS WAF.** Áp dụng web ACL cho yêu cầu đi qua distribution CloudFront trước khi chúng đến máy chủ gốc.
 - **AWS Certificate Manager (ACM).** Cấp chứng chỉ cho tên miền công khai trên CloudFront. Caddy quản lý chứng chỉ riêng cho kết nối tới máy chủ gốc.
 - **Amazon Lightsail.** Chạy VM tại Singapore. Caddy nhận HTTPS từ CloudFront rồi chuyển yêu cầu tới Next.js qua mạng Docker riêng. VM cũng chạy tác vụ sao lưu và kiểm tra tình trạng bản sao.
-- **Amazon RDS for PostgreSQL.** Lưu hồ sơ người học, từ trên WordBoard, kết quả luyện tập và lịch sử bài viết. Cơ sở dữ liệu Single-AZ tại Singapore nhận kết nối từ máy Lightsail qua VPC peering. Ứng dụng kiểm tra chứng chỉ và tên máy chủ của RDS.
-- **Amazon Cognito.** Quản lý mật khẩu, xác minh email và đăng nhập Google qua user pool ở Ohio. Next.js dựa trên danh tính đã xác minh để xác định phiên được truy cập dữ liệu của người học nào.
-- **AWS Lambda.** Chạy trigger Pre sign-up cho đăng nhập Google. Nếu lần đăng nhập đầu tiên khớp với một tài khoản đủ điều kiện, trigger có thể liên kết danh tính Google để giữ nguyên WordBoard của người học.
+- **Amazon RDS for PostgreSQL.** Lưu hồ sơ người học, từ trên WordBoard, kết quả luyện tập và lịch sử bài viết. Cơ sở dữ liệu Single-AZ được mã hóa, nằm trong subnet riêng tại Singapore (`ap-southeast-1a`) và chỉ nhận kết nối qua cổng 5432 từ máy Lightsail qua VPC peering. Ứng dụng kiểm tra chứng chỉ và tên máy chủ của RDS.
+- **Amazon Cognito.** Quản lý mật khẩu, xác minh email và đăng nhập Google qua user pool tại Singapore. Next.js ánh xạ danh tính Cognito đã xác minh vào hồ sơ người học trong PostgreSQL.
+- **AWS Lambda.** Chạy trigger Pre sign-up tại Singapore cho đăng nhập Google. Nếu lần đăng nhập đầu tiên khớp với một tài khoản đủ điều kiện, trigger có thể liên kết danh tính Google để giữ nguyên WordBoard của người học.
 - **Amazon Bedrock.** Chạy Kimi K3.1 Pro cho tra cứu theo khái niệm qua inference profile tại Mỹ. Ứng dụng gọi endpoint ở Bắc Virginia và kiểm tra cấu trúc gợi ý trước khi trả về.
-- **Amazon S3.** Lưu bản xuất PostgreSQL hằng ngày trong bucket riêng tư. Bản sao nằm ngoài VM và cơ sở dữ liệu đang chạy, nên nhóm có thể dùng để thử khôi phục vào một cơ sở dữ liệu riêng.
+- **Amazon S3.** Lưu bản xuất PostgreSQL hằng ngày trong một bucket riêng tư và ghi nhật ký truy cập vào bucket riêng. Cả hai bucket dùng SSE-S3. Bản sao nằm ngoài VM và cơ sở dữ liệu đang chạy, nên nhóm có thể dùng để thử khôi phục vào một cơ sở dữ liệu riêng.
 - **Amazon ECR.** Lưu image phát hành riêng tư do GitHub Actions tạo. Lightsail tải image theo digest và kiểm tra ứng dụng sau khi triển khai. [Luồng phát hành trong workshop](../5-workshop/5.6-operations/5.6.1-releases/)
 - **Amazon CloudWatch.** Nhận metric `BackupFresh` mỗi giờ. Alarm dựa vào giá trị đó để đánh giá bản sao mới nhất còn đủ mới và có mặt trên S3 hay không.
 - **Amazon SNS.** Gửi email cho người vận hành khi CloudWatch chuyển sang trạng thái cảnh báo.
@@ -73,9 +75,7 @@ Workshop giải thích thêm [sơ đồ và đường đi của yêu cầu](../5
 
 **Ownword dùng Kimi K3.1 Pro trên Amazon Bedrock để tra từ theo khái niệm**, một phần chính của tính năng khám phá từ vựng. Người học có thể diễn đạt ý mình muốn nói bằng tiếng Anh hoặc tiếng Việt để nhận gợi ý từ và cụm từ phù hợp. Khi người học lặp lại truy vấn, ứng dụng có thể dùng kết quả đã lưu để tránh gọi mô hình thêm một lần.
 
-Nhóm cũng thử GPT-6 Luna trên Bedrock cho tính năng Viết. Nhóm muốn xem có thể dùng tín dụng AWS Free Tier để tạo phản hồi có cấu trúc và chỉ đúng đoạn cần góp ý trong bản nháp hay không. AWS chấp nhận thỏa thuận trên Marketplace và tài khoản có đủ hạn mức suy luận. Cả hai yêu cầu với bài viết giả lập đều trả về `AccessDeniedException`. Lần thứ hai, AWS xác nhận tài khoản chưa được dùng Luna và hướng dẫn liên hệ AWS Sales. [Hướng dẫn AWS về quyền truy cập mô hình theo tài khoản](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html)
-
-Với các tác vụ Viết khó hơn, **nhóm dùng OpenRouter để tiếp cận các mô hình tiên tiến**. Mô hình đang dùng là GPT-6.1 Terra Low. Mô hình nhận xét bản nháp ban đầu rồi kiểm tra xem bản chỉnh sửa đã xử lý các góp ý trước đó chưa.
+Tính năng Viết gửi bản nháp hoặc bản chỉnh sửa đến GPT-6.1 Terra Low qua OpenRouter và yêu cầu Zero Data Retention trên tuyến đã cấu hình. Ứng dụng kiểm tra cấu trúc phản hồi trước khi lưu. [Tình trạng truy cập mô hình](#tóm-tắt-dự-án)
 
 ## Tiến độ và các mốc
 
@@ -87,21 +87,21 @@ Với các tác vụ Viết khó hơn, **nhóm dùng OpenRouter để tiếp c�
 | 05/11 | Thử khôi phục bản sao trên S3 và kiểm tra luồng cảnh báo CloudWatch, SNS trên Lightsail. [Tuần 8](../1-worklog/1.8-week8/) |
 | 12/11 | Đưa màn hình tài khoản, đăng nhập Google và nút phát âm lên bản thử nghiệm. [Tuần 9](../1-worklog/1.9-week9/) |
 | 20/11 | Chuyển cơ sở dữ liệu sang RDS riêng tư và phát hành tính năng chuỗi ngày học. |
-| Đến 14/12, dự kiến | Chạy thử demo, ghi kết quả kiểm thử hai tài khoản và thời gian khôi phục, hoàn thiện dự toán và tài liệu bàn giao. [Tuần 13](../1-worklog/1.13-week13/) |
+| Đến 14/12, dự kiến | Chạy thử demo, ghi kết quả kiểm thử Workshop và hoàn thiện tài liệu bàn giao. [Tuần 13](../1-worklog/1.13-week13/) |
 
-## Dự toán chi phí
+## Dự toán và tối ưu chi phí {#dự-toán-chi-phí}
 
-Chi phí riêng cho máy chạy ứng dụng và phần máy chủ, lưu trữ RDS là **khoảng 33,01 USD mỗi tháng trước khi trừ tín dụng**. Con số này chưa tính lượt gọi mô hình, tầng phân phối, giám sát, sao lưu và các khoản theo mức sử dụng khác.
+Với 10 người học hoạt động, chi phí vận hành dự toán là **43,56 USD/tháng** trước thuế và tín dụng tài khoản, gồm **43,24 USD cho AWS** và **0,32 USD tiền lượt gọi OpenRouter** theo giá công bố. Với 100 người học và cùng cấu hình máy, dự toán tăng lên **60,98 USD/tháng**.
 
-| Hạng mục | Cơ sở tính theo tháng |
-| --- | --- |
-| Lightsail tại Singapore | 12 USD cho gói Linux 2 GB có IPv4 công khai. [Giá Lightsail](https://aws.amazon.com/lightsail/pricing/) |
-| RDS tại Singapore | Khoảng 21,01 USD cho 730 giờ chạy `db.t4g.micro` Single-AZ với 20 GiB gp3, theo mức giá ghi nhận khi chuyển sang RDS ngày 20/11. [Giá RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/pricing/) |
-| Phân phối và đăng nhập | Tính thêm số yêu cầu và lưu lượng CloudFront, phí WAF theo gói đã chọn, người dùng Cognito hoạt động hằng tháng và số lần gọi Lambda. |
-| Sao lưu và giám sát | Tính thêm snapshot Lightsail, dung lượng và yêu cầu S3, metric và alarm CloudWatch, số lần gửi SNS và khóa KMS do nhóm quản lý. |
-| Gọi mô hình | Ước tính token đầu vào và đầu ra của Bedrock cho các lượt tra mới. Tách mức dùng OpenRouter cho từ vựng và Viết khỏi chi phí AWS. |
+| Chi phí hằng tháng (USD) | 10 người học | 100 người học |
+| --- | ---: | ---: |
+| Lightsail và RDS riêng tư | 33,01 | 33,01 |
+| Phân phối, bảo mật, lưu trữ và giám sát | 8,69 | 9,33 |
+| Tra theo khái niệm qua Bedrock | 1,54 | 15,40 |
+| OpenRouter cho Viết, từ vựng và luyện tập | 0,32 | 3,24 |
+| **Tổng** | **43,56** | **60,98** |
 
-Để tính thử, giả sử có 10 người học hoạt động. Mỗi người tra theo khái niệm 10 lần và yêu cầu hai lượt đánh giá bài hoặc kiểm tra bản sửa trong tháng. Kịch bản này tương ứng 100 lượt tra Bedrock và 20 lượt gọi mô hình cho phần Viết. Đây là giả định để lên dự toán. Khi tính giá, dùng số token đầu vào, đầu ra đo được và đơn giá của từng tuyến. Xem [bảng tính chi phí trong workshop](../5-workshop/5.7-verification/).
+[Xem dự toán chi tiết trong Workshop](../5-workshop/5.7-verification/#2-lập-dự-toán-hằng-tháng) để đối chiếu thông số và kết quả AWS Pricing Calculator, giả định về lưu lượng, token và hạn mức áp dụng. Nhóm kiểm soát chi phí bằng cách dùng lại kết quả tra cứu, đặt giới hạn chi tiêu ở nhà cung cấp và giới hạn thời gian lưu bản sao cùng số image phát hành.
 
 ## Quyết định và rủi ro
 
@@ -117,4 +117,4 @@ Chi phí riêng cho máy chạy ứng dụng và phần máy chủ, lưu trữ R
 
 Báo cáo có sơ đồ kiến trúc, ứng dụng đang chạy và hướng dẫn song ngữ để triển khai, dọn tài nguyên. Các lần kiểm tra trước đã ghi nhận đăng nhập Cognito, lưu từ và kết quả luyện tập, gọi mô hình thật và khôi phục bản sao RDS vào cơ sở dữ liệu tạm.
 
-Trong buổi demo, người học cần tìm được một từ chưa quen, lưu rồi nhớ lại từ đó và dùng phản hồi để sửa bản nháp. Về phía AWS, nhóm cần tự làm lại bài lab với tài nguyên riêng, khôi phục dữ liệu và nhận cảnh báo khi bản sao quá cũ. Minh chứng còn cần bổ sung gồm kiểm thử hai tài khoản có ngày, thử tải nhẹ, thời gian khôi phục đo được và dự toán đầy đủ trên AWS Pricing Calculator. [Các bước kiểm chứng trong workshop](../5-workshop/5.7-verification/)
+Trong buổi demo, người học cần tìm được một từ chưa quen, lưu rồi nhớ lại từ đó và dùng phản hồi để sửa bản nháp. Về phía AWS, nhóm cần tự làm lại bài lab với tài nguyên riêng, khôi phục dữ liệu và nhận cảnh báo khi bản sao quá cũ. Minh chứng còn cần bổ sung gồm một yêu cầu hợp lệ và dòng dữ liệu đã lưu, log CloudWatch của luồng đăng nhập và phản hồi khi gửi dữ liệu sai định dạng. [Các bước kiểm chứng trong workshop](../5-workshop/5.7-verification/)

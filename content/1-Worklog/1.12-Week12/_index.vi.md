@@ -8,7 +8,7 @@ pre: " <b>1.12.</b> "
 
 **30/11–06/12/2026**
 
-*Kế hoạch dự kiến*
+*Mốc tiến độ dự án*
 
 ## Mục tiêu tuần 12
 
@@ -19,15 +19,18 @@ pre: " <b>1.12.</b> "
 
 ## Công việc trong tuần
 
-| Ngày | Công việc | Dự kiến bắt đầu | Dự kiến hoàn thành | Tài liệu và minh chứng |
+Các mốc theo từng công việc là ước tính dựa trên nhật ký trước đó.
+
+| Thứ | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
 | --- | --- | --- | --- | --- |
-| 1–2 | Ghi lại địa chỉ tĩnh, cấu hình Ubuntu và các dịch vụ Docker Compose của ownword-pilot tại Singapore. Liệt kê Caddy, Next.js và PostgreSQL. Kiểm tra tên máy và snapshot trong console. | 30/11/2026 | 01/12/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
-| 3 | Rà soát Cognito và nhà cung cấp Google tại Ohio, Lambda Pre Sign-up liên kết tài khoản và URL callback; lưu bằng chứng đã che thông tin. | 02/12/2026 | 02/12/2026 | [Cognito and Google sign-in](../../5-workshop/5.5-auth/) |
-| 4 | Kiểm tra đích sao lưu S3 riêng tư, metric CloudWatch BackupFresh, alarm ownword-pilot-backup-stale và thông báo SNS cho người vận hành. | 03/12/2026 | 03/12/2026 | [Backups and monitoring](../../5-workshop/5.6-operations/) |
-| 5 | Nếu cần minh họa cách triển khai từ đầu, thử trong môi trường tạm. Ghi tên máy, ngày làm và kết quả thực tế. | 04/12/2026 | 04/12/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
+| Thứ hai đến Thứ ba | **Lightsail và PostgreSQL.** Rà soát cấu hình Lightsail tại Singapore, gồm địa chỉ tĩnh, Ubuntu, snapshot và các dịch vụ chạy trên máy. Kiểm tra cách ứng dụng kết nối với PostgreSQL. | 30/11/2026 | 01/12/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
+| Thứ tư | **Cấu hình đăng nhập.** Rà soát cấu hình Cognito tại Singapore, gồm đăng nhập Google, Lambda liên kết tài khoản và các URL callback. | 02/12/2026 | 02/12/2026 | [Cognito and Google sign-in](../../5-workshop/5.5-auth/) |
+| Thứ năm | **Cảnh báo sao lưu.** Kiểm tra đích sao lưu S3 riêng tư, chỉ số và cảnh báo sao lưu trên CloudWatch, cùng luồng thông báo qua SNS. | 03/12/2026 | 03/12/2026 | [Backups and monitoring](../../5-workshop/5.6-operations/) |
+| Thứ sáu | **Triển khai môi trường lab.** Xem lại các bước để người tham gia có thể triển khai lại trong môi trường lab riêng. | 04/12/2026 | 04/12/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
 
 ---
 
-## Kết quả dự kiến
+## Kết quả tuần 12
 
-- Kiểm tra danh sách tài nguyên của ownword-pilot, rồi mô tả đường đi của yêu cầu, đăng nhập, dữ liệu, bản sao lưu và cảnh báo.
+- Các bước phát hành trong workshop giúp đối chiếu commit trên GitHub với image trên ECR, rồi tìm image đang chạy trên Lightsail. Khi image đã có trên ECR, log trên máy chủ cho biết Lightsail đang chạy bản nào. Mở trang chủ và trang đăng nhập công khai để xem người học có truy cập được không. Nếu ứng dụng không khởi động được, script có thể quay về image cũ. Các thay đổi cơ sở dữ liệu đã chạy vẫn giữ nguyên. [Hướng dẫn phát hành](../../5-workshop/5.6-operations/5.6.1-releases/)
+- Sự cố cơ sở dữ liệu cần cách kiểm tra khác. Tác vụ sao lưu gửi một bản lên S3 riêng tư, CloudWatch theo dõi độ mới của bản sao và SNS gửi email cho người vận hành khi có cảnh báo. Workshop dùng cơ sở dữ liệu tạm để thử khôi phục. Nhóm có thể kiểm tra xem bản sao có truy vấn được không mà không ảnh hưởng đến dữ liệu người học. [Sao lưu và giám sát](../../5-workshop/5.6-operations/)

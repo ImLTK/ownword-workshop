@@ -6,7 +6,7 @@ chapter: false
 pre: " <b>1.</b> "
 ---
 
-These notes cover 14 September–14 December 2026. I started with the AWS labs on account setup, monitoring, and DNS. Later entries cover the Ownword prototype, the Lightsail pilot, and the account release. Each week includes the results and references I have so far. The remaining plans are marked in the log.
+These notes cover 14 September–14 December 2026. I started with the AWS labs on account setup, monitoring, and DNS. Later entries cover the Ownword prototype, the Lightsail pilot, and the account release. The weekly entries include my notes and available evidence.
 
 1. [Week 1: Getting started with the cloud journey](1.1-week1/) - 14/09–20/09/2026
 

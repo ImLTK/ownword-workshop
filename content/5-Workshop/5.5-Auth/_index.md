@@ -8,21 +8,21 @@ pre: " <b>5.5.</b> "
 
 ## 1. Create the Cognito pool and public client {#base-cognito}
 
-1. In **Amazon Cognito, US East (Ohio)**, create a lab user pool with email sign-in, password authentication, self-registration, and email verification. Require only the email attribute so the Ownword form can register users. Create a public app client without a secret, such as the **Single-page application** client type. Use verified email for account recovery.
+1. In **Amazon Cognito, Asia Pacific (Singapore)**, create a lab user pool with email sign-in, password authentication, self-registration, and email verification. Require only the email attribute so the Ownword form can register users. Create a public app client without a secret, such as the **Single-page application** client type. Use verified email for account recovery.
 2. Enable the **Cognito user pool** identity provider, **Authorization code grant**, and scopes `openid email profile` in the app client's login settings. Set the callback to `https://app-lab.example.com/auth/callback` and sign-out URL to `https://app-lab.example.com/`, using your **public** lab hostname. Create a Cognito prefix domain and assign a managed-login branding style if required.
 3. In **Authentication flows**, enable username-and-password sign-in (`ALLOW_USER_PASSWORD_AUTH`). Ownword's server uses `USER_PASSWORD_AUTH` for the custom form and the OAuth code grant with PKCE for managed login. Record the pool ID, client ID and Cognito domain. [Cognito app clients](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html) · [Authorization and PKCE](https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html) · [App client API and auth flows](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateUserPoolClient.html)
 
 ## 2. Configure Google and link verified accounts
 
 1. In Google Auth Platform, configure **Branding** and **Audience** for the lab OAuth project. For a Cognito prefix domain, add `amazoncognito.com` under authorized domains. Request the basic OpenID, email and profile scopes. Create a **Web application** OAuth client. If the Google project is in testing mode, add the lab Google accounts as test users.
-2. On the Google client, set **Authorized JavaScript origins** to `https://YOUR_PREFIX.auth.us-east-2.amazoncognito.com` and **Authorized redirect URIs** to that domain plus `/oauth2/idpresponse`. Then add **Google** in the Cognito pool using the Google client ID and secret, request `openid email profile`, and map Google `email` and `email_verified` to the matching Cognito attributes. Enable **Google** alongside **Cognito user pool** in the app client and make the mapped attributes writable. [Google federation settings](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp-google.html) · [Cognito attribute mapping](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html)
-3. Upload `deploy/cognito/google-linker-cloudshell.py` from the archive to the home directory in **Ohio CloudShell**. Run the dry run first and verify the account, pool and mappings. Run `--apply` only on your lab pool. Record the function and execution role that the script creates. Wait at least 70 seconds for propagation before testing a first Google sign-in. [Pre sign-up trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html) · [Linking federated profiles](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html)
+2. On the Google client, set **Authorized JavaScript origins** to `https://YOUR_PREFIX.auth.ap-southeast-1.amazoncognito.com` and **Authorized redirect URIs** to that domain plus `/oauth2/idpresponse`. Then add **Google** in the Cognito pool using the Google client ID and secret, request `openid email profile`, and map Google `email` and `email_verified` to the matching Cognito attributes. Enable **Google** alongside **Cognito user pool** in the app client and make the mapped attributes writable. [Google federation settings](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-social-idp-google.html) · [Cognito attribute mapping](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html)
+3. Download {{< workshop-download "downloads/google-linker-cloudshell.py" "the Singapore account-linking script" >}} and upload it to your home directory in **Singapore CloudShell**. Run the dry run first and verify the account, pool and mappings. Run `--apply` only on your lab pool. Record the function and execution role that the script creates. Wait at least 70 seconds for propagation before testing a first Google sign-in. [Pre sign-up trigger](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html) · [Linking federated profiles](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation-consolidate-users.html)
 
 ```bash
-POOL_ID='us-east-2_YOUR_LAB_POOL_SUFFIX'
+POOL_ID='ap-southeast-1_YOUR_LAB_POOL_SUFFIX'
 python3 ~/google-linker-cloudshell.py --pool-id "$POOL_ID"
 python3 ~/google-linker-cloudshell.py --pool-id "$POOL_ID" --apply
-aws cognito-idp describe-user-pool --region us-east-2 --user-pool-id "$POOL_ID" \
+aws cognito-idp describe-user-pool --region ap-southeast-1 --user-pool-id "$POOL_ID" \
   --query 'UserPool.LambdaConfig.PreSignUp' --output text
 ```
 
@@ -68,7 +68,7 @@ Set these values in `deploy/lightsail/.env`:
 |---|---|
 | `APP_DOMAIN` | Origin hostname only, for example `origin-lab.example.com` |
 | `APP_PUBLIC_ORIGIN` | Public URL, for example `https://app-lab.example.com` |
-| `COGNITO_ISSUER` | `https://cognito-idp.us-east-2.amazonaws.com/YOUR_POOL_ID` |
+| `COGNITO_ISSUER` | `https://cognito-idp.ap-southeast-1.amazonaws.com/YOUR_POOL_ID` |
 | `COGNITO_DOMAIN` and `COGNITO_CLIENT_ID` | Full Cognito prefix-domain URL and the public client ID from step 1 |
 | `CUSTOM_AUTH_ENABLED` and `GOOGLE_SIGN_IN_ENABLED` | Both `true` after steps 1 and 2 |
 | `POSTGRES_PASSWORD` | A separate random placeholder for the base Compose file's unused local DB service. The RDS overlay supplies the actual app password. |

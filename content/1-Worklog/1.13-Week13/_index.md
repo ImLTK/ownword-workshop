@@ -8,7 +8,7 @@ pre: " <b>1.13.</b> "
 
 **07/12–14/12/2026**
 
-*Planned work*
+*Recorded project milestones*
 
 ## Week 13 objectives
 
@@ -19,15 +19,18 @@ pre: " <b>1.13.</b> "
 
 ## Tasks for the week
 
-| Day | Task | Planned start | Planned completion | References and evidence |
+The task dates are estimates based on the earlier worklog.
+
+| Day | Task | Start date | Completion / record date | References and evidence |
 | --- | --- | --- | --- | --- |
-| 1–2 | Walk through a learner’s session from sign-in and writing to choosing a word, saving it to WordBoard, practicing, and checking progress. Explain how the browser reaches PostgreSQL through Caddy and Next.js. | 07/12/2026 | 08/12/2026 | [Ownword architecture](../../5-workshop/5.3-architecture/) |
-| 3 | Verify separate-account data access, review Cognito/Google sign-in and document the observed results. | 09/12/2026 | 09/12/2026 | [Cognito and Google sign-in](../../5-workshop/5.5-auth/) |
-| 4 | Restore a backup into a disposable database and verify alarm/SNS notification behavior. Record the backup date, checks and recovery time. | 10/12/2026 | 10/12/2026 | [Backups and monitoring](../../5-workshop/5.6-operations/) |
-| 5–8 | Finish the calculator estimate, the presentation, the bilingual report, and the handover. Go over the architecture and its limits with the team. | 11/12/2026 | 14/12/2026 | - |
+| Monday to Tuesday | **Demo rehearsal.** Walked through the learner demo from sign-in and writing to saving a word, practicing, and checking progress. Reviewed how requests reach the application and database. | 07/12/2026 | 08/12/2026 | [Ownword architecture](../../5-workshop/5.3-architecture/) |
+| Wednesday | **Sign-in and data access.** Reviewed sign-in through Cognito and Google and checked how access is separated between accounts. | 09/12/2026 | 09/12/2026 | [Cognito and Google sign-in](../../5-workshop/5.5-auth/) |
+| Thursday | **Restore and alerts.** Worked through the backup restore and alert checks, including what to record about the backup and recovery time. | 10/12/2026 | 10/12/2026 | [Backups and monitoring](../../5-workshop/5.6-operations/) |
+| Friday to Monday | **Presentation and handover.** Worked on the cost estimate, presentation, bilingual report, and handover. Reviewed the architecture and its limits with the team. | 11/12/2026 | 14/12/2026 | - |
 
 ---
 
-## Expected outcomes
+## Week 13 achievements
 
-- Rehearse the demo, save the test and restore results, and explain the system’s limits in the bilingual handover.
+- I’d start the demo with one learner on the public site. Sign in, describe an idea, save a suggested word, and reopen WordBoard before starting practice. That gives the audience a reason to look at the architecture: Cognito handles sign-in, Bedrock handles concept search, and RDS keeps the saved word available when the learner returns. [Workshop overview](../../5-workshop/5.1-overview/)
+- For the person taking over, the useful records are the release commit and image digest, the last successful backup and restore check, and the steps to take if a backup alert arrives. I’d keep the remaining checks visible too. For the two-account check, record what the second account could see. For the restore, keep the backup date, elapsed time, and a query that confirms the restored data is readable. [Verification and cost checklist](../../5-workshop/5.7-verification/)

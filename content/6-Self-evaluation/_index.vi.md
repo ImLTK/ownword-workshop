@@ -6,20 +6,26 @@ chapter: false
 pre: " <b>6.</b> "
 ---
 
-Tôi thích cùng nhóm tìm hiểu và cấu hình các dịch vụ AWS cho Ownword. Việc tìm quyền IAM còn thiếu giúp tôi hiểu thêm về kiểm soát truy cập trên đám mây. Một số hướng dẫn trong bài lab có vẻ đã cũ. Khi các bước không khớp với những gì nhóm thấy, chúng tôi kiểm tra lại cách dịch vụ hoạt động rồi cùng tìm cách xử lý.
+Trong kỳ thực tập First Cloud AI Journey, tôi cùng nhóm xây dựng Ownword cho những người học tiếng Anh có thể nhận ra nhiều từ nhưng ít dùng đến chúng khi viết. Người học có thể mô tả ý mình muốn diễn đạt để tìm từ phù hợp, lưu từ vào WordBoard rồi luyện nhớ lại sau. Tôi góp phần xác định cách các tính năng từ vựng và luyện tập hoạt động, đồng thời tham gia triển khai bản thử nghiệm trên AWS.
 
-Sau khi xem lại công việc và phản hồi đã nhận, tôi sẽ chọn **Tốt, Khá hoặc Trung bình** cho từng tiêu chí và thêm ví dụ về việc mình đã làm.
+[Workshop Ownword](../5-workshop/) hướng dẫn triển khai theo mô hình nhóm đã dùng, với ứng dụng chạy trên Lightsail và dữ liệu người học được lưu trong cơ sở dữ liệu RDS riêng tư. Tôi phụ trách một phần cấu hình đăng nhập Google qua Cognito và kiểm tra email cảnh báo sao lưu. Khi kết quả thực tế khác với hướng dẫn lab, tôi cùng các bạn kiểm tra lại cách dịch vụ hoạt động và tìm cách xử lý.
 
-| Tiêu chí | Mức đánh giá | Bằng chứng hoặc nhận xét cá nhân |
-|---|---|---|
-| Kiến thức chuyên môn | Chờ chọn | Chờ bổ sung |
-| Tự học và nghiên cứu | Chờ chọn | Chờ bổ sung |
-| Chủ động | Chờ chọn | Chờ bổ sung |
-| Kỷ luật và tuân thủ quy định | Chờ chọn | Chờ bổ sung |
-| Giao tiếp | Chờ chọn | Chờ bổ sung |
-| Làm việc nhóm | Chờ chọn | Chờ bổ sung |
-| Giải quyết vấn đề | Chờ chọn | Việc xử lý quyền IAM có thể là ví dụ sau khi xác nhận vai trò của tôi. |
-| Đóng góp cho Workshop | Chờ chọn | Xác định yêu cầu và góp ý cho các tính năng từ vựng và luyện tập, cấu hình đăng nhập Google, kiểm tra liên kết tài khoản và cảnh báo sao lưu. |
+## Mức tự đánh giá
+
+| STT | Tiêu chí | Nội dung tự đánh giá | Tốt | Khá | Trung bình |
+| ---: | --- | --- | :---: | :---: | :---: |
+| 1 | Khối lượng đóng góp | Phần việc tôi nhận và hoàn thành cho nhóm | ✅ | ⬜ | ⬜ |
+| 2 | Kết quả đóng góp | Những thay đổi có ích cho Ownword hoặc cho nhóm từ phần việc của tôi | ✅ | ⬜ | ⬜ |
+| 3 | Tính chủ động | Việc tự phát hiện vấn đề, đề xuất thay đổi hoặc xung phong hỗ trợ | ⬜ | ✅ | ⬜ |
+| 4 | Làm việc nhóm | Cách tôi cập nhật tiến độ, lắng nghe và hỗ trợ các bạn | ✅ | ⬜ | ⬜ |
+| 5 | Hiệu quả học tập | Cách tôi dùng thời gian khi gặp vướng mắc và chọn lúc nhờ hỗ trợ | ⬜ | ✅ | ⬜ |
+| 6 | Tiếp thu góp ý | Cách tôi dùng phản hồi để cải thiện phần việc của mình | ✅ | ⬜ | ⬜ |
+| 7 | Kiến thức AWS cơ bản | Khả năng giải thích các dịch vụ đã học dùng để làm gì và nên dùng khi nào | ✅ | ⬜ | ⬜ |
+| 8 | Áp dụng AWS vào Ownword | Mức độ phù hợp của những dịch vụ tôi tham gia triển khai với nhu cầu của dự án | ⬜ | ✅ | ⬜ |
+| 9 | Đáp ứng thời hạn | Việc giao đúng hẹn và báo sớm nếu có nguy cơ chậm | ✅ | ⬜ | ⬜ |
+| 10 | Sắp xếp ưu tiên | Khả năng chọn việc quan trọng nhất với nhóm khi có nhiều việc cùng lúc | ✅ | ⬜ | ⬜ |
+| 11 | Duy trì tiến độ | Mức độ đều đặn khi làm việc và cập nhật nhật ký hằng tuần | ✅ | ⬜ | ⬜ |
+| 12 | Chất lượng công việc | Cách tôi kiểm tra trước khi bàn giao và phần việc các bạn phải sửa thêm | ⬜ | ✅ | ⬜ |
 
 ## Phần đóng góp của tôi trong dự án Ownword
 
@@ -31,6 +37,7 @@ Tôi và các bạn trong nhóm trao đổi về những gì người học cầ
 
 ## Điều tôi muốn cải thiện
 
-Tôi sẽ bổ sung phần này sau khi xem lại dự án và phần trình bày workshop.
-
-{{% notice warning %}}Tôi vẫn đang bổ sung mức tự đánh giá và ví dụ cho từng tiêu chí.{{% /notice %}}
+- Tôi đã bỏ sót một số cách để giảm đáng kể chi phí AWS. Các bạn trong nhóm nhận ra phần lớn những điểm đó và góp ý để nhóm tránh được phương án tốn kém hơn. Lần sau, tôi muốn so sánh chi phí sớm hơn, khi vẫn còn dễ thay đổi thiết kế.
+- Lúc mới thực tập, tôi còn chậm khi tìm nguyên nhân sự cố trên AWS. Qua những lần xử lý lỗi như thiếu quyền IAM, tôi đã biết cách khoanh vùng nguyên nhân nhanh hơn. Tôi muốn ghi lại các bước đã thử rõ hơn để tránh kiểm tra đi kiểm tra lại cùng một chỗ.
+- Tôi thường thử đưa dịch vụ AWS mới học vào Ownword. Một số lựa chọn ban đầu chưa hợp với dự án, nên tôi đã thay bằng dịch vụ phù hợp hơn khi hiểu rõ nhu cầu của ứng dụng và các phương án khác. Lần sau, tôi muốn so sánh các lựa chọn theo nhu cầu của ứng dụng trước khi thêm dịch vụ.
+- Tôi cố giữ lịch sử Git gọn gàng và viết mã dễ đọc. Dù vậy, một số thay đổi của tôi vẫn gây lỗi và khiến các bạn phải mất công xử lý thêm. Tôi muốn tự rà soát kỹ hơn và báo rõ những thay đổi ảnh hưởng đến cách chạy hoặc kiểm thử ứng dụng trước khi bàn giao.

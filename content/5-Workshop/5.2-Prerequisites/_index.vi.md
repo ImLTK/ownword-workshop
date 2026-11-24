@@ -16,8 +16,7 @@ aws sts get-caller-identity
 
 | Vị trí | Dịch vụ và điều kiện |
 | --- | --- |
-| Singapore `ap-southeast-1` | Lightsail, default VPC cho peering, RDS PostgreSQL, bucket S3 riêng, CloudWatch, SNS, khóa KMS và ECR riêng tư cho phần mở rộng về phát hành |
-| Ohio `us-east-2` | Cognito user pool, app client công khai và Lambda liên kết tài khoản |
+| Singapore `ap-southeast-1` | Lightsail và kết nối peering với VPC mặc định, RDS PostgreSQL riêng tư, Cognito và Lambda liên kết tài khoản, các bucket S3 riêng tư, CloudWatch, SNS, KMS và ECR riêng tư cho phần mở rộng về phát hành |
 | Bắc Virginia `us-east-1` | Chứng chỉ ACM cho người dùng, WAF phạm vi CloudFront và vùng gửi yêu cầu cho Bedrock U.S. inference profile |
 | Toàn cầu | IAM, CloudFront distribution và DNS có thẩm quyền cho hai tên miền lab |
 

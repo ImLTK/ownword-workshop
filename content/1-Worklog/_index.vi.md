@@ -6,7 +6,7 @@ chapter: false
 pre: " <b>1.</b> "
 ---
 
-Nhật ký này ghi lại kỳ thực tập từ 14/09–14/12/2026. Mình bắt đầu với các bài AWS về tài khoản, giám sát và DNS. Những tuần sau ghi lại quá trình làm bản mẫu Ownword, triển khai bản thử nghiệm trên Lightsail và phát hành phần tài khoản. Mỗi tuần có kết quả và tài liệu mình đã ghi lại được. Những phần chưa làm vẫn được ghi là kế hoạch.
+Nhật ký này ghi lại kỳ thực tập từ 14/09–14/12/2026. Mình bắt đầu với các bài AWS về tài khoản, giám sát và DNS. Những tuần sau ghi lại quá trình làm bản mẫu Ownword, triển khai bản thử nghiệm trên Lightsail và phát hành phần tài khoản. Các mục theo tuần có ghi chép và minh chứng mình đã lưu được.
 
 1. [Tuần 1: Bắt đầu hành trình học đám mây](1.1-week1/) - 14/09–20/09/2026
 
