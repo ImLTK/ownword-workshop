@@ -56,6 +56,8 @@ Lưu mã phản hồi, dòng log CloudWatch và kết quả truy vấn làm minh
 
 **Kiểm thử cục bộ ngày 24/11/2026.** Nhóm chạy mã nguồn Workshop với PostgreSQL 16, tài khoản thử và dịch vụ mô hình giả lập. Lưu từ `lantern` trả HTTP 200. WordBoard có từ này và PostgreSQL ghi thêm một dòng `user_word` ở trạng thái `new`. Gửi `{"word":42}` trả HTTP 400 do sai kiểu dữ liệu. Tài khoản thử vẫn có đúng một dòng từ đã lưu.
 
+{{< figure src="/images/workshop/wordboard-lantern.png" alt="WordBoard: lantern" caption="WordBoard cục bộ sau lần kiểm thử ngày 24/11. Lantern là từ duy nhất đã lưu. Định nghĩa được thêm sau khi kiểm thử." >}}
+
 **Minh chứng CloudWatch.** Log Lambda tại Singapore ghi nhận hai lượt gọi ngày 24/11. Vẫn cần bổ sung dòng log xác nhận một lượt liên kết Google mới thành công.
 
 **Kết quả đã ghi nhận trên production.** Ngày 24/11, đăng nhập bằng mật khẩu tạo phiên từ pool Cognito tại Singapore, và một người dùng quay lại bằng Google vẫn thấy đủ năm từ đã lưu trong WordBoard. Các lần kiểm tra trước cũng xác nhận RDS dùng TLS, hai tuyến gọi mô hình hoạt động và bản sao đã được khôi phục trong môi trường cô lập.

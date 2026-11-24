@@ -56,6 +56,8 @@ Save the response status, the CloudWatch log line, and the relevant database row
 
 **Local validation, 24 November 2026.** On the workshop source with PostgreSQL 16, a synthetic test account and a mock model provider, saving `lantern` returned HTTP 200. The WordBoard state included the word, and PostgreSQL showed one new `user_word` row at stage `new`. Sending `{"word":42}` returned HTTP 400 with a type validation error. The test account still had exactly one saved row.
 
+{{< figure src="/images/workshop/wordboard-lantern.png" alt="WordBoard: lantern" caption="Local WordBoard after the 24 November validation. Lantern is the only saved entry. The definition was added after testing." >}}
+
 **CloudWatch evidence.** The Singapore Lambda logs showed two invocations on 24 November. A log entry confirming a successful new Google link is still pending.
 
 **Recorded production result.** On 24 November, password sign-in produced a session from the Singapore Cognito pool, and a returning Google user could still see all five saved WordBoard entries. Earlier checks also verified RDS TLS, both model routes, and an isolated backup restore.
