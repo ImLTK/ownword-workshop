@@ -8,7 +8,7 @@ pre: " <b>5.7.</b> "
 
 ## 1. Kiểm thử và xác thực lab {#1-chạy-các-bước-kiểm-tra-của-lab}
 
-Dùng URL công khai của lab do bạn triển khai và một tài khoản thử mới. Với mỗi bước, ghi lại ngày, yêu cầu đã gửi, kết quả quan sát và minh chứng.
+Dùng URL công khai của lab do bạn triển khai và một tài khoản thử mới. Với mỗi bước, ghi lại yêu cầu đã gửi, kết quả quan sát và minh chứng.
 
 ### Gửi yêu cầu hợp lệ và kiểm tra cơ sở dữ liệu
 
@@ -54,13 +54,13 @@ Kết quả mong đợi là **HTTP 400** kèm thông báo lỗi dữ liệu đ�
 
 Lưu mã phản hồi, dòng log CloudWatch và kết quả truy vấn làm minh chứng. Che thông tin định danh tài khoản và dữ liệu riêng trước khi chia sẻ. [Sao lưu, khôi phục và kiểm tra cảnh báo](../5.6-operations/) là các bài kiểm tra bổ sung trong chương vận hành.
 
-**Kiểm thử cục bộ ngày 24/11/2026.** Nhóm chạy mã nguồn Workshop với PostgreSQL 16, tài khoản thử và dịch vụ mô hình giả lập. Lưu từ `lantern` trả HTTP 200. WordBoard có từ này và PostgreSQL ghi thêm một dòng `user_word` ở trạng thái `new`. Gửi `{"word":42}` trả HTTP 400 do sai kiểu dữ liệu. Tài khoản thử vẫn có đúng một dòng từ đã lưu.
+**Kiểm thử cục bộ.** Nhóm chạy mã nguồn Workshop với PostgreSQL 16, tài khoản thử và dịch vụ mô hình giả lập. Lưu từ `lantern` trả HTTP 200. WordBoard có từ này và PostgreSQL ghi thêm một dòng `user_word` ở trạng thái `new`. Gửi `{"word":42}` trả HTTP 400 do sai kiểu dữ liệu. Tài khoản thử vẫn có đúng một dòng từ đã lưu.
 
-{{< figure src="/images/workshop/wordboard-lantern.png" alt="WordBoard: lantern" caption="WordBoard cục bộ sau lần kiểm thử ngày 24/11. Lantern là từ duy nhất đã lưu. Định nghĩa được thêm sau khi kiểm thử." >}}
+{{< figure src="/images/workshop/wordboard-lantern.png" alt="WordBoard: lantern" caption="WordBoard cục bộ sau khi kiểm thử. Lantern là từ duy nhất đã lưu. Định nghĩa được thêm sau khi kiểm thử." >}}
 
-**Minh chứng CloudWatch.** Log Lambda tại Singapore ghi nhận hai lượt gọi ngày 24/11. Vẫn cần bổ sung dòng log xác nhận một lượt liên kết Google mới thành công.
+**Minh chứng CloudWatch.** Log Lambda tại Singapore ghi nhận hai lượt gọi. Vẫn cần bổ sung dòng log xác nhận một lượt liên kết Google mới thành công.
 
-**Kết quả đã ghi nhận trên production.** Ngày 24/11, đăng nhập bằng mật khẩu tạo phiên từ pool Cognito tại Singapore, và một người dùng quay lại bằng Google vẫn thấy đủ năm từ đã lưu trong WordBoard. Các lần kiểm tra trước cũng xác nhận RDS dùng TLS, hai tuyến gọi mô hình hoạt động và bản sao đã được khôi phục trong môi trường cô lập.
+**Kết quả đã ghi nhận trên production.** Đăng nhập bằng mật khẩu tạo phiên từ pool Cognito tại Singapore, và một người dùng quay lại bằng Google vẫn thấy đủ năm từ đã lưu trong WordBoard. Các lần kiểm tra trước cũng xác nhận RDS dùng TLS, hai tuyến gọi mô hình hoạt động và bản sao đã được khôi phục trong môi trường cô lập.
 
 ## 2. Dự toán và tối ưu chi phí hằng tháng {#2-lập-dự-toán-hằng-tháng}
 
