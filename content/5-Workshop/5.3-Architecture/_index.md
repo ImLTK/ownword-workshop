@@ -22,6 +22,16 @@ pre: " <b>5.3.</b> "
 
 A push to `release/lightsail` starts GitHub Actions. The workflow checks the code, builds a Docker image, and uses short-lived AWS credentials through GitHub OIDC to publish it to private Amazon ECR in Singapore. Lightsail checks ECR every two minutes. On a new image, it pulls the exact digest, runs migrations against RDS, and checks the home and sign-in routes after restarting the app. If startup fails, it restores the previous app image.
 
+## AWS Well-Architected pillar alignment
+
+| Pillar | How Ownword applies it |
+|---|---|
+| Operational excellence | GitHub Actions checks TypeScript and tests before building immutable ECR images, and Lightsail pulls releases by digest with automatic rollback on failed health checks. Hourly `BackupFresh` metrics and a CloudWatch alarm surface backup issues early. |
+| Security | CloudFront and AWS WAF sit in front of the origin. RDS runs in a private subnet with encryption at rest, security-group ingress restricted to the Lightsail private `/32`, and `verify-full` TLS. Cognito uses PKCE for OAuth, model keys stay on the server, and IAM policies separate Bedrock, S3 backup, and account-linking permissions. |
+| Reliability | Moving PostgreSQL off the Lightsail host into RDS separates application and database failures. Daily `pg_dump` archives are copied to versioned private S3 with SHA-256 verification and tested via isolated container restores, while the backup alarm treats missing data as breaching. The Single-AZ database is a deliberate pilot tradeoff documented with its recovery path. |
+| Performance efficiency | CloudFront terminates viewer HTTPS at edge locations and forwards requests to Singapore (`ap-southeast-1`) close to target learners. RDS runs on ARM-based `db.t4g.micro` (Graviton) with gp3 storage, and the app reuses saved Bedrock concept-search results on repeat lookups to avoid unnecessary model latency. |
+| Cost optimization | Fixed hosting stays predictable on a 2 GB Lightsail bundle and Single-AZ `db.t4g.micro`. Repeat concept-search caching, output-token limits, OpenRouter spend caps, S3 lifecycle expiration (30 days current, 7 days noncurrent), and ECR image retention keep variable costs bounded. See [chapter 5.7](../5.7-verification/#2-build-a-monthly-cost-estimate). |
+
 ## Deployment used in the lab
 
 Start by setting up Lightsail and private RDS with your own lab resources. You'll use two DNS names. Cognito sends users back to the public hostname after sign-in, and Caddy serves the origin hostname. A separate PostgreSQL role reads the data for backups. Later, you'll try a restore in an isolated PostgreSQL container.
