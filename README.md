@@ -1,34 +1,39 @@
-# Ownword FCAJ Workshop Report (Gi Group Team Template)
+# Mẫu báo cáo thực tập Ownword cho các thành viên Gi Group
 
-This folder contains everything needed to host your own bilingual (English + Vietnamese) FCAJ internship report on GitHub Pages.
+Thư mục này có sẵn toàn bộ mã nguồn để bạn tự tạo và đăng trang báo cáo thực tập song ngữ (tiếng Anh và tiếng Việt) lên GitHub Pages.
 
-## What is already shared (keep intact)
+## Phần dùng chung của nhóm (giữ nguyên)
 
-- `content/2-Proposal/` (Proposal, EN & VI)
-- `content/3-BlogsPosted/` (3 shared AWS Study Group posts, EN & VI)
-- `content/5-Workshop/` (Ownword AWS Workshop 5.1-5.7, architecture diagram, cost estimate, verification, EN & VI)
+Ba phần dưới đây cả nhóm dùng chung nên bạn không cần viết lại:
 
-## What YOU MUST replace before submitting
+- Đề xuất dự án (`content/2-Proposal/`)
+- Ba bài blog đã đăng trên AWS Study Group (`content/3-BlogsPosted/`)
+- Toàn bộ bài Workshop triển khai Ownword trên AWS (`content/5-Workshop/`), gồm sơ đồ kiến trúc, bảng chi phí và kết quả kiểm chứng
 
-1. `config.toml`: replace `[YOUR FULL NAME]` in `description` and `author`.
-2. `content/_index.md` and `content/_index.vi.md`: fill in your student details and replace `static/images/profile-placeholder.svg` if you want to include a profile photo.
-3. `content/1-Worklog/` (Weeks 1-12, EN & VI): replace all placeholders with your own weekly/daily tasks, evidence, and screenshots (put your own screenshots in `static/images/worklog/`).
-4. `content/4-EventParticipated/` (EN & VI): **REWRITE THE ENTIRE EVENTS SECTION** with your own 3 events and your own check-in photos with your face clearly visible (replace the sample files in `static/images/events/`).
-5. `content/6-Self-evaluation/` (EN & VI): mark your own ratings (`✅`) and write your own contributions and areas to improve.
-6. `content/7-Feedback/` (EN & VI): write your own internship reflection and feedback.
+## Những việc bạn cần tự làm trước khi nộp
 
-## Preview locally
+Các phần dưới đây bắt buộc phải là nội dung riêng của từng người. Mọi trang đều có hai bản: file `.md` cho tiếng Anh và file `.vi.md` cho tiếng Việt.
 
-Install [Hugo Extended 0.134.3](https://github.com/gohugoio/hugo/releases/tag/v0.134.3) and run from this folder:
+1. Điền tên và thông tin cá nhân của bạn. Đổi dòng `[YOUR FULL NAME]` trong `config.toml` thành tên bạn, sau đó điền họ tên, số điện thoại, email, trường và chuyên ngành ở trang chủ (`content/_index.md` và `content/_index.vi.md`). Nếu muốn hiển thị ảnh chân dung, thay tệp `static/images/profile-placeholder.svg` bằng ảnh của bạn.
+2. Viết lại nhật ký công việc từ Tuần 1 đến Tuần 12 (`content/1-Worklog/`). Thay các ô mẫu bằng công việc bạn đã học và làm mỗi tuần, gắn ảnh chụp màn hình bài lab của riêng bạn vào thư mục `static/images/worklog/` và nhớ che Account ID hoặc thông tin riêng tư.
+3. Viết lại hoàn toàn mục Sự kiện đã tham gia (`content/4-EventParticipated/`). Xóa 3 sự kiện mẫu và thay bằng 3 sự kiện bạn thực sự tham dự, kèm bài viết của chính bạn và ảnh check-in thấy rõ khuôn mặt (thay các ảnh cũ trong `static/images/events/`).
+4. Làm phần Tự đánh giá (`content/6-Self-evaluation/`). Đổi ô `⬜` sang `✅` ở mức phù hợp với bạn, sau đó tự viết phần đóng góp của bạn trong dự án Ownword và những điểm muốn cải thiện.
+5. Viết phần Chia sẻ và góp ý (`content/7-Feedback/`) theo trải nghiệm thực tập của riêng bạn.
+
+## Xem thử báo cáo trên máy
+
+Nếu muốn mở xem giao diện trước khi đưa lên mạng, tải [Hugo Extended 0.134.3](https://github.com/gohugoio/hugo/releases/tag/v0.134.3) rồi chạy lệnh sau ngay tại thư mục này:
 
 ```sh
 hugo server --bind 127.0.0.1
 ```
 
-## Publish to your own GitHub Pages
+Mở đường dẫn hiện trên terminal (thường là `http://127.0.0.1:1313/`) để kiểm tra cả bản tiếng Anh và tiếng Việt.
 
-1. Push this folder to your own GitHub repository.
-2. When all personal sections are filled in and verified, create an empty `REPORT_READY.md` file in the repository root and push it.
-3. In GitHub **Settings -> Pages**, set the source branch to `gh-pages`.
-4. Run **Actions -> Deploy Hugo site to GitHub Pages** manually.
-5. Submit your hosted GitHub Pages report URL in **FCAJ Portal -> Workshop Submission** (keep `https://app.ownword.co/` inside the report as demo evidence).
+## Đưa báo cáo lên GitHub Pages và nộp bài
+
+1. Tạo một kho GitHub riêng của bạn và đẩy toàn bộ thư mục này lên đó.
+2. Sau khi đã thay hết các phần cá nhân và kiểm tra kỹ hai ngôn ngữ, tạo một tệp trống tên là `REPORT_READY.md` ngay tại thư mục gốc rồi commit và push lên GitHub. Tệp này là chốt kiểm tra để tránh đăng nhầm bản chưa làm xong.
+3. Trong phần Settings -> Pages của kho GitHub, chọn nhánh nguồn là `gh-pages`.
+4. Mở tab Actions, chọn workflow Deploy Hugo site to GitHub Pages và bấm chạy thủ công.
+5. Mở link GitHub Pages của bạn kiểm tra lần cuối, rồi nộp link đó vào mục Workshop Submission trên FCAJ Portal. Link demo ứng dụng `https://app.ownword.co/` đã gắn sẵn bên trong báo cáo, không nộp link app thay cho link báo cáo.
