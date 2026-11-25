@@ -1,0 +1,5 @@
+public/
+.build-check/
+.tools/
+__pycache__/
+.hugo_build.lock

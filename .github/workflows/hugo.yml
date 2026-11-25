@@ -1,0 +1,44 @@
+name: Deploy Hugo site to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source and theme
+        uses: actions/checkout@v4
+
+      - name: Require completed report sign-off
+        run: test -f REPORT_READY.md
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.134.3"
+          extended: true
+
+      - name: Build bilingual report
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          owner="${REPOSITORY%%/*}"
+          repo="${REPOSITORY#*/}"
+          if [[ "$repo" == "${owner}.github.io" ]]; then
+            base="https://${owner}.github.io/"
+          else
+            base="https://${owner}.github.io/${repo}/"
+          fi
+          hugo --minify --baseURL "$base"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          force_orphan: true

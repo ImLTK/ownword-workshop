@@ -1,0 +1,41 @@
+baseURL = "/"
+relativeURLs = false
+canonifyURLs = true
+defaultContentLanguage = "en"
+theme = "hugo-theme-learn"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[params]
+  themeVariant = "workshop"
+  description = "Ownword internship report by [YOUR FULL NAME]"
+  author = "[YOUR FULL NAME]"
+  showVisitedLinks = true
+  disableBreadcrumb = false
+  disableNextPrev = false
+
+[languages]
+  [languages.en]
+    title = "Ownword | Internship report"
+    weight = 1
+    languageName = "English"
+    [[languages.en.menu.shortcuts]]
+      name = "<i class='fab fa-facebook'></i> AWS Study Group"
+      identifier = "aws-study-group"
+      url = "https://www.facebook.com/groups/awsstudygroupfcj/"
+      weight = 20
+  [languages.vi]
+    title = "Ownword | Báo cáo thực tập"
+    weight = 2
+    languageName = "Tiếng Việt"
+    [[languages.vi.menu.shortcuts]]
+      name = "<i class='fab fa-facebook'></i> AWS Study Group"
+      identifier = "aws-study-group"
+      url = "https://www.facebook.com/groups/awsstudygroupfcj/"
+      weight = 20
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

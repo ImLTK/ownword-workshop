@@ -1,0 +1,5 @@
+{{- $src := printf "images/events/%s" (.Get "file") | relURL -}}
+<figure>
+  <a href="{{ $src }}"><img src="{{ $src }}" alt="{{ .Get "alt" }}" loading="lazy"></a>
+  <figcaption>{{ .Get "caption" }}</figcaption>
+</figure>
