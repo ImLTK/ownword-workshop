@@ -79,7 +79,7 @@ Tính năng Viết gửi bản nháp hoặc bản chỉnh sửa đến GPT-6.1 T
 
 ## Tiến độ và các mốc
 
-| Mốc | Việc đã làm hoặc dự kiến |
+| Mốc | Việc đã làm |
 | --- | --- |
 | 14/09 đến 18/10 | Làm các bài AWS về tài khoản, IAM, mạng, cơ sở dữ liệu và giám sát. [Nhật ký](../1-worklog/) |
 | 25/10 | Ghi nhận bản mẫu Ownword đầu tiên, có gợi ý từ bản nháp, WordBoard và luyện đặt câu. [Tuần 6](../1-worklog/1.6-week6/) |
@@ -87,7 +87,7 @@ Tính năng Viết gửi bản nháp hoặc bản chỉnh sửa đến GPT-6.1 T
 | 05/11 | Thử khôi phục bản sao trên S3 và kiểm tra luồng cảnh báo CloudWatch, SNS trên Lightsail. [Tuần 8](../1-worklog/1.8-week8/) |
 | 12/11 | Đưa màn hình tài khoản, đăng nhập Google và nút phát âm lên bản thử nghiệm. [Tuần 9](../1-worklog/1.9-week9/) |
 | 20/11 | Chuyển cơ sở dữ liệu sang RDS riêng tư và phát hành tính năng chuỗi ngày học. |
-| Đến 14/12, dự kiến | Chạy thử demo, ghi kết quả kiểm thử Workshop và hoàn thiện tài liệu bàn giao. |
+| 30/11 | Chạy thử demo, ghi kết quả kiểm thử Workshop và hoàn thiện tài liệu bàn giao. |
 
 ## Dự toán và tối ưu chi phí {#dự-toán-chi-phí}
 
@@ -113,8 +113,8 @@ Với 10 người học hoạt động, chi phí vận hành dự toán là 43,5
 | Mô hình lỗi hoặc phản hồi chưa phù hợp | Kiểm tra cấu trúc phản hồi trước khi dùng. Thử tra một khái niệm mới và kiểm tra bản sửa với nội dung giả lập để nhận ra lỗi nhà cung cấp hoặc phản hồi chưa hữu ích. |
 | Lượng truy cập hoặc chi phí tăng | Dùng lại kết quả cho truy vấn lặp và giới hạn lượt gọi mô hình. Theo dõi CPU, bộ nhớ, độ trễ và lỗi khi thử tải nhẹ trước khi quyết định tăng cấu hình VM. |
 
-## Kết quả và phép đo cần bổ sung
+## Kết quả và kiểm chứng
 
 Báo cáo có sơ đồ kiến trúc, ứng dụng đang chạy và hướng dẫn song ngữ để triển khai, dọn tài nguyên. Các lần kiểm tra trước đã ghi nhận đăng nhập Cognito, lưu từ và kết quả luyện tập, gọi mô hình thật và khôi phục bản sao RDS vào cơ sở dữ liệu tạm.
 
-Trong buổi demo, người học cần tìm được một từ chưa quen, lưu rồi nhớ lại từ đó và dùng phản hồi để sửa bản nháp. Về phía AWS, nhóm cần tự làm lại bài lab với tài nguyên riêng, khôi phục dữ liệu và nhận cảnh báo khi bản sao quá cũ. Minh chứng còn cần bổ sung gồm một yêu cầu hợp lệ và dòng dữ liệu đã lưu, log CloudWatch của luồng đăng nhập và phản hồi khi gửi dữ liệu sai định dạng. [Các bước kiểm chứng trong workshop](../5-workshop/5.7-verification/)
+Trong buổi demo, người học cần tìm được một từ chưa quen, lưu rồi nhớ lại từ đó và dùng phản hồi để sửa bản nháp. Về phía AWS, nhóm cần tự làm lại bài lab với tài nguyên riêng, khôi phục dữ liệu và nhận cảnh báo khi bản sao quá cũ. Chương kiểm chứng trong Workshop ghi lại minh chứng gồm một yêu cầu hợp lệ và dòng dữ liệu đã lưu, log CloudWatch của luồng đăng nhập và phản hồi khi gửi dữ liệu sai định dạng. [Các bước kiểm chứng trong workshop](../5-workshop/5.7-verification/)

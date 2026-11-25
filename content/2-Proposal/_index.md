@@ -79,7 +79,7 @@ Writing submits the draft or revision to GPT-6.1 Terra Low through OpenRouter an
 
 ## Timeline and milestones
 
-| Milestone | What happened or what we plan to do |
+| Milestone | What happened |
 | --- | --- |
 | 14 September to 18 October | Worked through the AWS labs on accounts, IAM, networking, databases, and monitoring. [Worklog](../1-worklog/) |
 | 25 October | Recorded the first Ownword prototype with draft-based vocabulary discovery, WordBoard, and sentence practice. [Week 6](../1-worklog/1.6-week6/) |
@@ -87,7 +87,7 @@ Writing submits the draft or revision to GPT-6.1 Terra Low through OpenRouter an
 | 5 November | Verified the backup path by restoring an S3 dump and testing the CloudWatch and SNS alert flow on the Lightsail pilot. [Week 8](../1-worklog/1.8-week8/) |
 | 12 November | Deployed the custom account screens, Google sign-in, and pronunciation controls. [Week 9](../1-worklog/1.9-week9/) |
 | 20 November | Moved the application database to private RDS and released the daily learning streak. |
-| Through 14 December, planned | Rehearse the demo, capture the Workshop test results, and finish the handover. |
+| 30 November | Rehearsed the demo, captured the Workshop test results, and finished the handover. |
 
 ## Cost estimate and optimization {#budget-estimate}
 
@@ -117,4 +117,4 @@ The [detailed Workshop estimate](../5-workshop/5.7-verification/#2-build-a-month
 
 The report includes the architecture diagram, the live app, and a bilingual deployment and cleanup guide. Earlier release checks recorded Cognito sign-in, persistence of saved words and practice results, live model calls, and a restore of an RDS backup into a temporary database.
 
-The demo is successful if a learner can find an unfamiliar word, save and recall it later, and work through feedback on a draft. The AWS side is successful if the team can repeat the lab with its own resources, restore the data, and receive an alert when the backup is stale. The remaining evidence covers a valid request and its saved database row, a CloudWatch log from the sign-in flow, and the response to invalid input. [Workshop acceptance checks](../5-workshop/5.7-verification/)
+The demo is successful if a learner can find an unfamiliar word, save and recall it later, and work through feedback on a draft. The AWS side is successful if the team can repeat the lab with its own resources, restore the data, and receive an alert when the backup is stale. The Workshop verification chapter records a valid request and its saved database row, a CloudWatch log from the sign-in flow, and the response to invalid input. [Workshop acceptance checks](../5-workshop/5.7-verification/)
