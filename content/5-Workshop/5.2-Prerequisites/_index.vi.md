@@ -26,7 +26,7 @@ Trước khi tạo máy Lightsail hoặc RDS, xác minh checksum ở mục 2, qu
 
 ## 2. Lấy mã nguồn và chuẩn bị công cụ
 
-Xin tệp `ownword-lab-source-c8a903e.tar.gz` từ người phụ trách qua kênh chia sẻ mã nguồn của dự án. Gói lab dựa trên commit `c8a903e` của nhánh `release/lightsail`. Trong tệp có cấu hình Compose ghi đè cho RDS, bảy migration PostgreSQL đến tính năng Writing Focus, phần gọi Bedrock, tuyến đánh giá bài viết và script triển khai, sao lưu RDS. Trên máy cá nhân, dùng Bash hoặc Git Bash có `ssh`, `scp`, `tar`, `sha256sum` và `curl`. Giữ khóa SSH bí mật của Lightsail trên máy này.
+Tải trực tiếp {{< workshop-download "downloads/ownword-lab-source-c8a903e.tar.gz" "ownword-lab-source-c8a903e.tar.gz" >}} từ bài workshop này (hoặc từ thư mục `static/downloads/` trong kho mã nguồn). Gói lab dựa trên commit `c8a903e` của nhánh `release/lightsail`. Trong tệp có cấu hình Compose ghi đè cho RDS, bảy migration PostgreSQL đến tính năng Writing Focus, phần gọi Bedrock, tuyến đánh giá bài viết và script triển khai, sao lưu RDS. Trên máy cá nhân, dùng Bash hoặc Git Bash có `ssh`, `scp`, `tar`, `sha256sum` và `curl`. Giữ khóa SSH bí mật của Lightsail trên máy này.
 
 Mở terminal ở thư mục chứa tệp.
 
