@@ -26,7 +26,7 @@ Before creating Lightsail or RDS, verify the checksum in section 2, DNS access f
 
 ## 2. Get the source and workstation tools
 
-Ask the workshop owner for `ownword-lab-source-c8a903e.tar.gz` through the project's source-access channel. This lab bundle is based on Ownword commit `c8a903e` from `release/lightsail`. It contains the RDS Compose override, seven PostgreSQL migrations through Writing Focus, the Bedrock concept adapter, the Writing route, and the deployment and RDS backup scripts. On your workstation, use Bash or Git Bash with `ssh`, `scp`, `tar`, `sha256sum` and `curl`. Keep the Lightsail SSH private key on that machine.
+Download {{< workshop-download "downloads/ownword-lab-source-c8a903e.tar.gz" "ownword-lab-source-c8a903e.tar.gz" >}} directly from this workshop (or from `static/downloads/` in the repository). This lab bundle is based on Ownword commit `c8a903e` from `release/lightsail`. It contains the RDS Compose override, seven PostgreSQL migrations through Writing Focus, the Bedrock concept adapter, the Writing route, and the deployment and RDS backup scripts. On your workstation, use Bash or Git Bash with `ssh`, `scp`, `tar`, `sha256sum` and `curl`. Keep the Lightsail SSH private key on that machine.
 
 Open a shell in the directory that contains the archive.
 
