@@ -29,15 +29,17 @@ Trong kỳ thực tập First Cloud AI Journey, tôi cùng nhóm xây dựng Own
 
 ## Phần đóng góp của tôi trong dự án Ownword
 
-Tôi và các bạn trong nhóm trao đổi về những gì người học cần ở Ownword. Tôi xác định cách các tính năng từ vựng và luyện tập nên hoạt động, rồi dùng Codex để hỗ trợ xây dựng và chỉnh sửa. Tôi cũng tham gia cấu hình và kiểm tra hệ thống thử nghiệm trên AWS.
+Tôi và các bạn trong nhóm trao đổi về những gì người học cần ở Ownword. Tôi xác định cách các tính năng từ vựng và luyện tập nên hoạt động, dùng Codex để hỗ trợ xây dựng và chỉnh sửa, đồng thời tham gia cấu hình và kiểm tra hệ thống thử nghiệm trên AWS.
 
-- **Từ vựng và WordBoard.** Tôi thấy từ thêm thủ công bị trống định nghĩa trên WordBoard và trong thẻ ôn tập. Tôi đề xuất lưu từ ngay rồi để ứng dụng bổ sung định nghĩa trong nền. Tôi cũng đề xuất hiện nghĩa tiếng Việt ngay trong danh sách gợi ý đầu tiên và dùng nút phát âm nhỏ hơn trên các thẻ WordBoard.
-- **Luyện tập và thẻ ôn tập.** Tôi xác định cách lật và chuyển thẻ bằng bàn phím, cách chạm để lật thẻ trên điện thoại, đồng thời báo lỗi gợi ý chữ cái đầu tự xuất hiện trước khi người học yêu cầu. Với bài đặt câu, tôi đề xuất cho người học tự chọn chủ đề miễn là dùng từ đúng ngữ cảnh. Từ yêu cầu đó, nhóm bỏ chủ đề định sẵn khỏi dữ liệu gửi cho mô hình chấm câu.
-- **Cấu hình và kiểm tra trên AWS.** Tôi cấu hình Google làm nhà cung cấp danh tính trong Amazon Cognito, chạy lệnh triển khai liên kết tài khoản trên AWS CloudShell và kiểm tra rằng sau khi đăng nhập bằng Google, người dùng vẫn mở được WordBoard đã có. Tôi cũng chạy lệnh thiết lập sao lưu trên S3, áp dụng bản sửa cấu hình KMS cho kênh cảnh báo vận hành và xác nhận đã nhận được email cảnh báo thử sau khi sửa.
+Ở phần từ vựng và WordBoard, tôi thấy các từ thêm thủ công bị trống định nghĩa trên WordBoard và trong thẻ ôn tập, nên đề xuất lưu từ ngay rồi để ứng dụng tự bổ sung định nghĩa trong nền. Ngoài ra, tôi đề xuất hiển thị nghĩa tiếng Việt ngay trong danh sách gợi ý đầu tiên và dùng nút phát âm nhỏ hơn trên thẻ WordBoard.
+
+Với phần luyện tập và thẻ ôn tập, tôi xác định cách lật và chuyển thẻ bằng bàn phím, thao tác chạm để lật thẻ trên điện thoại, đồng thời báo lỗi gợi ý chữ cái đầu tự xuất hiện trước khi người học yêu cầu. Trong bài đặt câu, người học cần được tự chọn chủ đề miễn là dùng từ đúng ngữ cảnh; từ yêu cầu đó, nhóm bỏ chủ đề định sẵn khỏi dữ liệu gửi cho mô hình chấm câu.
+
+Ở phần cấu hình và kiểm tra trên AWS, tôi thiết lập Google làm nhà cung cấp danh tính trong Amazon Cognito, chạy lệnh triển khai liên kết tài khoản trên AWS CloudShell và kiểm tra để chắc chắn đăng nhập bằng Google vẫn mở đúng WordBoard đã có. Bên cạnh đó, tôi chạy lệnh thiết lập sao lưu trên S3, áp dụng bản sửa cấu hình KMS cho kênh cảnh báo vận hành và xác nhận email cảnh báo thử đã đến hộp thư sau khi sửa.
 
 ## Điều tôi muốn cải thiện
 
-- Tôi đã bỏ sót một số cách để giảm đáng kể chi phí AWS. Các bạn trong nhóm nhận ra phần lớn những điểm đó và góp ý để nhóm tránh được phương án tốn kém hơn. Lần sau, tôi muốn so sánh chi phí sớm hơn, khi vẫn còn dễ thay đổi thiết kế.
-- Lúc mới thực tập, tôi còn chậm khi tìm nguyên nhân sự cố trên AWS. Qua những lần xử lý lỗi như thiếu quyền IAM, tôi đã biết cách khoanh vùng nguyên nhân nhanh hơn. Tôi muốn ghi lại các bước đã thử rõ hơn để tránh kiểm tra đi kiểm tra lại cùng một chỗ.
-- Tôi thường thử đưa dịch vụ AWS mới học vào Ownword. Một số lựa chọn ban đầu chưa hợp với dự án, nên tôi đã thay bằng dịch vụ phù hợp hơn khi hiểu rõ nhu cầu của ứng dụng và các phương án khác. Lần sau, tôi muốn so sánh các lựa chọn theo nhu cầu của ứng dụng trước khi thêm dịch vụ.
-- Tôi cố giữ lịch sử Git gọn gàng và viết mã dễ đọc. Dù vậy, một số thay đổi của tôi vẫn gây lỗi và khiến các bạn phải mất công xử lý thêm. Tôi muốn tự rà soát kỹ hơn và báo rõ những thay đổi ảnh hưởng đến cách chạy hoặc kiểm thử ứng dụng trước khi bàn giao.
+- Tôi đã bỏ sót một số cách giảm đáng kể chi phí AWS. Phần lớn những điểm đó do các bạn trong nhóm phát hiện và góp ý, nhờ vậy nhóm tránh được phương án tốn kém hơn. Sau này, tôi cần so sánh chi phí sớm hơn, khi thiết kế vẫn còn dễ thay đổi.
+- Thời gian đầu thực tập, tôi tìm nguyên nhân sự cố trên AWS khá chậm. Qua những lần xử lý lỗi như thiếu quyền IAM, tôi đã biết cách khoanh vùng nguyên nhân nhanh hơn, nhưng vẫn cần ghi lại các bước đã thử rõ hơn để tránh kiểm tra lặp lại cùng một chỗ.
+- Mỗi khi học được dịch vụ AWS mới, tôi hay thử đưa ngay vào Ownword. Một vài lựa chọn ban đầu chưa hợp với dự án và phải thay lại khi tôi hiểu rõ hơn nhu cầu ứng dụng cùng các phương án khác. Lần sau, trước khi thêm dịch vụ nào, tôi nên so sánh các lựa chọn theo nhu cầu của ứng dụng.
+- Dù tôi cố giữ lịch sử Git gọn gàng và viết mã dễ đọc, một số thay đổi vẫn gây lỗi khiến các bạn phải mất công xử lý thêm. Trước khi bàn giao, tôi cần tự rà soát kỹ hơn và báo rõ những thay đổi ảnh hưởng đến cách chạy hoặc kiểm thử ứng dụng.

@@ -18,12 +18,12 @@ Buổi khởi động mở đầu bằng mục tiêu thử thách và cách ch�
 
 | Giờ địa phương | Nội dung |
 |---|---|
-| 09:00–09:30 | Giới thiệu thử thách, tiêu chí chấm, AWS và AI tạo sinh |
-| 09:30–09:45 | Làm quen và kết nối với người tham dự |
-| 09:45–10:30 | Tọa đàm nghề nghiệp cloud và AI với người trong ngành |
-| 10:30–10:45 | Hỏi đáp về AWS, AI tạo sinh, chứng chỉ và thử thách |
-| 10:45–11:15 | Thực hành AI agent với prompt, kho tri thức và truy xuất tài liệu |
-| 11:15–11:20 | Tổng kết và giới thiệu tài liệu học tiếp |
+| 09:00-09:30 | Giới thiệu thử thách, tiêu chí chấm, AWS và AI tạo sinh |
+| 09:30-09:45 | Làm quen và kết nối với người tham dự |
+| 09:45-10:30 | Tọa đàm nghề nghiệp cloud và AI với người trong ngành |
+| 10:30-10:45 | Hỏi đáp về AWS, AI tạo sinh, chứng chỉ và thử thách |
+| 10:45-11:15 | Thực hành AI agent với prompt, kho tri thức và truy xuất tài liệu |
+| 11:15-11:20 | Tổng kết và giới thiệu tài liệu học tiếp |
 
 {{< event-photo file="cmc.jpg" alt="Ảnh nhóm cạnh bảng tên CMC Global và First Cloud AI Journey" caption="Ảnh nhóm tại buổi khởi động Buildrathon ở Bitexco Financial Tower." >}}
 

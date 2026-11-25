@@ -22,7 +22,7 @@ Mình thích được thử các dịch vụ AWS cùng các bạn trong nhóm. C
 
 ## Định hướng nghề nghiệp
 
-Mình muốn trở thành kỹ sư AI, và kỳ thực tập tại AWS là một bước theo hướng đó. Nhiều ứng dụng AI chạy trên đám mây. Qua Ownword, mình có dịp hiểu rõ hơn cần làm gì để đưa một ứng dụng đến tay người dùng.
+Mình muốn trở thành kỹ sư AI, và kỳ thực tập tại AWS giúp mình tiến gần hơn tới mục tiêu đó. Nhiều ứng dụng AI chạy trên đám mây. Qua Ownword, mình có dịp hiểu rõ hơn cần làm gì để đưa một ứng dụng đến tay người dùng.
 
 ## Một đề xuất
 

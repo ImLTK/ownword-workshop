@@ -24,7 +24,7 @@ Trong buổi trò chuyện của First Cloud AI Journey, Tiến sĩ Vogels kể 
 
 ### Bắt đầu từ cách ứng dụng đọc và ghi dữ liệu
 
-Sau một sự cố vào mùa mua sắm cao điểm, Amazon xem lại những thao tác ứng dụng thường gửi đến cơ sở dữ liệu. Nhiều yêu cầu chỉ cần tìm theo khóa, như lấy giỏ hàng theo mã định danh. Quan sát đó góp phần dẫn đến Dynamo, hệ thống lưu trữ khóa–giá trị phân tán của Amazon và là một trong những nền tảng ý tưởng của DynamoDB. Dynamo ưu tiên tính sẵn sàng cho các thao tác này và quản lý phiên bản dữ liệu để hỗ trợ xử lý khi nhiều lượt ghi xung đột. Từ ví dụ đó, mình sẽ liệt kê các luồng đọc và ghi thường gặp trước khi chọn cơ sở dữ liệu, đồng thời nghĩ đến cách ứng dụng xử lý dữ liệu chưa cập nhật hoặc thao tác ghi được thử lại.
+Sau một sự cố vào mùa mua sắm cao điểm, Amazon xem lại những thao tác ứng dụng thường gửi đến cơ sở dữ liệu. Nhiều yêu cầu chỉ cần tìm theo khóa, như lấy giỏ hàng theo mã định danh. Quan sát đó góp phần dẫn đến Dynamo, hệ thống lưu trữ khóa-giá trị phân tán của Amazon và là một trong những nền tảng ý tưởng của DynamoDB. Dynamo ưu tiên tính sẵn sàng cho các thao tác này và quản lý phiên bản dữ liệu để hỗ trợ xử lý khi nhiều lượt ghi xung đột. Từ ví dụ đó, mình sẽ liệt kê các luồng đọc và ghi thường gặp trước khi chọn cơ sở dữ liệu, đồng thời nghĩ đến cách ứng dụng xử lý dữ liệu chưa cập nhật hoặc thao tác ghi được thử lại.
 
 ### Đo các yêu cầu chậm và diễn tập khôi phục
 
@@ -38,7 +38,7 @@ Tiến sĩ Vogels cũng nói về việc trả tiền theo mức sử dụng và
 
 ### Giữ trách nhiệm kỹ thuật khi dùng AI
 
-Hình mẫu “Renaissance developer” của Vogels kết hợp chuyên môn sâu với sự tò mò, tư duy hệ thống và khả năng giao tiếp. Mình hiểu điều này là cần biết các phần lân cận hoạt động ra sao để lường được tác động của một thay đổi. Nếu AI hỗ trợ viết một phần của luồng đăng nhập, kỹ sư vẫn cần hiểu cách phiên đăng nhập hoạt động, xem lại quyền truy cập và thử cả trường hợp đăng nhập thành công lẫn thất bại.
+Hình mẫu "Renaissance developer" của Vogels kết hợp chuyên môn sâu với sự tò mò, tư duy hệ thống và khả năng giao tiếp. Mình hiểu điều này là cần biết các phần lân cận hoạt động ra sao để lường được tác động của một thay đổi. Nếu AI hỗ trợ viết một phần của luồng đăng nhập, kỹ sư vẫn cần hiểu cách phiên đăng nhập hoạt động, xem lại quyền truy cập và thử cả trường hợp đăng nhập thành công lẫn thất bại.
 
 ## Liên hệ với Ownword
 

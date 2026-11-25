@@ -12,7 +12,7 @@ Ownword dành cho người học tiếng Anh nhận ra nhiều từ khi đọc n
 
 Bản thử nghiệm chạy trên AWS. Amazon Bedrock dùng Kimi K3.1 Pro để tra từ theo khái niệm, còn OpenRouter cung cấp mô hình cho việc đánh giá bản nháp và kiểm tra bản chỉnh sửa. Người đọc có thể thử [ứng dụng đang chạy](https://app.ownword.co/) hoặc tự triển khai theo [workshop song ngữ](../5-workshop/).
 
-**Tình trạng truy cập mô hình khi hoàn tất báo cáo (24/11/2026).** Nhóm vẫn đang chờ AWS Support xử lý quyền truy cập mô hình. Các yêu cầu gọi GPT-6 Luna trên Amazon Bedrock từ tài khoản AWS Free Tier vẫn trả về `AccessDeniedException` dù nhóm đã chấp nhận thỏa thuận sử dụng mô hình. Nhóm tiếp tục dùng OpenRouter để truy cập GPT-6 Luna phục vụ đánh giá. Sau nhiều đợt thử nghiệm chấm bản nháp và kiểm tra bản chỉnh sửa, nhóm chọn GPT-6.1 Terra với mức suy luận thấp qua OpenRouter cho tính năng Viết đang vận hành vì mô hình cân bằng tốt nhất giữa chất lượng phản hồi và chi phí với khối lượng sử dụng của Ownword.
+Khi hoàn tất báo cáo (24/11/2026), nhóm vẫn đang chờ AWS Support xử lý quyền truy cập mô hình. Các yêu cầu gọi GPT-6 Luna trên Amazon Bedrock từ tài khoản AWS Free Tier vẫn trả về `AccessDeniedException` dù nhóm đã chấp nhận thỏa thuận sử dụng mô hình. Nhóm tiếp tục dùng OpenRouter để truy cập GPT-6 Luna phục vụ đánh giá. Sau nhiều đợt thử nghiệm chấm bản nháp và kiểm tra bản chỉnh sửa, nhóm chọn GPT-6.1 Terra với mức suy luận thấp qua OpenRouter cho tính năng Viết đang vận hành vì mô hình cân bằng tốt nhất giữa chất lượng phản hồi và chi phí với khối lượng sử dụng của Ownword.
 
 ## Vấn đề
 
@@ -22,7 +22,7 @@ Ownword bắt đầu từ bản nháp hoặc ý người học muốn diễn đ�
 
 ## Đối tượng và vòng lặp học tập
 
-Bản thử nghiệm dành cho người học tiếng Anh nâng cao muốn tự học. Luồng từ vựng là **viết → khám phá → chọn → luyện tập → truy hồi → vận dụng**. Trên WordBoard, từ đã lưu chuyển qua **New**, **Practicing** và **Active** khi người học nhớ lại và sử dụng từ ở nhiều thời điểm, trong nhiều ngữ cảnh.
+Bản thử nghiệm dành cho người học tiếng Anh nâng cao muốn tự học. Luồng từ vựng đi qua sáu bước: viết, khám phá, chọn, luyện tập, truy hồi và vận dụng. Trên WordBoard, từ đã lưu chuyển qua **New**, **Practicing** và **Active** khi người học nhớ lại và sử dụng từ ở nhiều thời điểm, trong nhiều ngữ cảnh.
 
 Ví dụ, nếu muốn diễn tả một trải nghiệm vừa vui vừa buồn, người học có thể mô tả cảm giác đó bằng tiếng Anh hoặc tiếng Việt, xem gợi ý như *bittersweet* rồi lưu vào WordBoard. Khi ôn nhanh, người học có thể đánh dấu nếu quên từ. Trong Full Practice, họ thử nhớ lại và đặt câu về một chủ đề tự chọn.
 
@@ -54,7 +54,7 @@ Bản thử nghiệm chạy ứng dụng trên một VM và dùng cơ sở dữ 
 - **AWS Lambda.** Chạy trigger Pre sign-up tại Singapore cho đăng nhập Google. Nếu lần đăng nhập đầu tiên khớp với một tài khoản đủ điều kiện, trigger có thể liên kết danh tính Google để giữ nguyên WordBoard của người học.
 - **Amazon Bedrock.** Chạy Kimi K3.1 Pro cho tra cứu theo khái niệm qua inference profile tại Mỹ. Ứng dụng gọi endpoint ở Bắc Virginia và kiểm tra cấu trúc gợi ý trước khi trả về.
 - **Amazon S3.** Lưu bản xuất PostgreSQL hằng ngày trong một bucket riêng tư và ghi nhật ký truy cập vào bucket riêng. Cả hai bucket dùng SSE-S3. Bản sao nằm ngoài VM và cơ sở dữ liệu đang chạy, nên nhóm có thể dùng để thử khôi phục vào một cơ sở dữ liệu riêng.
-- **Amazon ECR.** Lưu image phát hành riêng tư do GitHub Actions tạo. Lightsail tải image theo digest và kiểm tra ứng dụng sau khi triển khai. [Luồng phát hành trong workshop](../5-workshop/5.6-operations/5.6.1-releases/)
+- **Amazon ECR.** Lưu image phát hành riêng tư do GitHub Actions tạo. Lightsail tải image theo digest và kiểm tra ứng dụng sau khi triển khai. [Luồng phát hành](../5-workshop/5.3-architecture/)
 - **Amazon CloudWatch.** Nhận metric `BackupFresh` mỗi giờ. Alarm dựa vào giá trị đó để đánh giá bản sao mới nhất còn đủ mới và có mặt trên S3 hay không.
 - **Amazon SNS.** Gửi email cho người vận hành khi CloudWatch chuyển sang trạng thái cảnh báo.
 - **AWS Key Management Service (KMS).** Cung cấp khóa do nhóm quản lý để mã hóa SNS topic dùng cho cảnh báo sao lưu.
@@ -64,16 +64,16 @@ Bản thử nghiệm chạy ứng dụng trên một VM và dùng cơ sở dữ 
 
 ### Đường đi của yêu cầu và dữ liệu
 
-1. **Mở ứng dụng (bước 1–4).** Trình duyệt kết nối HTTPS tới CloudFront. CloudFront kết nối TLS tới Caddy qua tên miền máy chủ gốc. Caddy chuyển yêu cầu tới Next.js. Ứng dụng đọc hoặc ghi dữ liệu người học trên RDS riêng tư qua một kết nối TLS khác.
-2. **Đăng nhập (bước 5–8).** Yêu cầu đăng nhập bằng mật khẩu đi tới Cognito. Với Google, Cognito xử lý liên kết danh tính rồi đưa trình duyệt về callback của Ownword. Next.js đổi mã ủy quyền bằng PKCE. Lambda có thể liên kết danh tính Google ở lần đăng nhập đầu tiên đủ điều kiện.
-3. **Gọi mô hình (bước 9–10).** Next.js gửi yêu cầu tra theo khái niệm tới Kimi trên Bedrock. Đánh giá bài viết và kiểm tra bản chỉnh sửa dùng tuyến OpenRouter riêng. Thông tin xác thực của nhà cung cấp nằm trên máy chủ.
-4. **Sao lưu và cảnh báo (bước 11–14).** VM đọc RDS bằng role chỉ đọc, xuất cơ sở dữ liệu lên S3 riêng tư rồi kiểm tra bản sao mới nhất mỗi giờ. Nếu bản sao quá cũ hoặc thiếu tín hiệu, hệ thống gửi email qua SNS topic có mã hóa.
+1. Mở ứng dụng (bước 1-4): Trình duyệt kết nối HTTPS tới CloudFront. CloudFront kết nối TLS tới Caddy qua tên miền máy chủ gốc. Caddy chuyển yêu cầu tới Next.js. Ứng dụng đọc hoặc ghi dữ liệu người học trên RDS riêng tư qua một kết nối TLS khác.
+2. Đăng nhập (bước 5-8): Yêu cầu đăng nhập bằng mật khẩu đi tới Cognito. Với Google, Cognito xử lý liên kết danh tính rồi đưa trình duyệt về callback của Ownword. Next.js đổi mã ủy quyền bằng PKCE. Lambda có thể liên kết danh tính Google ở lần đăng nhập đầu tiên đủ điều kiện.
+3. Gọi mô hình (bước 9-10): Next.js gửi yêu cầu tra theo khái niệm tới Kimi trên Bedrock. Đánh giá bài viết và kiểm tra bản chỉnh sửa dùng tuyến OpenRouter riêng. Thông tin xác thực của nhà cung cấp nằm trên máy chủ.
+4. Sao lưu và cảnh báo (bước 11-14): VM đọc RDS bằng role chỉ đọc, xuất cơ sở dữ liệu lên S3 riêng tư rồi kiểm tra bản sao mới nhất mỗi giờ. Nếu bản sao quá cũ hoặc thiếu tín hiệu, hệ thống gửi email qua SNS topic có mã hóa.
 
 Workshop giải thích thêm [sơ đồ và đường đi của yêu cầu](../5-workshop/5.3-architecture/), [đăng nhập và HTTPS công khai](../5-workshop/5.5-auth/) và [cách sao lưu, khôi phục và thử cảnh báo](../5-workshop/5.6-operations/).
 
 ### Nhóm dùng Amazon Bedrock và OpenRouter như thế nào {#writing-inference-provider}
 
-**Ownword dùng Kimi K3.1 Pro trên Amazon Bedrock để tra từ theo khái niệm**, một phần chính của tính năng khám phá từ vựng. Người học có thể diễn đạt ý mình muốn nói bằng tiếng Anh hoặc tiếng Việt để nhận gợi ý từ và cụm từ phù hợp. Khi người học lặp lại truy vấn, ứng dụng có thể dùng kết quả đã lưu để tránh gọi mô hình thêm một lần.
+Ownword dùng Kimi K3.1 Pro trên Amazon Bedrock để tra từ theo khái niệm, một phần chính của tính năng khám phá từ vựng. Người học có thể diễn đạt ý mình muốn nói bằng tiếng Anh hoặc tiếng Việt để nhận gợi ý từ và cụm từ phù hợp. Khi người học lặp lại truy vấn, ứng dụng có thể dùng kết quả đã lưu để tránh gọi mô hình thêm một lần.
 
 Tính năng Viết gửi bản nháp hoặc bản chỉnh sửa đến GPT-6.1 Terra Low qua OpenRouter và yêu cầu Zero Data Retention trên tuyến đã cấu hình. Ứng dụng kiểm tra cấu trúc phản hồi trước khi lưu. [Tình trạng truy cập mô hình](#tóm-tắt-dự-án)
 
@@ -87,11 +87,11 @@ Tính năng Viết gửi bản nháp hoặc bản chỉnh sửa đến GPT-6.1 T
 | 05/11 | Thử khôi phục bản sao trên S3 và kiểm tra luồng cảnh báo CloudWatch, SNS trên Lightsail. [Tuần 8](../1-worklog/1.8-week8/) |
 | 12/11 | Đưa màn hình tài khoản, đăng nhập Google và nút phát âm lên bản thử nghiệm. [Tuần 9](../1-worklog/1.9-week9/) |
 | 20/11 | Chuyển cơ sở dữ liệu sang RDS riêng tư và phát hành tính năng chuỗi ngày học. |
-| Đến 14/12, dự kiến | Chạy thử demo, ghi kết quả kiểm thử Workshop và hoàn thiện tài liệu bàn giao. [Tuần 13](../1-worklog/1.13-week13/) |
+| Đến 14/12, dự kiến | Chạy thử demo, ghi kết quả kiểm thử Workshop và hoàn thiện tài liệu bàn giao. |
 
 ## Dự toán và tối ưu chi phí {#dự-toán-chi-phí}
 
-Với 10 người học hoạt động, chi phí vận hành dự toán là **43,56 USD/tháng** trước thuế và tín dụng tài khoản, gồm **43,24 USD cho AWS** và **0,32 USD tiền lượt gọi OpenRouter** theo giá công bố. Với 100 người học và cùng cấu hình máy, dự toán tăng lên **60,98 USD/tháng**.
+Với 10 người học hoạt động, chi phí vận hành dự toán là 43,56 USD/tháng trước thuế và tín dụng tài khoản, gồm 43,24 USD cho AWS và 0,32 USD tiền lượt gọi OpenRouter theo giá công bố. Với 100 người học và cùng cấu hình máy, dự toán tăng lên 60,98 USD/tháng.
 
 | Chi phí hằng tháng (USD) | 10 người học | 100 người học |
 | --- | ---: | ---: |

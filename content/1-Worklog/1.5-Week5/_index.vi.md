@@ -6,14 +6,12 @@ chapter: false
 pre: " <b>1.5.</b> "
 ---
 
-**12/10–18/10/2026**
+12/10-18/10/2026
 
 ## Mục tiêu tuần 5
 
 - Dùng metric, log và alarm để hiểu trạng thái triển khai.
 - Theo dõi truy vấn DNS giữa VPC và một môi trường khác.
-
----
 
 ## Công việc trong tuần
 
@@ -21,10 +19,8 @@ Nếu ghi chép chỉ có ngày hoàn thành hoặc ngày ghi nhận, ngày bắ
 
 | Ngày | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
 | --- | --- | --- | --- | --- |
-| 3 | **Đọc metric, log và trạng thái cảnh báo.** Tìm hiểu CloudWatch metrics, logs, metric filter, alarm và dashboard. Xem CPU EC2, EBS write bytes, biểu thức tìm kiếm/tính toán, log, cảnh báo lỗi và dashboard. Ảnh alarm thể hiện trạng thái chưa đủ dữ liệu tại thời điểm chụp; ảnh dashboard cho thấy thay đổi chưa được lưu. | 12/10/2026 | 14/10/2026 | [Cloud Journey / workshop](https://000008.awsstudygroup.com/1-introduction/) · [Ảnh lab](#lab-evidence-1) |
-| 4 | **Theo dõi truy vấn DNS giữa hai môi trường.** Tìm hiểu mô hình DNS lai với Route 53 Resolver inbound endpoint, outbound endpoint và quy tắc chuyển tiếp. Xem cách phân giải truy vấn DNS giữa môi trường tại chỗ và tài nguyên AWS. | 15/10/2026 | 15/10/2026 | [Cloud Journey / workshop](https://000010.awsstudygroup.com/) · [Ảnh lab](#lab-evidence-2) |
-
----
+| 1-3 | Tìm hiểu CloudWatch metrics, logs, metric filter, alarm và dashboard. Xem CPU EC2, EBS write bytes, biểu thức tìm kiếm/tính toán, log, cảnh báo lỗi và dashboard. Ảnh alarm thể hiện trạng thái chưa đủ dữ liệu tại thời điểm chụp; ảnh dashboard cho thấy thay đổi chưa được lưu. | 12/10/2026 | 14/10/2026 | [Cloud Journey / workshop](https://000008.awsstudygroup.com/1-introduction/) · [Ảnh lab](#lab-evidence-1) |
+| 4 | Tìm hiểu mô hình DNS lai với Route 53 Resolver inbound endpoint, outbound endpoint và quy tắc chuyển tiếp. Xem cách phân giải truy vấn DNS giữa môi trường tại chỗ và tài nguyên AWS. | 15/10/2026 | 15/10/2026 | [Cloud Journey / workshop](https://000010.awsstudygroup.com/) · [Ảnh lab](#lab-evidence-2) |
 
 ## Kết quả tuần 5
 

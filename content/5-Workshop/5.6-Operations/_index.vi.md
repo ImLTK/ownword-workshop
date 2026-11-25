@@ -8,7 +8,7 @@ pre: " <b>5.6.</b> "
 
 ## 1. Cấp quyền đọc RDS cho role sao lưu
 
-**Trong phiên SSH trên Lightsail.** Sau khi chạy xong migration ở chương 5.5, dùng endpoint RDS và mật khẩu của role ứng dụng từ chương 5.4 để kết nối.
+Trong phiên SSH trên Lightsail, sau khi chạy xong migration ở chương 5.5, dùng endpoint RDS và mật khẩu của role ứng dụng từ chương 5.4 để kết nối.
 
 ```bash
 cd "$HOME/ownword-lab"
@@ -19,7 +19,7 @@ docker run --rm -it \
   postgres:16-alpine psql -h "$RDS_HOST" -U ownword_app -d ownword -W
 ```
 
-**Trong `psql`.** Trước hết, xem kết nối có dùng TLS và bảng ghi migration có dữ liệu không. Sau đó, cấp quyền đọc cho role sao lưu đối với bảng và sequence của ứng dụng, gồm cả bảng ghi Drizzle. Quyền mặc định cũng áp dụng cho những đối tượng `ownword_app` tạo sau này.
+Trong `psql`, trước hết kiểm tra xem kết nối có dùng TLS và bảng ghi migration có dữ liệu không. Sau đó cấp quyền đọc cho role sao lưu đối với bảng và sequence của ứng dụng, gồm cả bảng ghi Drizzle. Quyền mặc định cũng áp dụng cho những đối tượng `ownword_app` tạo sau này.
 
 ```text
 \set ON_ERROR_STOP on
@@ -40,7 +40,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public, drizzle
 
 ## 2. Tạo nơi lưu S3 và danh tính sao lưu riêng
 
-1. Trong **S3 tại Singapore**, tạo bucket general purpose với tên riêng cho lab. Giữ **Block all public access** và **Bucket owner enforced**. Bật versioning và SSE-S3. Tạo lifecycle rule cho `daily/`, hết hạn phiên bản hiện tại sau 30 ngày và phiên bản cũ sau 7 ngày.
+1. Trong S3 tại Singapore, tạo bucket general purpose với tên riêng cho lab. Giữ **Block all public access** và **Bucket owner enforced**. Bật versioning và SSE-S3. Tạo lifecycle rule cho `daily/`, hết hạn phiên bản hiện tại sau 30 ngày và phiên bản cũ sau 7 ngày.
 2. Để tái hiện nhật ký truy cập của hệ thống đang vận hành, tạo bucket riêng thứ hai trong cùng tài khoản và vùng. Bật **Server access logging** trên bucket sao lưu và chọn bucket thứ hai làm đích. Kiểm tra policy của bucket đích cho phép `logging.s3.amazonaws.com` ghi vào prefix đã chọn. Đặt thời gian lưu 30 ngày cho prefix nhật ký. [Tạo bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html) · [Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html) · [Nhật ký truy cập](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html)
 3. Tạo IAM user `ownword-lab-backup` chỉ truy cập qua API với access key riêng. Thay tên bucket trong inline policy dưới đây. `s3:GetObject` cho phép tải tệp và đọc metadata. Điều kiện của CloudWatch giới hạn việc ghi metric theo namespace. [Quyền HeadObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html) · [Điều kiện IAM cho CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/iam-cw-condition-keys-namespace.html)
 
@@ -63,7 +63,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public, drizzle
 }
 ```
 
-**Phiên SSH trên Lightsail.** Chọn Singapore làm vùng mặc định khi chạy `aws configure`. Kiểm tra lệnh cuối trả về IAM user sao lưu của lab.
+Trong phiên SSH trên Lightsail, chọn Singapore làm vùng mặc định khi chạy `aws configure`. Kiểm tra lệnh cuối trả về IAM user sao lưu của lab.
 
 ```bash
 cd "$HOME/ownword-lab"
@@ -100,7 +100,7 @@ Khi có tệp `rds-backup.env`, `backup-postgres.sh` lấy bản dump từ RDS. 
 
 ## 3. Kiểm tra bản sao trên S3 và thử khôi phục riêng
 
-**Trong phiên SSH trên Lightsail.** Chạy sao lưu rồi kiểm tra bản sao còn mới không. Script kiểm tra bản dump trước khi tải lên với checksum SHA-256, sau đó đối chiếu kích thước tệp trên S3. Tìm hai dòng `Verified off-instance backup` và `BackupFresh=1`. [Kiểm tra tính toàn vẹn khi tải lên S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity-upload.html)
+Trong phiên SSH trên Lightsail, chạy sao lưu rồi kiểm tra bản sao còn mới không. Script kiểm tra bản dump trước khi tải lên với checksum SHA-256, sau đó đối chiếu kích thước tệp trên S3. Tìm hai dòng `Verified off-instance backup` và `BackupFresh=1`. [Kiểm tra tính toàn vẹn khi tải lên S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity-upload.html)
 
 ```bash
 cd "$HOME/ownword-lab"
@@ -151,7 +151,7 @@ cd "$HOME/ownword-lab"
 )
 ```
 
-**Điểm kiểm tra.** Lệnh khôi phục thành công và truy vấn trả số dòng. Ghi lại thời gian đo được. Sau khi kiểm tra thủ công, dùng `crontab -e` dưới tài khoản `ubuntu` để đặt lịch. Kiểm tra VM dùng UTC bằng `timedatectl`. Nếu thiếu `crontab`, cài và bật gói `cron` của Ubuntu. Lịch đầu chạy lúc 23:00 UTC hằng ngày, lịch thứ hai chạy vào phút 15 mỗi giờ và lịch thứ ba thử bổ sung thông tin cho từ đang chờ mỗi phút.
+Xác nhận lệnh khôi phục thành công và truy vấn trả về số dòng, rồi ghi lại thời gian đo được. Sau khi kiểm tra thủ công xong, dùng `crontab -e` dưới tài khoản `ubuntu` để đặt lịch. Kiểm tra VM dùng UTC bằng `timedatectl`. Nếu thiếu `crontab`, cài và bật gói `cron` của Ubuntu. Lịch đầu chạy lúc 23:00 UTC hằng ngày, lịch thứ hai chạy vào phút 15 mỗi giờ và lịch thứ ba thử bổ sung thông tin cho từ đang chờ mỗi phút.
 
 ```cron
 PATH=/usr/local/bin:/usr/bin:/bin
@@ -162,7 +162,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 
 ## 4. Cấu hình cảnh báo sao lưu có mã hóa
 
-1. Tại **Singapore**, tạo SNS Standard topic `ownword-lab-operator-alerts` và xác nhận đăng ký email từ hộp thư lab. Ghi ARN của topic. Chọn trước tên alarm `ownword-lab-backup-stale`, có ARN `arn:aws:cloudwatch:ap-southeast-1:YOUR_ACCOUNT_ID:alarm:ownword-lab-backup-stale`.
+1. Tại Singapore, tạo SNS Standard topic `ownword-lab-operator-alerts` và xác nhận đăng ký email từ hộp thư lab. Ghi ARN của topic. Chọn trước tên alarm `ownword-lab-backup-stale`, có ARN `arn:aws:cloudwatch:ap-southeast-1:YOUR_ACCOUNT_ID:alarm:ownword-lab-backup-stale`.
 2. Thay các giá trị mẫu rồi thêm statement sau vào access policy hiện có của SNS. Giữ quyền hiện có của chủ topic. [Policy từ CloudWatch tới SNS](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Notify_Users_Alarm_Changes.html)
 
 ```json
@@ -179,7 +179,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 }
 ```
 
-3. Tạo **khóa KMS đối xứng do bạn quản lý** tại Singapore, alias `ownword-lab-alerts`. Thêm hai đối tượng dưới đây vào mảng `Statement` của key policy và giữ quyền quản trị hiện có. Bật mã hóa topic bằng khóa này. CloudWatch cần hai quyền KMS để gửi tới topic SNS đã mã hóa. [Mã hóa SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-enable-encryption-for-topic.html) · [Quyền KMS cho CloudWatch và SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html)
+3. Tạo khóa KMS đối xứng do bạn quản lý tại Singapore, alias `ownword-lab-alerts`. Thêm hai đối tượng dưới đây vào mảng `Statement` của key policy và giữ quyền quản trị hiện có. Bật mã hóa topic bằng khóa này. CloudWatch cần hai quyền KMS để gửi tới topic SNS đã mã hóa. [Mã hóa SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-enable-encryption-for-topic.html) · [Quyền KMS cho CloudWatch và SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html)
 
 ```json
 [
@@ -207,11 +207,11 @@ PATH=/usr/local/bin:/usr/bin:/bin
 ]
 ```
 
-4. Trong **CloudWatch → Alarms → Create alarm**, chọn `Ownword/Pilot → BackupFresh` đúng dimension `Instance` của bước 2. Nếu vừa gửi metric, đợi metric xuất hiện. Chọn **Minimum**, chu kỳ **1 giờ**, **nhỏ hơn 1**, **1 trên 1** và **coi dữ liệu thiếu là vượt ngưỡng**. Dùng tên đã chọn và gửi tới SNS đã mã hóa khi **In alarm**. [Alarm CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Alarms.html) · [Xử lý dữ liệu thiếu](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarms-and-missing-data.html)
+4. Trong CloudWatch, mở **Alarms** và chọn **Create alarm**. Chọn `Ownword/Pilot → BackupFresh` với đúng dimension `Instance` của bước 2. Nếu vừa gửi metric, đợi metric xuất hiện. Chọn **Minimum**, chu kỳ 1 giờ, nhỏ hơn 1, 1 trên 1 và coi dữ liệu thiếu là vượt ngưỡng. Dùng tên đã chọn và gửi tới SNS đã mã hóa khi **In alarm**. [Alarm CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Alarms.html) · [Xử lý dữ liệu thiếu](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarms-and-missing-data.html)
 
 ## 5. Kiểm tra gửi cảnh báo
 
-**Trong CloudShell tại Singapore.** Đợi alarm lab báo **OK** rồi dùng đúng tên alarm để gửi thử. CloudWatch sẽ tự quay lại đánh giá metric. Kiểm tra lịch sử gửi và email trong hộp thư. Để kiểm tra cả ngưỡng, quan sát thêm khi bản sao quá cũ hoặc metric bị thiếu. [SetAlarmState](https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/set-alarm-state.html)
+Trong CloudShell tại Singapore, đợi alarm lab báo **OK** rồi dùng đúng tên alarm để gửi thử. CloudWatch sẽ tự quay lại đánh giá metric. Kiểm tra lịch sử gửi và email trong hộp thư. Để kiểm tra cả ngưỡng, quan sát thêm khi bản sao quá cũ hoặc metric bị thiếu. [SetAlarmState](https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/set-alarm-state.html)
 
 ```bash
 ALARM='ownword-lab-backup-stale'
@@ -227,8 +227,6 @@ aws cloudwatch describe-alarm-history --region ap-southeast-1 \
   --alarm-name "$ALARM" --history-item-type Action --max-items 5
 ```
 
-**Điểm kiểm tra.** Xem lịch sử trong CloudWatch và tìm email cảnh báo thử trong hộp thư. Nếu chưa nhận được, xem lỗi trong lịch sử rồi kiểm tra đăng ký email, policy SNS và key policy KMS.
-
-[Phần mở rộng: Tự động phát hành với GitHub Actions và ECR](5.6.1-releases/)
+Xem lịch sử trong CloudWatch và tìm email cảnh báo thử trong hộp thư. Nếu chưa nhận được, xem lỗi trong lịch sử rồi kiểm tra đăng ký email, policy SNS và key policy KMS.
 
 [Tiếp theo: Kiểm chứng, ước tính chi phí và dọn tài nguyên](../5.7-verification/)

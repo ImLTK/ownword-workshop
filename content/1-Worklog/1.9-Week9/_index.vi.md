@@ -6,7 +6,7 @@ chapter: false
 pre: " <b>1.9.</b> "
 ---
 
-**09/11–15/11/2026**
+**09/11-15/11/2026**
 
 *Mốc tiến độ dự án*
 
@@ -15,19 +15,15 @@ pre: " <b>1.9.</b> "
 - Phát hành thay đổi về tài khoản và phát âm trên môi trường thử nghiệm.
 - Kiểm tra migration và điều hướng trang tài khoản sau khi triển khai.
 
----
-
 ## Công việc trong tuần
 
 Nếu ghi chép chỉ có ngày hoàn thành hoặc ngày ghi nhận, ngày bắt đầu là ước tính.
 
-| Thứ | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
+| Ngày | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
 | --- | --- | --- | --- | --- |
-| Thứ hai đến Thứ năm | **Phát hành bản thử nghiệm.** Chuẩn bị phát hành bằng cách xác minh bản sao PostgreSQL trên S3, sau đó triển khai màn hình tài khoản, đăng nhập Google và điều khiển phát âm lên ownword-pilot. | 09/11/2026 | 12/11/2026 | [Ownword pilot](https://ownword.3.1.163.210.sslip.io/) |
-| Thứ năm | **Sửa điều hướng đăng ký.** Kiểm tra migration và trạng thái container. Khi mở ứng dụng trên trình duyệt, thao tác đăng ký dẫn sai chỗ. Đưa bản sửa lên rồi kiểm tra lại biểu mẫu. | 12/11/2026 | 12/11/2026 | [Account screen](https://ownword.3.1.163.210.sslip.io/account) |
-| Thứ năm | **Đăng nhập Google.** Kiểm tra luồng đăng nhập và liên kết Google. Các bước kiểm tra tiếp theo gồm phát âm trên máy tính và điện thoại, cùng thử nghiệm tách biệt hai tài khoản. | 12/11/2026 | 12/11/2026 | [Ownword pilot](https://ownword.3.1.163.210.sslip.io/) |
-
----
+| 1-4 | Chuẩn bị phát hành bản thử nghiệm bằng cách xác minh bản sao PostgreSQL trên S3, sau đó triển khai màn hình tài khoản, đăng nhập Google và điều khiển phát âm lên ownword-pilot. | 09/11/2026 | 12/11/2026 | [Triển khai bản thử nghiệm](../../5-workshop/5.4-deploy/) |
+| 4 | Kiểm tra migration và trạng thái container. Khi mở ứng dụng trên trình duyệt, thao tác đăng ký dẫn sai chỗ. Đưa bản sửa điều hướng lên rồi kiểm tra lại biểu mẫu. | 12/11/2026 | 12/11/2026 | [Cấu hình đăng nhập](../../5-workshop/5.5-auth/) |
+| 4 | Kiểm tra luồng đăng nhập và liên kết Google. | 12/11/2026 | 12/11/2026 | [Cognito và đăng nhập Google](../../5-workshop/5.5-auth/) |
 
 ## Kết quả tuần 9
 

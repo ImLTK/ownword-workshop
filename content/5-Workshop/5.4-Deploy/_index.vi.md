@@ -9,16 +9,16 @@ pre: " <b>5.4.</b> "
 ## 1. Tạo máy Lightsail và cấu hình DNS máy chủ gốc
 
 1. Trong **Lightsail → Instances → Create instance**, chọn **Singapore**, **Linux/Unix → OS Only → Ubuntu 24.04 LTS** và gói x86-64 có IPv4 công khai với ít nhất 2 GB RAM. Đặt tên `ownword-lab` và ghi lại IPv4 riêng. Chọn khóa SSH bạn đang giữ hoặc tải khóa bí mật tương ứng từ trang SSH keys của tài khoản Lightsail.
-2. Tạo IPv4 tĩnh tại Singapore và gắn vào máy. Tại nhà cung cấp DNS, tạo bản ghi **A** trỏ tên miền **máy chủ gốc**, ví dụ `origin-lab.example.com`, thẳng tới IP tĩnh. Nếu nhà cung cấp DNS có proxy, dùng chế độ chỉ DNS cho bản ghi này. Tên miền **công khai** sẽ trỏ tới CloudFront ở chương 5.5.
+2. Tạo IPv4 tĩnh tại Singapore và gắn vào máy. Tại nhà cung cấp DNS, tạo bản ghi A trỏ tên miền máy chủ gốc, ví dụ `origin-lab.example.com`, thẳng tới IP tĩnh (dùng chế độ chỉ DNS nếu nhà cung cấp có proxy). Nếu không có tên miền riêng, bỏ qua bước tạo bản ghi DNS và dùng `origin-lab.<A-B-C-D>.sslip.io` (IPv4 tĩnh thay dấu chấm bằng dấu gạch nối); `sslip.io` tự động phân giải về máy của bạn để Caddy cấp chứng chỉ TLS công khai. Tên miền công khai sẽ được cấu hình với CloudFront ở chương 5.5.
 3. Trong tường lửa Lightsail, mở TCP 80 và 443 để Caddy xác thực chứng chỉ công khai và phục vụ HTTPS. Giới hạn TCP 22 theo IP công khai của máy bạn. Nếu dùng SSH trên trình duyệt Lightsail, bật tùy chọn truy cập riêng tương ứng. Không mở cổng 3000 và 5432 ra Internet. Rà soát riêng quy tắc IPv6 nếu dùng. [Tạo máy Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/getting-started.html) · [IP tĩnh](https://docs.aws.amazon.com/lightsail/latest/userguide/lightsail-create-static-ip.html) · [Tường lửa Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/understanding-firewall-and-port-mappings-in-amazon-lightsail.html)
 
 **Điểm kiểm tra.** Máy đang chạy, tên miền máy chủ gốc phân giải về IPv4 tĩnh và bạn có thể SSH bằng tài khoản `ubuntu`.
 
 ## 2. Tạo PostgreSQL riêng tư
 
-1. Trong **Lightsail → Account → Advanced**, bật **VPC peering** cho Singapore. VPC đích phải là **default VPC** của tài khoản tại Singapore. Trong console VPC, kiểm tra kết nối peering đã hoạt động và bảng định tuyến của các subnet RDS có đường tới mạng Lightsail qua peering. Dùng tuyến và CIDR thực tế hiện trên tài khoản.
-2. Trong default VPC đó, dùng DB subnet group có subnet thuộc ít nhất hai Availability Zone. Tạo security group riêng cho DB và cho phép **TCP 5432** đi vào từ **IPv4 riêng /32** của máy Lightsail. Gắn group này vào RDS và bỏ quy tắc rộng hơn nếu trình tạo tự thêm.
-3. Trong **RDS → Databases → Create database → Standard create**, chọn **PostgreSQL 16**, **Single DB instance**, `db.t4g.micro` nếu có, và **20 GiB gp3 có mã hóa**. Chọn default VPC, DB subnet group và security group ở hai bước trước. Đặt **Public access: No**, cổng **5432**, giữ bản sao tự động tối thiểu **một ngày** và bật **deletion protection**. Lưu mật khẩu quản trị riêng. Để trống tên cơ sở dữ liệu ban đầu để tạo cơ sở dữ liệu với đúng chủ sở hữu ở phần sau. [VPC peering cho Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/lightsail-how-to-set-up-vpc-peering-with-aws-resources.html) · [VPC và subnet group cho RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html) · [Tạo RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html)
+1. Trong **Lightsail → Account → Advanced**, bật **VPC peering** cho Singapore. VPC đích phải là default VPC của tài khoản tại Singapore. Trong console VPC, kiểm tra kết nối peering đã hoạt động và bảng định tuyến của các subnet RDS có đường tới mạng Lightsail qua peering. Dùng tuyến và CIDR thực tế hiện trên tài khoản.
+2. Trong default VPC đó, dùng DB subnet group có subnet thuộc ít nhất hai Availability Zone. Tạo security group riêng cho DB và cho phép TCP 5432 đi vào từ IPv4 riêng /32 của máy Lightsail. Gắn group này vào RDS và bỏ quy tắc rộng hơn nếu trình tạo tự thêm.
+3. Trong **RDS → Databases → Create database → Standard create**, chọn **PostgreSQL 16**, **Single DB instance**, `db.t4g.micro` nếu có, và 20 GiB gp3 có mã hóa. Chọn default VPC, DB subnet group và security group ở hai bước trước. Đặt **Public access: No**, cổng 5432, giữ bản sao tự động tối thiểu một ngày và bật deletion protection. Lưu mật khẩu quản trị riêng. Để trống tên cơ sở dữ liệu ban đầu để tạo cơ sở dữ liệu với đúng chủ sở hữu ở phần sau. [VPC peering cho Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/lightsail-how-to-set-up-vpc-peering-with-aws-resources.html) · [VPC và subnet group cho RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html) · [Tạo RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html)
 
 **Điểm kiểm tra.** RDS ở trạng thái **Available**, mục **Publicly accessible** là **No** và có endpoint DNS. Dùng endpoint này để kiểm tra tên máy chủ qua TLS.
 
@@ -29,7 +29,7 @@ pre: " <b>5.4.</b> "
 ```bash
 KEY="$HOME/.ssh/ownword-lab.pem"
 LIGHTSAIL_IP='YOUR_LIGHTSAIL_STATIC_IPV4'
-scp -i "$KEY" ownword-lab-source-2026-11-20.tar.gz "ubuntu@$LIGHTSAIL_IP:~/"
+scp -i "$KEY" ownword-lab-source-c8a903e.tar.gz "ubuntu@$LIGHTSAIL_IP:~/"
 ssh -i "$KEY" "ubuntu@$LIGHTSAIL_IP"
 ```
 
@@ -37,7 +37,7 @@ ssh -i "$KEY" "ubuntu@$LIGHTSAIL_IP"
 
 ```bash
 mkdir "$HOME/ownword-lab"
-tar -xzf "$HOME/ownword-lab-source-2026-11-20.tar.gz" -C "$HOME/ownword-lab"
+tar -xzf "$HOME/ownword-lab-source-c8a903e.tar.gz" -C "$HOME/ownword-lab"
 cd "$HOME/ownword-lab"
 bash deploy/lightsail/bootstrap-ubuntu.sh
 ```

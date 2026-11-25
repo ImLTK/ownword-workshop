@@ -8,7 +8,7 @@ pre: " <b>5.6.</b> "
 
 ## 1. Give the backup role read access to RDS
 
-**In the Lightsail SSH session.** Once the migration in chapter 5.5 finishes, connect using the RDS endpoint and the app owner’s password from chapter 5.4.
+In the Lightsail SSH session, once the migration in chapter 5.5 finishes, connect using the RDS endpoint and the app owner's password from chapter 5.4.
 
 ```bash
 cd "$HOME/ownword-lab"
@@ -19,7 +19,7 @@ docker run --rm -it \
   postgres:16-alpine psql -h "$RDS_HOST" -U ownword_app -d ownword -W
 ```
 
-**Inside `psql`.** First, check that the connection uses TLS and that the migration journal has entries. Then give the backup role read access to the app’s tables and sequences, including the Drizzle journal. The default grants also cover objects `ownword_app` creates later.
+Inside `psql`, first check that the connection uses TLS and that the migration journal has entries. Then give the backup role read access to the app's tables and sequences, including the Drizzle journal. The default grants also cover objects `ownword_app` creates later.
 
 ```text
 \set ON_ERROR_STOP on
@@ -40,8 +40,8 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public, drizzle
 
 ## 2. Create S3 storage and a dedicated backup identity
 
-1. In **S3, Singapore**, create a general purpose lab bucket with a unique name. Keep **Block all public access** and **Bucket owner enforced**. Enable versioning and SSE-S3. Add a lifecycle rule for `daily/` with current expiration after 30 days and noncurrent expiration after 7 days.
-2. To reproduce the production access logs, create a second private bucket in the same account and Region, then enable **Server access logging** on the backup bucket. Use the separate bucket as destination and verify its policy permits `logging.s3.amazonaws.com` to write the selected prefix. Apply a 30-day expiration to the log prefix. [Create a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html) · [Lifecycle rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html) · [Access logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html)
+1. In S3 (Singapore), create a general purpose lab bucket with a unique name. Keep **Block all public access** and **Bucket owner enforced**. Enable versioning and SSE-S3. Add a lifecycle rule for `daily/` with current expiration after 30 days and noncurrent expiration after 7 days.
+2. To reproduce the production access logs, create a second private bucket in the same account and Region, then enable **Server access logging** on the backup bucket. Use the separate bucket as the destination and verify its policy permits `logging.s3.amazonaws.com` to write to the selected prefix. Apply a 30-day expiration to the log prefix. [Create a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html) · [Lifecycle rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html) · [Access logging](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html)
 3. Create the programmatic IAM identity `ownword-lab-backup` with a dedicated access key and no console access. Use this inline policy, replacing the bucket name. `s3:GetObject` covers downloading and checking object metadata. The CloudWatch condition limits metric writes to the workshop's namespace. [HeadObject permissions](https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html) · [CloudWatch IAM conditions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/iam-cw-condition-keys-namespace.html)
 
 ```json
@@ -63,7 +63,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public, drizzle
 }
 ```
 
-**Lightsail SSH session.** Use Singapore when `aws configure` asks for the default Region. Confirm the final identity is the lab backup user.
+In the Lightsail SSH session, choose Singapore when `aws configure` asks for the default Region, and confirm the final identity is the lab backup user.
 
 ```bash
 cd "$HOME/ownword-lab"
@@ -100,7 +100,7 @@ When `rds-backup.env` exists, `backup-postgres.sh` takes the dump from RDS. It u
 
 ## 3. Verify the S3 copy and restore it in isolation
 
-**In the Lightsail SSH session.** Run the backup, then check its freshness. The script checks the archive before uploading it with a SHA-256 checksum, then checks the object size in S3. Look for `Verified off-instance backup` and `BackupFresh=1`. [S3 upload integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity-upload.html)
+In the Lightsail SSH session, run the backup and check its freshness. The script checks the archive before uploading it with a SHA-256 checksum, then checks the object size in S3. Look for `Verified off-instance backup` and `BackupFresh=1`. [S3 upload integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity-upload.html)
 
 ```bash
 cd "$HOME/ownword-lab"
@@ -151,7 +151,7 @@ cd "$HOME/ownword-lab"
 )
 ```
 
-**Checkpoint.** The restore command exits successfully and the queries return counts. Record the elapsed time. After the manual checks pass, use `crontab -e` under `ubuntu` to install the jobs below. Confirm the VM uses UTC with `timedatectl`. Install and enable Ubuntu's `cron` package if `crontab` is missing. The first job runs daily at 23:00 UTC, the second hourly at :15, and the third retries pending manual-word enrichment once a minute.
+Confirm that the restore command exits successfully and the queries return counts, then record the elapsed time. After the manual checks pass, use `crontab -e` under `ubuntu` to install the jobs below. Confirm the VM uses UTC with `timedatectl`, and install and enable Ubuntu's `cron` package if `crontab` is missing. The first job runs daily at 23:00 UTC, the second hourly at :15, and the third retries pending manual-word enrichment once a minute.
 
 ```cron
 PATH=/usr/local/bin:/usr/bin:/bin
@@ -162,7 +162,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 
 ## 4. Configure the encrypted backup alarm
 
-1. In **Singapore**, create a Standard SNS topic `ownword-lab-operator-alerts` and confirm an email subscription from your lab inbox. Record its ARN. Reserve the alarm name `ownword-lab-backup-stale`. Its ARN is `arn:aws:cloudwatch:ap-southeast-1:YOUR_ACCOUNT_ID:alarm:ownword-lab-backup-stale`.
+1. In Singapore, create a Standard SNS topic `ownword-lab-operator-alerts` and confirm an email subscription from your lab inbox. Record its ARN. Reserve the alarm name `ownword-lab-backup-stale`. Its ARN is `arn:aws:cloudwatch:ap-southeast-1:YOUR_ACCOUNT_ID:alarm:ownword-lab-backup-stale`.
 2. Append the following statement to the existing SNS access policy after replacing each placeholder. Keep the topic owner's existing permissions. [CloudWatch to SNS topic policy](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Notify_Users_Alarm_Changes.html)
 
 ```json
@@ -179,7 +179,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 }
 ```
 
-3. Create a **customer-managed symmetric encrypt/decrypt** KMS key in Singapore, with alias `ownword-lab-alerts`. Append the following two objects to its existing `Statement` array, keeping the administrative statements. Enable topic encryption and choose this key. CloudWatch needs the two KMS permissions to publish through the encrypted topic. [SNS encryption](https://docs.aws.amazon.com/sns/latest/dg/sns-enable-encryption-for-topic.html) · [KMS permissions for CloudWatch and SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html)
+3. Create a customer-managed symmetric encrypt/decrypt KMS key in Singapore with alias `ownword-lab-alerts`. Append the following two objects to its existing `Statement` array, keeping the administrative statements. Enable topic encryption and choose this key. CloudWatch needs those two KMS permissions to publish through the encrypted topic. [SNS encryption](https://docs.aws.amazon.com/sns/latest/dg/sns-enable-encryption-for-topic.html) · [KMS permissions for CloudWatch and SNS](https://docs.aws.amazon.com/sns/latest/dg/sns-key-management.html)
 
 ```json
 [
@@ -207,11 +207,11 @@ PATH=/usr/local/bin:/usr/bin:/bin
 ]
 ```
 
-4. In **CloudWatch → Alarms → Create alarm**, select the custom metric `Ownword/Pilot → BackupFresh` with the exact `Instance` dimension from step 2. If it has just been emitted, wait for it to show up. Use **Minimum**, a **1-hour period**, **Lower than 1**, **1 out of 1**, and **Treat missing data as breaching**. Name the alarm as reserved above and choose the encrypted SNS topic for the **In alarm** action. [CloudWatch alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Alarms.html) · [Missing metric data](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarms-and-missing-data.html)
+4. In CloudWatch, open **Alarms** and choose **Create alarm**. Select the custom metric `Ownword/Pilot → BackupFresh` with the exact `Instance` dimension from step 2. If it was just emitted, wait for it to show up. Use **Minimum**, a 1-hour period, **Lower than 1**, 1 out of 1, and **Treat missing data as breaching**. Name the alarm as reserved above and choose the encrypted SNS topic for the **In alarm** action. [CloudWatch alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Alarms.html) · [Missing metric data](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarms-and-missing-data.html)
 
 ## 5. Verify alarm delivery
 
-**In Singapore CloudShell.** Wait until your lab alarm shows **OK**, then use its exact name to trigger a test. CloudWatch goes back to evaluating the metric automatically. Look for a successful action and the email in your inbox. To check the threshold as well, observe what happens when the backup is stale or the metric is missing. [SetAlarmState](https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/set-alarm-state.html)
+In Singapore CloudShell, wait until your lab alarm shows **OK**, then use its exact name to trigger a test. CloudWatch returns to evaluating the metric automatically. Look for a successful action and the email in your inbox. To check the threshold as well, observe what happens when the backup is stale or the metric is missing. [SetAlarmState](https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/set-alarm-state.html)
 
 ```bash
 ALARM='ownword-lab-backup-stale'
@@ -227,8 +227,6 @@ aws cloudwatch describe-alarm-history --region ap-southeast-1 \
   --alarm-name "$ALARM" --history-item-type Action --max-items 5
 ```
 
-**Checkpoint.** Check the CloudWatch action history and your inbox for the test alert. If the email doesn’t arrive, look at the error in the history, then check the subscription, SNS policy, and KMS key policy.
-
-[Extension: Automate later releases with GitHub Actions and ECR](5.6.1-releases/)
+Check the CloudWatch action history and your inbox for the test alert. If the email doesn't arrive, look at the error in the history, then check the subscription, SNS policy, and KMS key policy.
 
 [Next: Run acceptance checks, estimate cost and remove the lab](../5.7-verification/)

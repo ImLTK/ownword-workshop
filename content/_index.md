@@ -15,7 +15,7 @@ chapter: false
 **University:** FPT University  
 **Major:** Artificial Intelligence  
 **Internship Company:** Công ty TNHH Amazon Web Services Việt Nam  
-**Internship Position:** Workforce Bootcamp – First Cloud AI Journey  
+**Internship Position:** Workforce Bootcamp - First Cloud AI Journey  
 **Internship Duration:** From 14/09/2026 to 14/12/2026  
 **Project Team/Class:** Gi Group\
 **Project:** [Ownword - live application](https://app.ownword.co/)
@@ -31,5 +31,3 @@ chapter: false
 5. [Workshop](5-workshop/)
 6. [Self-Assessment](6-self-evaluation/)
 7. [Sharing and Feedback](7-feedback/)
-
-{{% notice warning %}}I’m still checking the worklog and event evidence. I’m also reviewing the test evidence.{{% /notice %}}

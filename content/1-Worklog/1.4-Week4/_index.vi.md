@@ -6,14 +6,12 @@ chapter: false
 pre: " <b>1.4.</b> "
 ---
 
-**05/10–11/10/2026**
+05/10-11/10/2026
 
 ## Mục tiêu tuần 4
 
 - So sánh dịch vụ container có quản lý với ứng dụng chạy trên nhiều máy chủ.
 - Đọc tín hiệu mở rộng cùng kết quả thử tải.
-
----
 
 ## Công việc trong tuần
 
@@ -21,10 +19,8 @@ Nếu ghi chép chỉ có ngày hoàn thành hoặc ngày ghi nhận, ngày bắ
 
 | Ngày | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
 | --- | --- | --- | --- | --- |
-| 1 | **Triển khai container NGINX.** Tìm hiểu Amazon Lightsail Containers và triển khai dịch vụ container NGINX tại Singapore. Bài tập giới thiệu một lựa chọn triển khai container có quản lý trước khi so sánh với máy chủ Ownword sau này. | 05/10/2026 | 05/10/2026 | [Cloud Journey / workshop](https://000046.awsstudygroup.com/) |
-| 4 | **Mở rộng và thử tải ứng dụng nhiều máy chủ.** Triển khai ứng dụng quản lý mẫu FCAJ bằng EC2 Auto Scaling, load balancer và cơ sở dữ liệu. Thực hành mở rộng theo lịch và theo tải, thay thế instance và kiểm thử tải. Ảnh cho thấy launch template, kết nối cơ sở dữ liệu, biểu đồ CloudWatch và kết quả tải; bảng kết quả có lỗi nên cần đọc cùng điều kiện thử, không coi là bài kiểm tra đạt hoàn toàn. | 06/10/2026 | 08/10/2026 | [Cloud Journey / workshop](https://000006.awsstudygroup.com/) · [Ảnh lab](#lab-evidence-2) |
-
----
+| 1 | Tìm hiểu Amazon Lightsail Containers và triển khai dịch vụ container NGINX tại Singapore. Bài tập giới thiệu một lựa chọn triển khai container có quản lý trước khi so sánh với máy chủ Ownword sau này. | 05/10/2026 | 05/10/2026 | [Cloud Journey / workshop](https://000046.awsstudygroup.com/) |
+| 2-4 | Triển khai ứng dụng quản lý mẫu FCAJ bằng EC2 Auto Scaling, load balancer và cơ sở dữ liệu. Thực hành mở rộng theo lịch và theo tải, thay thế instance và kiểm thử tải. Ảnh cho thấy launch template, kết nối cơ sở dữ liệu, biểu đồ CloudWatch và kết quả tải; bảng kết quả có lỗi nên cần đọc cùng điều kiện thử, không coi là bài kiểm tra đạt hoàn toàn. | 06/10/2026 | 08/10/2026 | [Cloud Journey / workshop](https://000006.awsstudygroup.com/) · [Ảnh lab](#lab-evidence-2) |
 
 ## Kết quả tuần 4
 

@@ -6,29 +6,26 @@ chapter: false
 pre: " <b>1.11.</b> "
 ---
 
-**23/11–29/11/2026**
+**23/11-29/11/2026**
 
 *Mốc tiến độ dự án*
 
 ## Mục tiêu tuần 11
 
 - Chuyển kiến trúc và quy trình vận hành thành một workshop có thể làm lại.
-- Chuẩn bị giả định chi phí và thống nhất luồng trình bày.
-
----
+- So sánh chi phí bản thử nghiệm và kiểm chứng liên kết tài khoản Google.
 
 ## Công việc trong tuần
 
-Các mốc theo từng công việc là ước tính dựa trên nhật ký trước đó.
-
-| Thứ | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
+| Ngày | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
 | --- | --- | --- | --- | --- |
-| Thứ hai đến Thứ ba | **Tài nguyên AWS và phần trình bày.** Cùng nhóm rà soát các tài nguyên AWS của Ownword và trao đổi về phần trình bày của từng người. | 23/11/2026 | 24/11/2026 | [Ownword architecture](../../5-workshop/5.3-architecture/) |
-| Thứ tư | **Sơ đồ kiến trúc.** Cập nhật sơ đồ kiến trúc để mô tả cách ứng dụng, đăng nhập, sao lưu, cảnh báo và các nhà cung cấp mô hình kết nối với nhau. | 25/11/2026 | 25/11/2026 | [Ownword architecture](../../5-workshop/5.3-architecture/) |
-| Thứ năm | **Hướng dẫn workshop.** Soạn các bước triển khai, phần giải thích quyền IAM và quy trình sao lưu. Chuẩn bị ảnh minh họa cho phần hướng dẫn. | 26/11/2026 | 26/11/2026 | [Pilot deployment](../../5-workshop/5.4-deploy/) |
-| Thứ sáu | **Giả định chi phí.** Xem xét các giả định chi phí cho bản thử nghiệm nhỏ và cho một tháng có nhiều lượt sử dụng hơn. | 27/11/2026 | 27/11/2026 | - |
-
----
+| 2 | Ghi lại luồng yêu cầu trên AWS, cách triển khai, cấu hình đăng nhập và quy trình sao lưu cho workshop. | 24/11/2026 | 24/11/2026 | [Kiến trúc Ownword](../../5-workshop/5.3-architecture/) · [Vận hành](../../5-workshop/5.6-operations/) |
+| 2 | Lập dự toán cho 10 và 100 người học. Kiểm thử cục bộ việc lưu từ `lantern` và xác nhận dữ liệu sai kiểu không tạo thêm dòng trong PostgreSQL. | 24/11/2026 | 24/11/2026 | [Kiểm chứng và chi phí](../../5-workshop/5.7-verification/) |
+| 3 | Kiểm chứng liên kết tài khoản Google bằng cách dùng cùng địa chỉ email đã xác minh để đăng nhập Google lần đầu. CloudWatch tại Singapore ghi nhận liên kết thành công với tài khoản Cognito hiện có. | 25/11/2026 | 25/11/2026 | [Minh chứng CloudWatch](../../5-workshop/5.7-verification/) |
+| 4 | Đối chiếu sơ đồ AWS với hệ thống đang chạy, lần theo luồng CloudFront/WAF qua Caddy trên Lightsail tới ứng dụng và RDS. Rà soát Cognito, Lambda và các tuyến gọi mô hình tại Singapore, đồng thời kiểm tra tên, biểu tượng và mũi tên trên sơ đồ. | 26/11/2026 | 26/11/2026 | [Kiến trúc Ownword](../../5-workshop/5.3-architecture/) |
+| 5 | Rà soát hướng dẫn từ triển khai đến vận hành, gồm điều kiện đầu vào, lệnh triển khai, quyền IAM, RDS TLS, sao lưu S3, cảnh báo CloudWatch/SNS và dọn tài nguyên. Đối chiếu kết quả kiểm thử với minh chứng tương ứng. | 27/11/2026 | 27/11/2026 | [Triển khai](../../5-workshop/5.4-deploy/) · [Vận hành](../../5-workshop/5.6-operations/) |
+| 6 | Đọc song song hai bản báo cáo tiếng Anh và tiếng Việt để đối chiếu kiến trúc, số liệu, giả định và cách tối ưu chi phí. Kiểm tra liên kết demo, tài liệu triển khai và thông tin định danh trong ảnh hoặc log. | 28/11/2026 | 28/11/2026 | [Workshop](../../5-workshop/) · [Kiểm chứng và chi phí](../../5-workshop/5.7-verification/) |
+| 7 | Đối chiếu báo cáo với yêu cầu OJT, gồm nhật ký, tự đánh giá, phản hồi, ba bài AWS Study Group, ba báo cáo sự kiện có ảnh check-in và lịch sử điểm danh. Rà soát demo, phần chi phí của bài trình bày và các tài liệu cần có trong gói nộp nhóm. | 29/11/2026 | 29/11/2026 | [Bài chia sẻ](../../3-blogsposted/) · [Sự kiện](../../4-eventparticipated/) |
 
 ## Kết quả tuần 11
 

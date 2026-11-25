@@ -6,14 +6,12 @@ chapter: false
 pre: " <b>1.5.</b> "
 ---
 
-**12/10–18/10/2026**
+12/10-18/10/2026
 
 ## Week 5 objectives
 
 - Use metrics, logs and alarms to understand what a deployment is doing.
 - Trace how DNS queries pass between a VPC and another environment.
-
----
 
 ## Tasks for the week
 
@@ -21,14 +19,12 @@ Where the notes only give a completion or record date, the start date is estimat
 
 | Day | Task | Start date | Completion / record date | References and evidence |
 | --- | --- | --- | --- | --- |
-| 3 | **Reading metrics, logs and alarms.** Used CloudWatch to look at EC2 CPU, EBS write bytes, search and math expressions, and log messages. Tried metric filters, an error alarm, and a dashboard. The alarm still showed insufficient data in the screenshot, and the dashboard showed changes that hadn’t been saved. | 12/10/2026 | 14/10/2026 | [Cloud Journey / workshop](https://000008.awsstudygroup.com/1-introduction/) · [Lab screenshots](#lab-evidence-1) |
-| 4 | **Tracing DNS across two environments.** Studied a hybrid DNS design with Route 53 Resolver inbound and outbound endpoints and forwarding rules. Reviewed how DNS requests can resolve between an on-premises environment and resources in AWS. | 15/10/2026 | 15/10/2026 | [Cloud Journey / workshop](https://000010.awsstudygroup.com/) · [Lab screenshots](#lab-evidence-2) |
-
----
+| 1-3 | Used CloudWatch to look at EC2 CPU, EBS write bytes, search and math expressions, and log messages. Tried metric filters, an error alarm, and a dashboard. The alarm still showed insufficient data in the screenshot, and the dashboard showed changes that hadn't been saved. | 12/10/2026 | 14/10/2026 | [Cloud Journey / workshop](https://000008.awsstudygroup.com/1-introduction/) · [Lab screenshots](#lab-evidence-1) |
+| 4 | Studied a hybrid DNS design with Route 53 Resolver inbound and outbound endpoints and forwarding rules. Reviewed how DNS requests can resolve between an on-premises environment and resources in AWS. | 15/10/2026 | 15/10/2026 | [Cloud Journey / workshop](https://000010.awsstudygroup.com/) · [Lab screenshots](#lab-evidence-2) |
 
 ## Week 5 achievements
 
-- The CloudWatch alarm showed insufficient data. When we set up Ownword’s backup monitoring later, we treated a missing signal or an old backup as a reason to investigate. The hybrid DNS lab also helped me trace name resolution on its own before looking at how the app routes requests.
+- The CloudWatch alarm showed insufficient data. When we set up Ownword's backup monitoring later, we treated a missing signal or an old backup as a reason to investigate. The hybrid DNS lab also helped me trace name resolution on its own before looking at how the app routes requests.
 
 ### Reading metrics, logs and alarms {#lab-evidence-1}
 

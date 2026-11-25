@@ -6,7 +6,7 @@ chapter: false
 pre: " <b>3.</b> "
 ---
 
-While learning AWS, I kept running into three questions. Which resources still cost money after you stop an instance? Where should you run a small app? What happens when traffic jumps? I wrote about each one in Vietnamese on Facebook.
+While learning AWS, I looked into which resources still cost money after you stop an instance, where to run a small app, and what happens when traffic jumps. I wrote a Vietnamese Facebook post on each of those three topics.
 
 | Publication topic | Publication date | Publication link |
 | --- | --- | --- |

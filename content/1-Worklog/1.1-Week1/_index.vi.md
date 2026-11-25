@@ -6,26 +6,22 @@ chapter: false
 pre: " <b>1.1.</b> "
 ---
 
-**14/09–20/09/2026**
+14/09-20/09/2026
 
 ## Mục tiêu tuần 1
 
 - Chuẩn bị tài khoản AWS để thực hành FCAJ và tìm nơi theo dõi chi phí, tín dụng.
 - Tìm hiểu cách AWS tổ chức hạ tầng và vị trí các công cụ cần dùng cho những bài lab đầu tiên.
 
----
-
 ## Công việc trong tuần
 
 Mình ghi công việc chung theo tuần, nên ngày của từng việc là ước tính.
 
-| Công việc | Bắt đầu (ước tính) | Kết thúc (ước tính) | Tài liệu và minh chứng |
-| --- | --- | --- | --- |
-| **Tài khoản và tín dụng.** Bắt đầu sử dụng tài khoản AWS và làm quen với Billing and Cost Management. Tìm cách xem số dư tín dụng và số tiền đã sử dụng. | 14/09/2026 | 15/09/2026 | [Ảnh trang AWS Credits](#aws-credits) |
-| **Kiến thức AWS nền tảng.** Học phần nhập môn Cloud Journey về điện toán đám mây, AWS Region, Availability Zone và cách tìm dịch vụ trong AWS Console. | 16/09/2026 | 18/09/2026 | [Cloud Journey](https://cloudjourney.awsfcaj.com/1-explore/) |
-| **Chuẩn bị thực hành.** Xem lộ trình học và xác định các kiến thức cần cho tuần tiếp theo, gồm phân quyền, mạng ảo và khởi tạo máy chủ. | 19/09/2026 | 20/09/2026 | [Cloud Journey](https://cloudjourney.awsfcaj.com/1-explore/) |
-
----
+| Ngày | Công việc | Bắt đầu (ước tính) | Kết thúc (ước tính) | Tài liệu và minh chứng |
+| --- | --- | --- | --- | --- |
+| 1-2 | Bắt đầu sử dụng tài khoản AWS và làm quen với Billing and Cost Management. Tìm cách xem số dư tín dụng và số tiền đã sử dụng. | 14/09/2026 | 15/09/2026 | [Ảnh trang AWS Credits](#aws-credits) |
+| 3-5 | Học phần nhập môn Cloud Journey về điện toán đám mây, AWS Region, Availability Zone và cách tìm dịch vụ trong AWS Console. | 16/09/2026 | 18/09/2026 | [Cloud Journey](https://cloudjourney.awsfcaj.com/1-explore/) |
+| 6-7 | Xem lộ trình học để chuẩn bị thực hành cho tuần tiếp theo, gồm phân quyền, mạng ảo và khởi tạo máy chủ. | 19/09/2026 | 20/09/2026 | [Cloud Journey](https://cloudjourney.awsfcaj.com/1-explore/) |
 
 ## Kết quả tuần 1
 

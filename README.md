@@ -6,7 +6,7 @@ This is a **separate Hugo site cloned from the official [FCAJ workshop template]
 
 - English and Vietnamese home, seven main report sections, thirteen worklog weeks with study notes, project evidence and clearly marked plans, three blog summaries with publication dates, links and images, three event reports with photos, and seven Ownword Workshop chapters.
 - The reference report's original dark AWS sidebar, blue links, orange accents, typography and plain content layout, with the student's Ownword information and live application link. Its other student's text, tracking code and visitor counters are excluded.
-- The bilingual Workshop follows the 24 November AWS architecture, with sign-in and account linking in Singapore. It includes the GitHub Actions → private ECR → Lightsail release path. The local participant snapshot is `.tools/ownword-lab-source-2026-11-20.tar.gz`. Share it through the project source-access channel. Chapter 5.2 records the checksum, and chapter 5.6.1 provides the lab workflow and rollout script.
+- The bilingual Workshop follows the 24 November AWS architecture, with sign-in and account linking in Singapore. The local participant snapshot is `.tools/ownword-lab-source-c8a903e.tar.gz`. Share it through the project source-access channel. Chapter 5.2 records the checksum.
 - **Before submission**, review worklog dates, personal contributions, event write-ups and screenshots. Add any remaining self-ratings and test evidence. The Workshop includes the production SVG and monthly cost estimate.
 
 ## Run locally
