@@ -20,7 +20,7 @@ chapter: false
 **Project Team/Class:** Gi Group\
 **Project:** [Ownword - live application](https://app.ownword.co/)
 
-![Profile photo placeholder](images/profile-placeholder.svg)
+![Profile photo](images/profile.jpg)
 
 ### Content
 

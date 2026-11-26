@@ -20,7 +20,7 @@ chapter: false
 **Nhóm dự án/Lớp:** Gi Group\
 **Dự án:** [Ứng dụng Ownword đang chạy](https://app.ownword.co/)
 
-![Ảnh đại diện sẽ bổ sung](../images/profile-placeholder.svg)
+![Ảnh đại diện](../images/profile.jpg)
 
 ### Nội dung
 
