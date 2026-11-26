@@ -10,9 +10,9 @@ pre: " <b>2.</b> "
 
 Ownword is an English learning app for people who recognize more words than they can use when they write. It gives learners a way to find the word they're reaching for, save it, and practice until they can recall it on their own. A separate Writing module helps them decide what to change in a draft and check how well a revision addresses that feedback.
 
-The pilot runs on AWS. Amazon Bedrock handles concept search with Kimi K3.1 Pro, and OpenRouter gives the Writing module access to a frontier model for draft assessment and revision feedback. The [live demo](https://app.ownword.co/) and the [bilingual workshop](../5-workshop/) let readers try the learning flow and build their own deployment.
+The pilot runs on AWS. Amazon Bedrock handles concept search with Kimi K3.1 Pro, and OpenRouter gives the Writing module access to a frontier model for draft assessment and revision feedback. Readers can [watch the demo video](https://youtu.be/VEdfxhcqqCk), [try the live app](https://app.ownword.co/), or deploy their own copy with the [bilingual workshop](../5-workshop/).
 
-At report close (24 November 2026), we are still waiting for AWS Support to resolve model access. Requests for GPT-6 Luna on Amazon Bedrock returned `AccessDeniedException` on our AWS Free Tier account even after we accepted the model agreement. We continue to access GPT-6 Luna through OpenRouter for evaluation. After several rounds of benchmarking for draft assessment and revision checks, we selected GPT-6.1 Terra with low reasoning effort through OpenRouter for production Writing because it offered the best balance of feedback quality and cost for our workload.
+At report close (30 November 2026), we are still waiting for AWS Support to resolve model access. Requests for GPT-6 Luna on Amazon Bedrock returned `AccessDeniedException` on our AWS Free Tier account even after we accepted the model agreement. We continue to access GPT-6 Luna through OpenRouter for evaluation. After several rounds of benchmarking for draft assessment and revision checks, we selected GPT-6.1 Terra with low reasoning effort through OpenRouter for production Writing because it offered the best balance of feedback quality and cost for our workload.
 
 ## The problem
 

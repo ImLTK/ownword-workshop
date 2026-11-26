@@ -68,6 +68,10 @@ Khi chạy lab AWS mới từ `ownword-lab-source-c8a903e.tar.gz` tại Singapor
 
 {{< figure src="/images/workshop/cloudwatch-google-link.png" alt="Log CloudWatch xác nhận tài khoản Google đã liên kết với tài khoản Cognito hiện có" caption="Kết quả mẫu trong CloudWatch Logs tại Singapore xác nhận lượt đăng nhập Google đầu tiên đã liên kết với tài khoản Cognito đã xác minh." >}}
 
+### Demo ứng dụng Ownword
+
+[Xem video demo Ownword trên YouTube](https://youtu.be/VEdfxhcqqCk).
+
 ## 2. Dự toán và tối ưu chi phí hằng tháng {#2-lập-dự-toán-hằng-tháng}
 
 Chi phí dự toán hằng tháng (đơn vị USD) cho kịch bản 10 người học hoạt động là 43,24 USD cho AWS và 0,32 USD cho OpenRouter, tổng cộng 43,56 USD/tháng. Với 100 người học, dự toán tăng lên 57,74 USD cho AWS và 3,24 USD cho OpenRouter, tổng cộng 60,98 USD/tháng. Số lượt dùng và số token là giả định để lập dự toán; kịch bản có tải cao hơn giữ nguyên cấu hình máy để tách riêng mức tăng theo lượng sử dụng.

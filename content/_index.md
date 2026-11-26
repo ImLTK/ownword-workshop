@@ -18,7 +18,7 @@ chapter: false
 **Internship Position:** Workforce Bootcamp - First Cloud AI Journey  
 **Internship Duration:** From 14/09/2026 to 14/12/2026  
 **Project Team/Class:** Gi Group  
-**Project:** [Ownword - live application](https://app.ownword.co/)
+**Project:** [Ownword - live application](https://app.ownword.co/) · [Watch the demo video](https://youtu.be/VEdfxhcqqCk)
 
 ![Profile photo placeholder](images/profile-placeholder.svg)
 

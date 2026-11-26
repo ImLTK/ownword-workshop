@@ -19,4 +19,4 @@ You'll start with a fresh Lightsail instance and get Ownword running behind Clou
 7. [Verification, cost and cleanup](5.7-verification/)
    - [Monthly cost estimate and optimization](5.7-verification/#2-build-a-monthly-cost-estimate)
 
-[Open the live Ownword demo ↗](https://app.ownword.co/)
+[Open the live Ownword demo ↗](https://app.ownword.co/) · [Watch the demo video ↗](https://youtu.be/VEdfxhcqqCk)

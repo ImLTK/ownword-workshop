@@ -19,4 +19,4 @@ Bạn sẽ bắt đầu với một máy Lightsail mới và tự đưa Ownword 
 7. [Kiểm chứng, chi phí và dọn tài nguyên](5.7-verification/)
    - [Dự toán và tối ưu chi phí hằng tháng](5.7-verification/#2-lập-dự-toán-hằng-tháng)
 
-[Mở bản demo Ownword ↗](https://app.ownword.co/)
+[Mở bản demo Ownword ↗](https://app.ownword.co/) · [Xem video demo ↗](https://youtu.be/VEdfxhcqqCk)
