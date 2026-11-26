@@ -21,10 +21,20 @@ Where the notes only give a completion or record date, the start date is estimat
 
 | Day | Task | Start date | Completion / record date | References and evidence |
 | --- | --- | --- | --- | --- |
-| 2-7 | The prototype suggested vocabulary from a draft. Learners could save a word to WordBoard, then try to recall it and use it in a sentence. | 20/10/2026 | 25/10/2026 | [Prototype overview](https://github.com/ImLTK/ownword/blob/c69b9ad/README.md) |
-| 5-7 | WordBoard organized saved words into New, Practicing and Active, so learners could see where each word sat in the practice cycle. | 23/10/2026 | 25/10/2026 | [Prototype overview](https://github.com/ImLTK/ownword/blob/c69b9ad/README.md) |
-| 1-7 | The first recorded snapshot included the Next.js interface, a server API and a D1-backed repository. A built-in demo let learners try sample writing and feedback without a model key. | 19/10/2026 | 25/10/2026 | [Prototype source](https://github.com/ImLTK/ownword/commit/c69b9ad) |
+| 2-7 | The prototype suggested vocabulary from a draft. Learners could save a word to WordBoard, then try to recall it and use it in a sentence. | 20/10/2026 | 25/10/2026 | [Vocabulary suggestion](#vocabulary-suggestion) |
+| 5-7 | WordBoard organized saved words into New, Practicing and Active, so learners could see where each word sat in the practice cycle. | 23/10/2026 | 25/10/2026 | [WordBoard stages](#wordboard-stages) |
+| 1-7 | The first recorded snapshot included the Next.js interface, a server API and a D1-backed repository. A built-in demo let learners try sample writing and feedback without a model key. | 19/10/2026 | 25/10/2026 | |
 
 ## Week 6 achievements
 
 - By the end of the week, the Ownword prototype could take learners from writing to saving and practicing a word. That was the starting point for the practice changes in Week 7.
+
+## Screenshots from the current app
+
+### Vocabulary suggestion {#vocabulary-suggestion}
+
+{{< worklog-image file="ownword-vocabulary-suggestion.png" caption="Ownword suggests meticulous in place of careful, shows it in the learner's sentence, and offers to add it for practice." >}}
+
+### WordBoard stages {#wordboard-stages}
+
+{{< worklog-image file="ownword-wordboard-stages.png" caption="WordBoard shows five saved words and filters for New, Practicing and Active." >}}

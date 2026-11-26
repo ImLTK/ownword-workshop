@@ -21,15 +21,25 @@ Nếu ghi chép chỉ có ngày hoàn thành hoặc ngày ghi nhận, ngày bắ
 
 | Ngày | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
 | --- | --- | --- | --- | --- |
-| 1 | Cập nhật mã cho Studio, phần luyện tập và phần chọn ngôn ngữ. | 26/10/2026 | 26/10/2026 | [Ownword commit ebd1fb5](https://github.com/ImLTK/ownword/commit/ebd1fb5) |
-| 2 | Ghi lại cách website và hệ thống học kết nối các bước viết, lưu từ và luyện tập. | 27/10/2026 | 27/10/2026 | [Ownword commit 4a15b6f](https://github.com/ImLTK/ownword/commit/4a15b6f) |
-| 2-3 | Bổ sung Quick Review và Full Practice. Quick Review cho phép đánh dấu từ đã quên để chuyển sang Full Practice với đúng nhóm từ đó. Đánh giá nhanh không làm tăng mức độ thành thạo hay đặt lại lịch ôn. | 27/10/2026 | 28/10/2026 | [Practice iteration](https://github.com/ImLTK/ownword/blob/main/docs/practice-iteration-2026-10-28.md) |
-| 3 | Chỉnh nội dung song ngữ và bổ sung phần nghĩa tiếng Việt tùy chọn cho các từ mẫu phù hợp. Kiểm tra ô nhập trên màn hình hẹp và sửa lỗi mất danh sách từ đã quên khi chuyển chế độ. | 28/10/2026 | 28/10/2026 | [Session notes](https://github.com/ImLTK/ownword/blob/main/docs/session-changes-2026-10-28.md) |
-| 4 | Cập nhật lược đồ D1, cấu hình mẫu và tài liệu bảo mật cho phần gọi mô hình. | 29/10/2026 | 29/10/2026 | [Ownword commit a4b4818](https://github.com/ImLTK/ownword/commit/a4b4818) |
-| 5 | Chỉnh ví dụ trong phần Writing và nội dung hiển thị song ngữ. | 30/10/2026 | 30/10/2026 | [Ownword commit 6c73e4f](https://github.com/ImLTK/ownword/commit/6c73e4f) |
-| 6 | Cập nhật README với lý do làm Ownword và cách người học sử dụng ứng dụng. | 31/10/2026 | 31/10/2026 | [Ownword commit bdc4d1f](https://github.com/ImLTK/ownword/commit/bdc4d1f) |
-| 7 | Cập nhật trang giới thiệu và thành phần tab. | 01/11/2026 | 01/11/2026 | [Ownword commit a1979b4](https://github.com/ImLTK/ownword/commit/a1979b4) |
+| 1 | Cập nhật mã cho Studio, phần luyện tập và phần chọn ngôn ngữ. | 26/10/2026 | 26/10/2026 | [Giao diện luyện tập và nút chọn ngôn ngữ](#practice-summary) |
+| 2 | Ghi lại cách website và hệ thống học kết nối các bước viết, lưu từ và luyện tập. | 27/10/2026 | 27/10/2026 | [Luồng học trong workshop](../../5-workshop/5.1-overview/) |
+| 2-3 | Bổ sung Quick Review và Full Practice. Quick Review cho phép đánh dấu từ đã quên để chuyển sang Full Practice với đúng nhóm từ đó. Đánh giá nhanh không làm tăng mức độ thành thạo hay đặt lại lịch ôn. | 27/10/2026 | 28/10/2026 | [Kết quả một buổi luyện tập](#practice-summary) |
+| 3 | Chỉnh nội dung song ngữ và bổ sung phần nghĩa tiếng Việt tùy chọn cho các từ mẫu phù hợp. Kiểm tra ô nhập trên màn hình hẹp và sửa lỗi mất danh sách từ đã quên khi chuyển chế độ. | 28/10/2026 | 28/10/2026 | [Bài nhớ từ trên điện thoại](#mobile-recall) |
+| 4 | Cập nhật lược đồ D1, cấu hình mẫu và tài liệu bảo mật cho phần gọi mô hình. | 29/10/2026 | 29/10/2026 | |
+| 5 | Chỉnh ví dụ trong phần Writing và nội dung hiển thị song ngữ. | 30/10/2026 | 30/10/2026 | |
+| 6 | Cập nhật README với lý do làm Ownword và cách người học sử dụng ứng dụng. | 31/10/2026 | 31/10/2026 | [Đề xuất dự án](../../2-proposal/) |
+| 7 | Cập nhật trang giới thiệu và thành phần tab. | 01/11/2026 | 01/11/2026 | |
 
 ## Kết quả tuần 7
 
 - Người học có thể đánh dấu từ đã quên khi ôn nhanh rồi luyện nhóm từ đó trong ngữ cảnh. Ghi chú có kết quả thử trên trình duyệt ở cả hai ngôn ngữ và xác nhận luyện tự chọn giữ nguyên ngày ôn đã định.
+
+## Ảnh minh họa từ ứng dụng hiện tại
+
+### Tóm tắt buổi luyện {#practice-summary}
+
+{{< worklog-image file="ownword-practice-summary.png" caption="Màn hình tổng kết bằng tiếng Việt hiển thị kết quả nhớ đúng cả năm từ và trạng thái của từng từ." >}}
+
+### Bài nhớ từ trên điện thoại {#mobile-recall}
+
+{{< worklog-image file="ownword-mobile-recall.jpg" caption="Bài nhớ từ trên điện thoại hiển thị định nghĩa tiếng Anh, phần nghĩa tiếng Việt có thể mở ra và các ô nhập từ." >}}

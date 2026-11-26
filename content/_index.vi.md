@@ -18,7 +18,7 @@ chapter: false
 **Vị trí thực tập:** Workforce Bootcamp - First Cloud AI Journey  
 **Thời gian thực tập:** Từ 14/09/2026 đến 14/12/2026  
 **Nhóm dự án/Lớp:** Gi Group\
-**Dự án:** [Ứng dụng Ownword đang chạy](https://app.ownword.co/)
+**Dự án:** [Ứng dụng Ownword đang chạy](https://app.ownword.co/) · [Xem video demo](https://youtu.be/VEdfxhcqqCk)
 
 ![Ảnh đại diện](../images/profile.jpg)
 

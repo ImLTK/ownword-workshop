@@ -68,6 +68,10 @@ Running a fresh disposable AWS lab from `ownword-lab-source-c8a903e.tar.gz` in S
 
 {{< figure src="/images/workshop/cloudwatch-google-link.png" alt="CloudWatch log confirming that Google sign-in linked to an existing Cognito account" caption="Expected CloudWatch Logs output in Singapore confirming that a first-time Google sign-in linked to an existing verified Cognito account." >}}
 
+### Ownword product demo
+
+[Watch the Ownword demo on YouTube](https://youtu.be/VEdfxhcqqCk).
+
 ## 2. Monthly cost estimate and optimization {#2-build-a-monthly-cost-estimate}
 
 Estimated monthly cost (in USD) for 10 active learners is $43.24 on AWS and $0.32 on OpenRouter, or $43.56 combined. At 100 active learners, the estimate rises to $57.74 on AWS and $3.24 on OpenRouter, or $60.98 combined. Counts and token sizes are planning assumptions, and the busier scenario holds infrastructure sizes constant to isolate usage growth.

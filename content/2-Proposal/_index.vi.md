@@ -10,9 +10,9 @@ pre: " <b>2.</b> "
 
 Ownword dành cho người học tiếng Anh nhận ra nhiều từ khi đọc nhưng khó nhớ để dùng khi viết. Ứng dụng giúp người học tìm từ mình đang cần, lưu lại và luyện đến khi tự nhớ ra được. Phần Viết giúp người học xác định đoạn nào trong bản nháp cần sửa và xem bản chỉnh sửa đã xử lý góp ý đến đâu.
 
-Bản thử nghiệm chạy trên AWS. Amazon Bedrock dùng Kimi K3.1 Pro để tra từ theo khái niệm, còn OpenRouter cung cấp mô hình cho việc đánh giá bản nháp và kiểm tra bản chỉnh sửa. Người đọc có thể thử [ứng dụng đang chạy](https://app.ownword.co/) hoặc tự triển khai theo [workshop song ngữ](../5-workshop/).
+Bản thử nghiệm chạy trên AWS. Amazon Bedrock dùng Kimi K3.1 Pro để tra từ theo khái niệm, còn OpenRouter cung cấp mô hình cho việc đánh giá bản nháp và kiểm tra bản chỉnh sửa. Người đọc có thể [xem video demo](https://youtu.be/VEdfxhcqqCk), [dùng thử ứng dụng đang chạy](https://app.ownword.co/) hoặc tự triển khai theo [workshop song ngữ](../5-workshop/).
 
-Khi hoàn tất báo cáo (24/11/2026), nhóm vẫn đang chờ AWS Support xử lý quyền truy cập mô hình. Các yêu cầu gọi GPT-6 Luna trên Amazon Bedrock từ tài khoản AWS Free Tier vẫn trả về `AccessDeniedException` dù nhóm đã chấp nhận thỏa thuận sử dụng mô hình. Nhóm tiếp tục dùng OpenRouter để truy cập GPT-6 Luna phục vụ đánh giá. Sau nhiều đợt thử nghiệm chấm bản nháp và kiểm tra bản chỉnh sửa, nhóm chọn GPT-6.1 Terra với mức suy luận thấp qua OpenRouter cho tính năng Viết đang vận hành vì mô hình cân bằng tốt nhất giữa chất lượng phản hồi và chi phí với khối lượng sử dụng của Ownword.
+Khi hoàn tất báo cáo (30/11/2026), nhóm vẫn đang chờ AWS Support xử lý quyền truy cập mô hình. Các yêu cầu gọi GPT-6 Luna trên Amazon Bedrock từ tài khoản AWS Free Tier vẫn trả về `AccessDeniedException` dù nhóm đã chấp nhận thỏa thuận sử dụng mô hình. Nhóm tiếp tục dùng OpenRouter để truy cập GPT-6 Luna phục vụ đánh giá. Sau nhiều đợt thử nghiệm chấm bản nháp và kiểm tra bản chỉnh sửa, nhóm chọn GPT-6.1 Terra với mức suy luận thấp qua OpenRouter cho tính năng Viết đang vận hành vì mô hình cân bằng tốt nhất giữa chất lượng phản hồi và chi phí với khối lượng sử dụng của Ownword.
 
 ## Vấn đề
 
