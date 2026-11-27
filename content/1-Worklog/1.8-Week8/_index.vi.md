@@ -21,10 +21,10 @@ Nếu ghi chép chỉ có ngày hoàn thành hoặc ngày ghi nhận, ngày bắ
 
 | Ngày | Công việc | Bắt đầu | Hoàn thành / ghi nhận | Tài liệu và minh chứng |
 | --- | --- | --- | --- | --- |
-| 1-2 | Chuẩn bị bàn giao mã nguồn. Ghi chú phát hành nêu việc chuyển nhanh từ câu trả lời đúng sang đặt câu, thêm nghĩa tiếng Việt vào kết quả khám phá và giảm dữ liệu gửi khi chấm bằng mô hình. | 02/11/2026 | 03/11/2026 | Project handoff · 49e1c0f |
-| 3-4 | Đưa bản thử nghiệm ownword-pilot lên Lightsail. Caddy xử lý HTTPS, còn Next.js và PostgreSQL chạy trên mạng Docker riêng. Cognito phụ trách đăng nhập và OpenRouter hỗ trợ phần từ vựng. | 04/11/2026 | 05/11/2026 | [Triển khai bản thử nghiệm](../../5-workshop/5.4-deploy/) · [Ảnh Lightsail](#pilot-lightsail) · ac602c3 |
-| 4 | Lấy bản dump từ S3, khôi phục vào PostgreSQL tạm rồi chạy truy vấn. Thử alarm CloudWatch và email SNS cho trường hợp bản sao quá cũ hoặc bị thiếu. | 05/11/2026 | 05/11/2026 | [Sao lưu và giám sát](../../5-workshop/5.6-operations/) · [Ảnh CloudWatch](#pilot-cloudwatch) · e4ec0f4 |
-| 5-7 | Cải thiện luồng thêm từ thủ công: lưu từ ngay trong khi phần bổ sung thông tin chạy nền. Điều chỉnh chấm bài để người học có thể đặt câu theo chủ đề tự chọn. | 06/11/2026 | 08/11/2026 | Word enrichment · 22d17fa |
+| 1-2 | Chuẩn bị bàn giao mã nguồn. Ghi chú phát hành nêu việc chuyển nhanh từ câu trả lời đúng sang đặt câu, thêm nghĩa tiếng Việt vào kết quả khám phá và giảm dữ liệu gửi khi chấm bằng mô hình. | 02/11/2026 | 03/11/2026 | |
+| 3-4 | Đưa bản thử nghiệm ownword-pilot lên Lightsail. Caddy xử lý HTTPS, còn Next.js và PostgreSQL chạy trên mạng Docker riêng. Cognito phụ trách đăng nhập và OpenRouter hỗ trợ phần từ vựng. | 04/11/2026 | 05/11/2026 | [Triển khai bản thử nghiệm](../../5-workshop/5.4-deploy/) · [Ảnh Lightsail](#pilot-lightsail) |
+| 4 | Lấy bản dump từ S3, khôi phục vào PostgreSQL tạm rồi chạy truy vấn. Thử alarm CloudWatch và email SNS cho trường hợp bản sao quá cũ hoặc bị thiếu. | 05/11/2026 | 05/11/2026 | [Sao lưu và giám sát](../../5-workshop/5.6-operations/) · [Ảnh CloudWatch](#pilot-cloudwatch) |
+| 5-7 | Cải thiện luồng thêm từ thủ công: lưu từ ngay trong khi phần bổ sung thông tin chạy nền. Điều chỉnh chấm bài để người học có thể đặt câu theo chủ đề tự chọn. | 06/11/2026 | 08/11/2026 | |
 
 ## Kết quả tuần 8
 
