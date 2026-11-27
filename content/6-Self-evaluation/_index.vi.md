@@ -29,7 +29,7 @@ Trong kỳ thực tập First Cloud AI Journey, tôi cùng nhóm xây dựng Own
 
 ## Phần đóng góp của tôi trong dự án Ownword
 
-Tôi và các bạn trong nhóm trao đổi về những gì người học cần ở Ownword. Tôi xác định cách các tính năng từ vựng và luyện tập nên hoạt động, dùng Codex để hỗ trợ xây dựng và chỉnh sửa, đồng thời tham gia cấu hình và kiểm tra hệ thống thử nghiệm trên AWS.
+Tôi và các bạn trong nhóm trao đổi về những gì người học cần ở Ownword. Tôi xác định cách các tính năng từ vựng và luyện tập nên hoạt động, trực tiếp xây dựng và chỉnh sửa chúng, đồng thời tham gia cấu hình và kiểm tra hệ thống thử nghiệm trên AWS.
 
 Ở phần từ vựng và WordBoard, tôi thấy các từ thêm thủ công bị trống định nghĩa trên WordBoard và trong thẻ ôn tập, nên đề xuất lưu từ ngay rồi để ứng dụng tự bổ sung định nghĩa trong nền. Ngoài ra, tôi đề xuất hiển thị nghĩa tiếng Việt ngay trong danh sách gợi ý đầu tiên và dùng nút phát âm nhỏ hơn trên thẻ WordBoard.
 

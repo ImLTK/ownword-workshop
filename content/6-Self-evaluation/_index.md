@@ -29,7 +29,7 @@ The [Ownword workshop](../5-workshop/) walks through the setup we used, with Lig
 
 ## My contribution to Ownword
 
-My teammates and I discussed what learners needed from Ownword. I worked out how the vocabulary and practice features should behave, used Codex to help build and revise them, and helped set up and test the AWS pilot.
+My teammates and I discussed what learners needed from Ownword. I worked out how the vocabulary and practice features should behave, built and revised them, and helped set up and test the AWS pilot.
 
 On the vocabulary side, I noticed that words added by hand had blank definitions on WordBoard and in flashcards, so I asked for the app to save the word right away and fill in the definition in the background. I also proposed showing Vietnamese meanings in the first set of suggestions and making the pronunciation button smaller on WordBoard cards.
 
