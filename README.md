@@ -1,32 +1,32 @@
-# Ownword FCAJ Workshop report
+# Ownword FCAJ Internship Report
 
-This is a **separate Hugo site cloned from the official [FCAJ workshop template](https://github.com/thienluhoan/fcj-workshop-template)**. It retains the template's Hugo Learn theme, bilingual content structure, left navigation, search, breadcrumbs, and GitHub Pages workflow. The sample IoT/S3 lab and sample student data have been replaced with original Ownword content.
+Bilingual (English and Vietnamese) Hugo internship report for **Ownword** (Gi Group, First Cloud AI Journey HCM), built on the [FCAJ workshop template](https://github.com/thienluhoan/fcj-workshop-template) with the Hugo Learn theme.
 
-## Current state
+## What is inside
 
-- English and Vietnamese home, seven main report sections, thirteen worklog weeks with study notes, project evidence and clearly marked plans, three blog summaries with publication dates, links and images, three event reports with photos, and seven Ownword Workshop chapters.
-- The reference report's original dark AWS sidebar, blue links, orange accents, typography and plain content layout, with the student's Ownword information and live application link. Its other student's text, tracking code and visitor counters are excluded.
-- The bilingual Workshop follows the 24 November AWS architecture, with sign-in and account linking in Singapore. The local participant snapshot is `.tools/ownword-lab-source-c8a903e.tar.gz`. Share it through the project source-access channel. Chapter 5.2 records the checksum.
-- **Before submission**, review worklog dates, personal contributions, event write-ups and screenshots. Add any remaining self-ratings and test evidence. The Workshop includes the production SVG and monthly cost estimate.
+- **Report sections (`content/`):** Home page, thirteen weekly worklogs with AWS lab evidence, the Ownword project proposal, three AWS Study Group blog summaries, three event reports with check-in photos, self-evaluation, and feedback.
+- **AWS Workshop (`content/5-Workshop/`):** Seven chapters covering the Singapore (`ap-southeast-1`) deployment (CloudFront and WAF, Amazon Lightsail, private Amazon RDS for PostgreSQL over VPC peering with TLS, Amazon Cognito with a Pre sign-up Lambda trigger, Amazon ECR, S3 backups with CloudWatch and SNS alerts, and Amazon Bedrock plus OpenRouter model routing), verification checks, and monthly cost estimates.
+- **Workshop downloads (`static/downloads/`):** `ownword-lab-source-c8a903e.tar.gz` (checksum listed in Chapter 5.2) and `google-linker-cloudshell.py` (used in Chapter 5.5).
 
 ## Run locally
 
-Install [Hugo Extended 0.134.3](https://github.com/gohugoio/hugo/releases/tag/v0.134.3). Make `hugo` available on your PATH and run this from the repository root:
+Install [Hugo Extended 0.134.3](https://github.com/gohugoio/hugo/releases/tag/v0.134.3) and run from the repository root:
 
 ```sh
 hugo server --bind 127.0.0.1
 ```
 
-Open the URL Hugo prints, usually `http://127.0.0.1:1313/`. To make a production-style build:
+Open the local address Hugo prints (usually `http://127.0.0.1:1313/`). To run a production build and verify local links:
 
 ```sh
-hugo --minify --baseURL https://example.github.io/ownword-workshop/
+hugo --minify --baseURL https://example.github.io/ownword-workshop/ -d public
+python scripts/check_links.py public
 ```
 
-`content/` contains the editable report. English pages end in `.md`; Vietnamese pages end in `.vi.md`. The Hugo Learn theme is included in `themes/`.
+English pages end in `.md` and Vietnamese pages end in `.vi.md`.
 
-## Publish when complete
+## Deploy to GitHub Pages
 
-The GitHub Actions workflow runs only by manual dispatch and requires a `REPORT_READY.md` file. After checking the report and evidence, add that file, push, configure GitHub Pages to serve from the `gh-pages` branch, and run the workflow. The build computes the GitHub Pages base path from the repository name.
+Deployment uses the manual GitHub Actions workflow (`.github/workflows/hugo.yml`), which checks for `REPORT_READY.md`, builds the bilingual site, and publishes to the `gh-pages` branch.
 
-The live Ownword product is a **demo link** inside the report. The FCAJ submission URL should be the hosted Hugo report site.
+The live Ownword application (`https://app.ownword.co/`) is linked inside the report as demo evidence.
